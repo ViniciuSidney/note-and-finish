@@ -1,0 +1,14 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Backups pessoais exportados pela aplicação
+*.json
+
+# Arquivos temporários
+*.tmp
+*.log
