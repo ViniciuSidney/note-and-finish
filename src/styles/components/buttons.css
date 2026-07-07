@@ -380,25 +380,3 @@ body[data-theme="dark"] .task-action-button:focus-visible {
   box-shadow: 0 0 0 3px rgba(214, 155, 97, 0.14);
 }
 
-/* Mobile / toque */
-@media (hover: none), (pointer: coarse), (max-width: 640px) {
-  .task-actions {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .task-action-button {
-    min-width: 0;
-    height: auto;
-    padding: 8px 10px;
-  }
-
-  .task-action-label {
-    display: inline;
-  }
-
-  .task-action-button::after {
-    display: none;
-  }
-}

@@ -100,20 +100,3 @@ small {
   overflow-y: auto;
   align-content: start;
 }
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .form-row,
-  .filter-row {
-    grid-template-columns: 1fr;
-  }
-
-  .form-actions {
-    justify-content: stretch;
-  }
-
-  .form-actions .btn,
-  .form-actions .button {
-    width: 100%;
-  }
-}
