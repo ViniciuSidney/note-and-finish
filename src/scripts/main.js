@@ -73,6 +73,11 @@ const confirmClearAllButton = document.querySelector("#confirmClearAllButton");
 const filtersToggleButton = document.querySelector("#filtersToggleButton");
 const filtersPanel = document.querySelector("#filtersPanel");
 
+const createTaskDialog = document.querySelector("#createTaskDialog");
+const openTaskFormButton = document.querySelector("#openTaskFormButton");
+const emptyCreateTaskButton = document.querySelector("#emptyCreateTaskButton");
+const closeTaskFormButton = document.querySelector("#closeTaskFormButton");
+
 let tasks = loadTasks();
 let taskIdToDelete = null;
 let pendingImportedTasks = null;
@@ -120,6 +125,10 @@ cancelClearAllButton.addEventListener("click", closeClearAllDialog);
 cancelClearAllTopButton.addEventListener("click", closeClearAllDialog);
 confirmClearAllButton.addEventListener("click", clearAllTasks);
 clearAllConfirmInput.addEventListener("input", validateClearAllConfirmation);
+
+openTaskFormButton.addEventListener("click", openCreateTaskDialog);
+emptyCreateTaskButton.addEventListener("click", openCreateTaskDialog);
+closeTaskFormButton.addEventListener("click", closeCreateTaskDialog);
 
 document.addEventListener("click", (event) => {
   const clickedInsideMenu = event.target.closest(".options-menu");
@@ -327,6 +336,22 @@ function normalizeSubtasks(subtasks) {
     .filter(Boolean);
 }
 
+function openCreateTaskDialog() {
+  resetForm();
+
+  formTitle.textContent = "Nova atividade";
+  submitButton.textContent = "Salvar atividade";
+
+  createTaskDialog.showModal();
+
+  setTimeout(() => titleInput.focus(), 50);
+}
+
+function closeCreateTaskDialog() {
+  resetForm();
+  createTaskDialog.close();
+}
+
 function confirmImportBackup() {
   if (!pendingImportedTasks) {
     return;
@@ -434,6 +459,10 @@ function handleSubmit(event) {
   saveTasks();
   resetForm(false);
   render();
+
+  if (createTaskDialog.open) {
+    closeCreateTaskDialog();
+  }
 }
 
 function getFormData() {
