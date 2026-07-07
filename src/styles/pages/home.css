@@ -155,12 +155,6 @@
   line-height: 1.35;
 }
 
-.task-form,
-.filters {
-  display: grid;
-  gap: 9px;
-}
-
 .filters {
   flex: 0 0 auto;
   border: 1px solid var(--border);
@@ -173,89 +167,12 @@
   display: none;
 }
 
-.form-row,
-.filter-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-}
-
-.filter-row {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.form-group {
-  display: grid;
-  gap: 5px;
-}
-
-label {
-  font-weight: 700;
-  font-size: 0.86rem;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  border: 1px solid var(--border);
-  background: #fffdf8;
-  border-radius: 12px;
-  padding: 9px 11px;
-  color: var(--text);
-  outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s,
-    background 0.2s;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 88px;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(139, 94, 52, 0.14);
-  background: #fff;
-}
-
-small {
-  color: var(--muted);
-}
-
-.form-message {
-  min-height: 18px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.form-message.success {
-  color: var(--success);
-}
-
-.form-message.error {
-  color: var(--danger);
-}
-
 .task-list {
   min-height: 0;
   flex: 1 1 auto;
   display: grid;
   gap: 10px;
   margin-top: 10px;
-  padding-right: 6px;
-  overflow-y: auto;
-  align-content: start;
-}
-
-.task-form {
-  min-height: 0;
-  flex: 1 1 auto;
   padding-right: 6px;
   overflow-y: auto;
   align-content: start;
@@ -1040,26 +957,11 @@ body[data-theme="dark"] .panel {
   background: rgba(33, 25, 19, 0.9);
 }
 
-body[data-theme="dark"] input,
-body[data-theme="dark"] select,
-body[data-theme="dark"] textarea,
 body[data-theme="dark"] .task-card,
 body[data-theme="dark"] .detail-item {
   background: #1b1510;
   color: var(--text);
   border-color: var(--border);
-}
-
-body[data-theme="dark"] input::placeholder,
-body[data-theme="dark"] textarea::placeholder {
-  color: #8f7c67;
-}
-
-body[data-theme="dark"] input:focus,
-body[data-theme="dark"] select:focus,
-body[data-theme="dark"] textarea:focus {
-  background: #211913;
-  box-shadow: 0 0 0 4px rgba(214, 155, 97, 0.14);
 }
 
 body[data-theme="dark"] .task-card.is-overdue {
@@ -1248,7 +1150,6 @@ body[data-theme="dark"] .details-progress-track {
     overflow: visible;
   }
 
-  .task-form,
   .task-list {
     overflow: visible;
     padding-right: 0;
@@ -1295,9 +1196,7 @@ body[data-theme="dark"] .details-progress-track {
     flex-direction: column;
   }
 
-  .summary-grid,
-  .form-row,
-  .filter-row {
+  .summary-grid {
     grid-template-columns: 1fr;
   }
 

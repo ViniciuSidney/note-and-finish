@@ -150,8 +150,7 @@
 }
 
 /* Grupo de botões */
-.btn-group,
-.form-actions {
+.btn-group {
   display: flex;
   align-items: center;
   gap: 10px;
