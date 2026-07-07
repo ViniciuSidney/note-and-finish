@@ -1,29 +1,47 @@
 :root {
-  /* Identidade da aplicação */
-  --app-name: "Nome da Aplicação";
+  /* Identidade Note and Finish */
+  --color-bg: #f5f1e8;
+  --color-surface: #fffaf1;
+  --color-surface-soft: #fff4dc;
+  --color-surface-strong: #fffdf8;
 
-  /* Cores principais da aplicação */
-  --color-bg: #1d2724;
-  --color-surface: #063b34;
-  --color-surface-soft: #2f8f86;
-  --color-surface-strong: #031f1b;
+  --color-border: #e0d2bd;
+  --color-border-strong: rgba(139, 94, 52, 0.35);
 
-  --color-primary: #55c7b8;
-  --color-primary-hover: #46b3a5;
-  --color-primary-active: #399c91;
+  --color-text: #2d2417;
+  --color-text-muted: #75654f;
+  --color-text-soft: #9b8569;
+  --color-text-inverse: #ffffff;
 
-  --color-border: rgba(255, 255, 255, 0.14);
-  --color-border-strong: rgba(255, 255, 255, 0.26);
+  --color-primary: #8b5e34;
+  --color-primary-soft: rgba(139, 94, 52, 0.14);
+  --color-primary-hover: #67411f;
+  --color-primary-active: #4f3018;
 
-  --color-text: #ffffff;
-  --color-text-muted: #d8f5f1;
-  --color-text-soft: #a7d8d2;
+  --color-danger: #a94343;
+  --color-danger-soft: rgba(169, 67, 67, 0.14);
+  --color-danger-hover: #8f3636;
 
-  /* Personalidade visual */
-  --app-header-radius: var(--radius-md);
-  --app-panel-radius: var(--radius-md);
-  --app-card-radius: var(--radius-sm);
+  --color-success: #477a4d;
+  --color-success-soft: rgba(71, 122, 77, 0.14);
 
-  --app-title-letter-spacing: 0.25rem;
-  --app-shadow-intensity: var(--shadow-md);
+  --color-warning: #a56b1f;
+  --color-warning-soft: rgba(165, 107, 31, 0.14);
+
+  --shadow-app: 0 18px 50px rgba(74, 54, 29, 0.12);
+
+  /* Ponte temporária para o CSS legado */
+  --bg: var(--color-bg);
+  --panel: var(--color-surface);
+  --panel-strong: var(--color-surface-soft);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --accent-dark: var(--color-primary-hover);
+  --danger: var(--color-danger);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --shadow: var(--shadow-app);
+  --radius: var(--radius-lg);
 }

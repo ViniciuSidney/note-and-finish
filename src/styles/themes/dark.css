@@ -1,13 +1,49 @@
-[data-theme="dark"] {
-  --color-bg: #1c1c1c;
-  --color-surface: #2a2a2a;
-  --color-surface-soft: #3a3a3a;
-  --color-surface-strong: #111111;
+body[data-theme="dark"] {
+  --color-bg: #15120f;
+  --color-surface: #211913;
+  --color-surface-soft: #2d2118;
+  --color-surface-strong: #1b1510;
 
-  --color-text: #ffffff;
-  --color-text-muted: #d0d0d0;
-  --color-text-soft: #a8a8a8;
+  --color-border: #493827;
+  --color-border-strong: rgba(214, 155, 97, 0.38);
 
-  --color-border: rgba(255, 255, 255, 0.12);
-  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-text: #f7efe4;
+  --color-text-muted: #c6b49f;
+  --color-text-soft: #8f7c67;
+  --color-text-inverse: #15120f;
+
+  --color-primary: #d69b61;
+  --color-primary-soft: rgba(214, 155, 97, 0.14);
+  --color-primary-hover: #f0b777;
+  --color-primary-active: #ffc98a;
+
+  --color-danger: #e06d6d;
+  --color-danger-soft: rgba(224, 109, 109, 0.14);
+  --color-danger-hover: #f08a8a;
+
+  --color-success: #82c98a;
+  --color-success-soft: rgba(130, 201, 138, 0.14);
+
+  --color-warning: #e2a44f;
+  --color-warning-soft: rgba(226, 164, 79, 0.14);
+
+  --shadow-app: 0 18px 50px rgba(0, 0, 0, 0.32);
+
+  /* Ponte temporária para o CSS legado */
+  --bg: var(--color-bg);
+  --panel: var(--color-surface);
+  --panel-strong: var(--color-surface-soft);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --border: var(--color-border);
+  --accent: var(--color-primary);
+  --accent-dark: var(--color-primary-hover);
+  --danger: var(--color-danger);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --shadow: var(--shadow-app);
+
+  background:
+    radial-gradient(circle at top left, rgba(214, 155, 97, 0.16), transparent 34%),
+    linear-gradient(135deg, #15120f, #241a12);
 }
