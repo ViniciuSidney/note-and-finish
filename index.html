@@ -1,306 +1,306 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Agenda Escolar</title>
+		<title>Agenda Escolar</title>
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="app">
-      <header class="app-header">
-        <div>
-          <span class="app-tag">v1.2</span>
-          <h1>Agenda Escolar</h1>
-          <p>Organize trabalhos, avaliações, tarefas e compromissos em um único lugar.</p>
-        </div>
+		<link rel="stylesheet" href="src/styles/main.css" />
+	</head>
+	<body>
+		<main class="app">
+			<header class="app-header">
+				<div>
+					<span class="app-tag">v1.2</span>
+					<h1>Agenda Escolar</h1>
+					<p>Organize trabalhos, avaliações, tarefas e compromissos em um único lugar.</p>
+				</div>
 
-        <div class="app-header-actions">
-          <div class="options-menu">
-            <button type="button" class="options-button" id="optionsButton" aria-expanded="false" aria-controls="optionsDropdown">⚙️ Opções</button>
+				<div class="app-header-actions">
+					<div class="options-menu">
+						<button type="button" class="options-button" id="optionsButton" aria-expanded="false" aria-controls="optionsDropdown">⚙️ Opções</button>
 
-            <div class="options-dropdown" id="optionsDropdown" aria-hidden="true">
-              <button type="button" class="option-item" id="themeToggleButton">
-                <span id="themeIcon">🌙</span>
-                <span id="themeText">Tema escuro</span>
-              </button>
+						<div class="options-dropdown" id="optionsDropdown" aria-hidden="true">
+							<button type="button" class="option-item" id="themeToggleButton">
+								<span id="themeIcon">🌙</span>
+								<span id="themeText">Tema escuro</span>
+							</button>
 
-              <div class="options-divider"></div>
+							<div class="options-divider"></div>
 
-              <button type="button" class="option-item" id="exportBackupButton">
-                <span>📤</span>
-                <span>Exportar backup</span>
-              </button>
+							<button type="button" class="option-item" id="exportBackupButton">
+								<span>📤</span>
+								<span>Exportar backup</span>
+							</button>
 
-              <button type="button" class="option-item" id="importBackupButton">
-                <span>📥</span>
-                <span>Importar backup</span>
-              </button>
+							<button type="button" class="option-item" id="importBackupButton">
+								<span>📥</span>
+								<span>Importar backup</span>
+							</button>
 
-              <input type="file" id="importFileInput" class="visually-hidden" accept=".json,application/json" />
+							<input type="file" id="importFileInput" class="visually-hidden" accept=".json,application/json" />
 
-              <div class="options-divider"></div>
+							<div class="options-divider"></div>
 
-              <button type="button" class="option-item option-item-danger" id="clearAllButton">
-                <span>🧹</span>
-                <span>Apagar tudo</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+							<button type="button" class="option-item option-item-danger" id="clearAllButton">
+								<span>🧹</span>
+								<span>Apagar tudo</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</header>
 
-      <section class="summary-grid" aria-label="Resumo da agenda">
-        <article class="summary-card">
-          <span>Total</span>
-          <strong id="totalTasks">0</strong>
-        </article>
+			<section class="summary-grid" aria-label="Resumo da agenda">
+				<article class="summary-card">
+					<span>Total</span>
+					<strong id="totalTasks">0</strong>
+				</article>
 
-        <article class="summary-card">
-          <span>Pendentes</span>
-          <strong id="pendingTasks">0</strong>
-        </article>
+				<article class="summary-card">
+					<span>Pendentes</span>
+					<strong id="pendingTasks">0</strong>
+				</article>
 
-        <article class="summary-card">
-          <span>Próximos 7 dias</span>
-          <strong id="weekTasks">0</strong>
-        </article>
+				<article class="summary-card">
+					<span>Próximos 7 dias</span>
+					<strong id="weekTasks">0</strong>
+				</article>
 
-        <article class="summary-card">
-          <span>Concluídas</span>
-          <strong id="completedTasks">0</strong>
-        </article>
-      </section>
+				<article class="summary-card">
+					<span>Concluídas</span>
+					<strong id="completedTasks">0</strong>
+				</article>
+			</section>
 
-      <section class="layout">
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <h2 id="formTitle">Nova atividade</h2>
-              <p>Cadastre ou edite seus compromissos escolares.</p>
-            </div>
-          </div>
+			<section class="layout">
+				<section class="panel">
+					<div class="panel-header">
+						<div>
+							<h2 id="formTitle">Nova atividade</h2>
+							<p>Cadastre ou edite seus compromissos escolares.</p>
+						</div>
+					</div>
 
-          <form id="taskForm" class="task-form">
-            <input type="hidden" id="taskId" />
+					<form id="taskForm" class="task-form">
+						<input type="hidden" id="taskId" />
 
-            <div class="form-group">
-              <label for="title">Título *</label>
-              <input type="text" id="title" placeholder="Ex.: Trabalho de História" required />
-            </div>
+						<div class="form-group">
+							<label for="title">Título *</label>
+							<input type="text" id="title" placeholder="Ex.: Trabalho de História" required />
+						</div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="type">Tipo</label>
-                <select id="type">
-                  <option value="Trabalho">Trabalho</option>
-                  <option value="Avaliação">Avaliação</option>
-                  <option value="Tarefa">Tarefa</option>
-                  <option value="Apresentação">Apresentação</option>
-                  <option value="Outro">Outro</option>
-                </select>
-              </div>
+						<div class="form-row">
+							<div class="form-group">
+								<label for="type">Tipo</label>
+								<select id="type">
+									<option value="Trabalho">Trabalho</option>
+									<option value="Avaliação">Avaliação</option>
+									<option value="Tarefa">Tarefa</option>
+									<option value="Apresentação">Apresentação</option>
+									<option value="Outro">Outro</option>
+								</select>
+							</div>
 
-              <div class="form-group">
-                <label for="subject">Matéria</label>
-                <input type="text" id="subject" placeholder="Ex.: História" />
-              </div>
-            </div>
+							<div class="form-group">
+								<label for="subject">Matéria</label>
+								<input type="text" id="subject" placeholder="Ex.: História" />
+							</div>
+						</div>
 
-            <div class="form-row">
-              <div class="form-group">
-                <label for="dueDate">Data de entrega *</label>
-                <input type="date" id="dueDate" required />
-              </div>
+						<div class="form-row">
+							<div class="form-group">
+								<label for="dueDate">Data de entrega *</label>
+								<input type="date" id="dueDate" required />
+							</div>
 
-              <div class="form-group">
-                <label for="priority">Prioridade</label>
-                <select id="priority">
-                  <option value="Baixa">Baixa</option>
-                  <option value="Média" selected>Média</option>
-                  <option value="Alta">Alta</option>
-                </select>
-              </div>
-            </div>
+							<div class="form-group">
+								<label for="priority">Prioridade</label>
+								<select id="priority">
+									<option value="Baixa">Baixa</option>
+									<option value="Média" selected>Média</option>
+									<option value="Alta">Alta</option>
+								</select>
+							</div>
+						</div>
 
-            <div class="form-group">
-              <label for="status">Status</label>
-              <select id="status">
-                <option value="Pendente">Pendente</option>
-                <option value="Em andamento">Em andamento</option>
-                <option value="Concluída">Concluída</option>
-              </select>
-            </div>
+						<div class="form-group">
+							<label for="status">Status</label>
+							<select id="status">
+								<option value="Pendente">Pendente</option>
+								<option value="Em andamento">Em andamento</option>
+								<option value="Concluída">Concluída</option>
+							</select>
+						</div>
 
-            <div class="form-group">
-              <label for="description">Descrição / observações</label>
-              <textarea id="description" rows="5" placeholder="Ex.: Fazer resumo dos textos, montar mapa mental e entregar no dia da prova."></textarea>
-            </div>
+						<div class="form-group">
+							<label for="description">Descrição / observações</label>
+							<textarea id="description" rows="5" placeholder="Ex.: Fazer resumo dos textos, montar mapa mental e entregar no dia da prova."></textarea>
+						</div>
 
-            <div class="form-group">
-              <label for="subtasks">Checklist / etapas</label>
-              <textarea
-                id="subtasks"
-                rows="4"
-                placeholder="Ex.:
+						<div class="form-group">
+							<label for="subtasks">Checklist / etapas</label>
+							<textarea
+								id="subtasks"
+								rows="4"
+								placeholder="Ex.:
 Ler os textos
 Separar ideias principais
 Fazer resumo
 Revisar antes da entrega"
-              ></textarea>
-              <small>Digite uma etapa por linha.</small>
-            </div>
+							></textarea>
+							<small>Digite uma etapa por linha.</small>
+						</div>
 
-            <div class="form-group">
-              <label for="tags">Etiquetas</label>
-              <input type="text" id="tags" placeholder="Ex.: prova, grupo, urgente" />
-              <small>Separe as etiquetas por vírgula.</small>
-            </div>
+						<div class="form-group">
+							<label for="tags">Etiquetas</label>
+							<input type="text" id="tags" placeholder="Ex.: prova, grupo, urgente" />
+							<small>Separe as etiquetas por vírgula.</small>
+						</div>
 
-            <p id="formMessage" class="form-message"></p>
+						<p id="formMessage" class="form-message"></p>
 
-            <div class="form-actions">
-              <button type="submit" class="button button-primary" id="submitButton">Salvar atividade</button>
+						<div class="form-actions">
+							<button type="submit" class="button button-primary" id="submitButton">Salvar atividade</button>
 
-              <button type="button" class="button button-secondary" id="clearButton">Limpar</button>
-            </div>
-          </form>
-        </section>
+							<button type="button" class="button button-secondary" id="clearButton">Limpar</button>
+						</div>
+					</form>
+				</section>
 
-        <section class="panel">
-          <div class="panel-header">
-            <div>
-              <h2>Minhas atividades</h2>
-              <p>Veja, filtre e gerencie seus compromissos.</p>
-            </div>
+				<section class="panel">
+					<div class="panel-header">
+						<div>
+							<h2>Minhas atividades</h2>
+							<p>Veja, filtre e gerencie seus compromissos.</p>
+						</div>
 
-            <button type="button" class="filters-toggle-button" id="filtersToggleButton" aria-expanded="false" aria-controls="filtersPanel">🔎 Filtros</button>
-          </div>
+						<button type="button" class="filters-toggle-button" id="filtersToggleButton" aria-expanded="false" aria-controls="filtersPanel">🔎 Filtros</button>
+					</div>
 
-          <div class="filters filters-collapsed" id="filtersPanel">
-            <div class="form-group">
-              <label for="searchInput">Buscar</label>
-              <input type="text" id="searchInput" placeholder="Buscar por título, matéria ou etiqueta..." />
-            </div>
+					<div class="filters filters-collapsed" id="filtersPanel">
+						<div class="form-group">
+							<label for="searchInput">Buscar</label>
+							<input type="text" id="searchInput" placeholder="Buscar por título, matéria ou etiqueta..." />
+						</div>
 
-            <div class="filter-row">
-              <div class="form-group">
-                <label for="statusFilter">Status</label>
-                <select id="statusFilter">
-                  <option value="Todos">Todos</option>
-                  <option value="Pendente">Pendente</option>
-                  <option value="Em andamento">Em andamento</option>
-                  <option value="Concluída">Concluída</option>
-                </select>
-              </div>
+						<div class="filter-row">
+							<div class="form-group">
+								<label for="statusFilter">Status</label>
+								<select id="statusFilter">
+									<option value="Todos">Todos</option>
+									<option value="Pendente">Pendente</option>
+									<option value="Em andamento">Em andamento</option>
+									<option value="Concluída">Concluída</option>
+								</select>
+							</div>
 
-              <div class="form-group">
-                <label for="typeFilter">Tipo</label>
-                <select id="typeFilter">
-                  <option value="Todos">Todos</option>
-                  <option value="Trabalho">Trabalho</option>
-                  <option value="Avaliação">Avaliação</option>
-                  <option value="Tarefa">Tarefa</option>
-                  <option value="Apresentação">Apresentação</option>
-                  <option value="Outro">Outro</option>
-                </select>
-              </div>
+							<div class="form-group">
+								<label for="typeFilter">Tipo</label>
+								<select id="typeFilter">
+									<option value="Todos">Todos</option>
+									<option value="Trabalho">Trabalho</option>
+									<option value="Avaliação">Avaliação</option>
+									<option value="Tarefa">Tarefa</option>
+									<option value="Apresentação">Apresentação</option>
+									<option value="Outro">Outro</option>
+								</select>
+							</div>
 
-              <div class="form-group">
-                <label for="sortFilter">Ordenar</label>
-                <select id="sortFilter">
-                  <option value="dateAsc">Data mais próxima</option>
-                  <option value="dateDesc">Data mais distante</option>
-                  <option value="priority">Prioridade</option>
-                  <option value="createdDesc">Mais recentes</option>
-                </select>
-              </div>
-            </div>
-          </div>
+							<div class="form-group">
+								<label for="sortFilter">Ordenar</label>
+								<select id="sortFilter">
+									<option value="dateAsc">Data mais próxima</option>
+									<option value="dateDesc">Data mais distante</option>
+									<option value="priority">Prioridade</option>
+									<option value="createdDesc">Mais recentes</option>
+								</select>
+							</div>
+						</div>
+					</div>
 
-          <div id="taskList" class="task-list"></div>
+					<div id="taskList" class="task-list"></div>
 
-          <div id="emptyState" class="empty-state">
-            <strong>Nenhuma atividade encontrada.</strong>
-            <span>Cadastre sua primeira tarefa escolar para começar a organizar sua rotina.</span>
-          </div>
-        </section>
-      </section>
-    </main>
+					<div id="emptyState" class="empty-state">
+						<strong>Nenhuma atividade encontrada.</strong>
+						<span>Cadastre sua primeira tarefa escolar para começar a organizar sua rotina.</span>
+					</div>
+				</section>
+			</section>
+		</main>
 
-    <dialog id="detailsDialog" class="dialog">
-      <div class="dialog-content">
-        <div class="dialog-header">
-          <h2 id="detailsTitle">Detalhes da atividade</h2>
-          <button class="icon-button" id="closeDetailsButton" aria-label="Fechar">×</button>
-        </div>
+		<dialog id="detailsDialog" class="dialog">
+			<div class="dialog-content">
+				<div class="dialog-header">
+					<h2 id="detailsTitle">Detalhes da atividade</h2>
+					<button class="icon-button" id="closeDetailsButton" aria-label="Fechar">×</button>
+				</div>
 
-        <div id="detailsBody" class="details-body"></div>
-      </div>
-    </dialog>
+				<div id="detailsBody" class="details-body"></div>
+			</div>
+		</dialog>
 
-    <dialog id="deleteDialog" class="dialog">
-      <div class="dialog-content dialog-small">
-        <div class="dialog-header">
-          <h2>Excluir atividade</h2>
-          <button class="icon-button" id="cancelDeleteTopButton" aria-label="Fechar">×</button>
-        </div>
+		<dialog id="deleteDialog" class="dialog">
+			<div class="dialog-content dialog-small">
+				<div class="dialog-header">
+					<h2>Excluir atividade</h2>
+					<button class="icon-button" id="cancelDeleteTopButton" aria-label="Fechar">×</button>
+				</div>
 
-        <p>Tem certeza de que deseja excluir esta atividade? Essa ação não poderá ser desfeita.</p>
+				<p>Tem certeza de que deseja excluir esta atividade? Essa ação não poderá ser desfeita.</p>
 
-        <div class="dialog-actions">
-          <button class="button button-secondary" id="cancelDeleteButton">Cancelar</button>
+				<div class="dialog-actions">
+					<button class="button button-secondary" id="cancelDeleteButton">Cancelar</button>
 
-          <button class="button button-danger" id="confirmDeleteButton">Excluir</button>
-        </div>
-      </div>
-    </dialog>
+					<button class="button button-danger" id="confirmDeleteButton">Excluir</button>
+				</div>
+			</div>
+		</dialog>
 
-    <dialog id="importDialog" class="dialog">
-      <div class="dialog-content dialog-small">
-        <div class="dialog-header">
-          <h2>Importar backup</h2>
-          <button class="icon-button" id="cancelImportTopButton" aria-label="Fechar">×</button>
-        </div>
+		<dialog id="importDialog" class="dialog">
+			<div class="dialog-content dialog-small">
+				<div class="dialog-header">
+					<h2>Importar backup</h2>
+					<button class="icon-button" id="cancelImportTopButton" aria-label="Fechar">×</button>
+				</div>
 
-        <p id="importSummary">Backup carregado.</p>
-        <p class="dialog-warning">A importação substituirá as atividades atuais pelas atividades do arquivo selecionado.</p>
+				<p id="importSummary">Backup carregado.</p>
+				<p class="dialog-warning">A importação substituirá as atividades atuais pelas atividades do arquivo selecionado.</p>
 
-        <div class="dialog-actions">
-          <button class="button button-secondary" id="cancelImportButton">Cancelar</button>
+				<div class="dialog-actions">
+					<button class="button button-secondary" id="cancelImportButton">Cancelar</button>
 
-          <button class="button button-primary" id="confirmImportButton">Importar</button>
-        </div>
-      </div>
-    </dialog>
+					<button class="button button-primary" id="confirmImportButton">Importar</button>
+				</div>
+			</div>
+		</dialog>
 
-    <dialog id="clearAllDialog" class="dialog">
-      <div class="dialog-content dialog-small">
-        <div class="dialog-header">
-          <h2>Apagar tudo</h2>
-          <button class="icon-button" id="cancelClearAllTopButton" aria-label="Fechar">×</button>
-        </div>
+		<dialog id="clearAllDialog" class="dialog">
+			<div class="dialog-content dialog-small">
+				<div class="dialog-header">
+					<h2>Apagar tudo</h2>
+					<button class="icon-button" id="cancelClearAllTopButton" aria-label="Fechar">×</button>
+				</div>
 
-        <p>Essa ação apagará todas as atividades salvas nesta agenda.</p>
-        <p class="dialog-warning">Para confirmar, digite <strong>APAGAR</strong> no campo abaixo.</p>
+				<p>Essa ação apagará todas as atividades salvas nesta agenda.</p>
+				<p class="dialog-warning">Para confirmar, digite <strong>APAGAR</strong> no campo abaixo.</p>
 
-        <div class="form-group">
-          <label for="clearAllConfirmInput">Confirmação</label>
-          <input type="text" id="clearAllConfirmInput" placeholder="Digite APAGAR" autocomplete="off" />
-        </div>
+				<div class="form-group">
+					<label for="clearAllConfirmInput">Confirmação</label>
+					<input type="text" id="clearAllConfirmInput" placeholder="Digite APAGAR" autocomplete="off" />
+				</div>
 
-        <p id="clearAllMessage" class="form-message"></p>
+				<p id="clearAllMessage" class="form-message"></p>
 
-        <div class="dialog-actions">
-          <button class="button button-secondary" id="cancelClearAllButton">Cancelar</button>
+				<div class="dialog-actions">
+					<button class="button button-secondary" id="cancelClearAllButton">Cancelar</button>
 
-          <button class="button button-danger" id="confirmClearAllButton" disabled>Apagar tudo</button>
-        </div>
-      </div>
-    </dialog>
+					<button class="button button-danger" id="confirmClearAllButton" disabled>Apagar tudo</button>
+				</div>
+			</div>
+		</dialog>
 
-    <script src="script.js"></script>
-  </body>
+		<script src="src/scripts/main.js"></script>
+	</body>
 </html>
