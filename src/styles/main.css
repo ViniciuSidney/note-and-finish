@@ -20,9 +20,13 @@
 @import url("./components/cards.css");
 @import url("./components/toggles.css");
 @import url("./components/modals.css");
+@import url("./components/panels.css");
+
+/* Layouts */
+@import url("./layouts/layout-gallery.css");
 
 /* Utilidades */
 @import url("./utilities/scrollbar.css");
 
-/* Página atual da aplicação */
+/* Página atual */
 @import url("./pages/home.css");

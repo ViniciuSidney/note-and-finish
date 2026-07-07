@@ -103,51 +103,6 @@
   align-items: stretch;
 }
 
-.panel {
-  min-height: 0;
-  background: rgba(255, 250, 241, 0.9);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 14px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.panel-header {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 8px;
-  align-items: flex-start;
-}
-
-.panel-header h2 {
-  margin: 0 0 4px;
-  font-size: 1.25rem;
-}
-
-.panel-header p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.35;
-}
-
-.filters {
-  flex: 0 0 auto;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: rgba(255, 244, 220, 0.28);
-  padding: 10px;
-}
-
-.filters.filters-collapsed {
-  display: none;
-}
-
 .task-list {
   min-height: 0;
   flex: 1 1 auto;
@@ -201,11 +156,6 @@
   padding: 5px 9px;
   font-size: 0.78rem;
   font-weight: 800;
-}
-
-.task-group-items {
-  columns: 2 280px;
-  column-gap: 10px;
 }
 
 .task-group-overdue {
@@ -469,8 +419,7 @@
   margin-top: 4px;
 }
 
-body[data-theme="dark"] .app-tag,
-body[data-theme="dark"] .panel {
+body[data-theme="dark"] .app-tag {
   background: rgba(33, 25, 19, 0.9);
 }
 
@@ -498,10 +447,6 @@ body[data-theme="dark"] .task-group-completed {
 
 body[data-theme="dark"] .empty-state {
   background: rgba(45, 33, 24, 0.45);
-}
-
-body[data-theme="dark"] .filters {
-  background: rgba(45, 33, 24, 0.32);
 }
 
 body[data-theme="dark"] .inline-edit-input {
@@ -572,17 +517,9 @@ body[data-theme="dark"] .details-progress-track {
     align-items: start;
   }
 
-  .panel {
-    overflow: visible;
-  }
-
   .task-list {
     overflow: visible;
     padding-right: 0;
-  }
-
-  .task-group-items {
-    columns: 1;
   }
 }
 
@@ -624,10 +561,6 @@ body[data-theme="dark"] .details-progress-track {
 
   .summary-grid {
     grid-template-columns: 1fr;
-  }
-
-  .panel {
-    padding: 18px;
   }
 
   .task-top {
@@ -700,57 +633,6 @@ body[data-theme="dark"] .details-progress-track {
   box-shadow: var(--shadow);
 }
 
-.tasks-gallery {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: rgba(255, 250, 241, 0.9);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 14px;
-  box-shadow: var(--shadow);
-}
-
-.tasks-gallery-header {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 10px;
-}
-
-.gallery-title {
-  margin: 0 0 4px;
-  font-size: 1.25rem;
-  color: var(--text);
-}
-
-.gallery-description {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.35;
-}
-
-.gallery-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.tasks-gallery .gallery-toolbar {
-  flex: 0 0 auto;
-  margin-bottom: 10px;
-}
-
-.tasks-grid {
-  min-height: 0;
-  flex: 1 1 auto;
-}
-
 .task-form-dialog {
   width: min(720px, calc(100% - 32px));
   max-height: calc(100dvh - 48px);
@@ -786,16 +668,7 @@ body[data-theme="dark"] .details-progress-track {
   margin-top: 8px;
 }
 
-body[data-theme="dark"] .tasks-gallery {
-  background: rgba(33, 25, 19, 0.9);
-}
-
 @media (max-width: 720px) {
-  .tasks-gallery-header {
-    flex-direction: column;
-  }
-
-  .gallery-actions,
   .filters-toggle-button,
   .home-create-button {
     width: 100%;
@@ -846,17 +719,6 @@ body[data-theme="dark"] .tasks-gallery {
 .home-create-button {
   min-height: 38px;
   padding: 8px 16px;
-}
-
-.tasks-gallery {
-  min-height: 0;
-  height: 100%;
-}
-
-.tasks-grid {
-  min-height: 0;
-  flex: 1 1 auto;
-  overflow-y: auto;
 }
 
 /* Modal wide de criação de atividade */
@@ -942,10 +804,6 @@ body[data-theme="dark"] .tasks-gallery {
     margin-bottom: 12px;
   }
 
-  .tasks-gallery {
-    min-height: 70dvh;
-  }
-
   #createTaskDialog {
     width: min(720px, calc(100% - 24px));
   }
@@ -1017,11 +875,6 @@ body[data-theme="dark"] .tasks-gallery {
   z-index: 999;
 }
 
-.tasks-gallery {
-  position: relative;
-  z-index: 1;
-}
-
 /* 3. Equaliza as textareas maiores do modal de criação */
 #createTaskDialog .form-group:has(#description),
 #createTaskDialog .form-group:has(#subtasks) {
@@ -1047,47 +900,6 @@ body[data-theme="dark"] .tasks-gallery {
 
 #createTaskDialog .dialog-header {
   margin-bottom: 12px;
-}
-
-/* ============================= */
-/* Ajuste da galeria de tarefas  */
-/* ============================= */
-
-/* Cards em grid responsivo: 3 a 4 por linha em telas largas */
-.task-group-items {
-  columns: initial;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 10px;
-  align-items: stretch;
-}
-
-/* Em grupos com bastante largura, limita para até 4 colunas visuais */
-@media (min-width: 1400px) {
-  .task-group-items {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-/* Em telas médias, tende a 3 colunas */
-@media (min-width: 1050px) and (max-width: 1399px) {
-  .task-group-items {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Em telas menores, 2 colunas */
-@media (min-width: 720px) and (max-width: 1049px) {
-  .task-group-items {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Mobile: 1 coluna */
-@media (max-width: 719px) {
-  .task-group-items {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ============================= */
