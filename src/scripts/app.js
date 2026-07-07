@@ -3,8 +3,8 @@
 // File: app.js
 // =============================
 
-import {initExampleFeature} from './features/example/example.controller.js';
+import { initTasksFeature } from "./features/tasks/tasks.controller.js";
 
 export function initApp() {
-	initExampleFeature();
+  initTasksFeature();
 }
