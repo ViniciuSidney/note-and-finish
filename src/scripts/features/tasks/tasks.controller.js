@@ -1,12 +1,19 @@
-const STORAGE_KEY = "agenda-escolar-v1";
-const THEME_STORAGE_KEY = "agenda-escolar-theme-v1";
-const BACKUP_FILE_PREFIX = "agenda-escolar-backup";
-const GROUP_COLLAPSE_STORAGE_KEY = "agenda-escolar-group-collapse-v1";
-const INLINE_SELECT_OPTIONS = {
-  type: ["Trabalho", "Avaliação", "Tarefa", "Apresentação", "Outro"],
-  priority: ["Baixa", "Média", "Alta"],
-  status: ["Pendente", "Em andamento", "Concluída"],
-};
+// =============================
+// Tasks Controller
+// File: features/tasks/tasks.controller.js
+// =============================
+
+import { BACKUP_FILE_PREFIX, INLINE_SELECT_OPTIONS, THEME_STORAGE_KEY } from "./tasks.constants.js";
+import {
+  getChecklistProgress,
+  getDueDateText,
+  getPriorityWeight,
+  getTaskGroups,
+  isOverdue,
+  normalizeImportedTasks,
+} from "./tasks.model.js";
+import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
+import { createId, createLocalDate, escapeHtml, formatDate, formatDateTime, getToday } from "./tasks.utils.js";
 
 const taskForm = document.querySelector("#taskForm");
 const taskIdInput = document.querySelector("#taskId");
@@ -86,13 +93,26 @@ let expandedChecklistTaskIds = new Set();
 let activeInlineSelect = null;
 let activeInlineEditor = null;
 
-export function initTasksFeature() {
-  initializeTheme();
-  render();
-  bindEvents();
+function saveTasks() {
+  persistTasks(tasks);
 }
 
-function bindEvents() {
+function saveCollapsedGroupKeys() {
+  persistCollapsedGroupKeys(collapsedGroupKeys);
+}
+
+let isInitialized = false;
+
+export function initTasksFeature() {
+  if (isInitialized) {
+    return;
+  }
+
+  isInitialized = true;
+
+  initializeTheme();
+  render();
+
   taskForm.addEventListener("submit", handleSubmit);
   clearButton.addEventListener("click", resetForm);
 
@@ -161,7 +181,6 @@ function bindEvents() {
       }
     }
   });
-
 }
 
 function initializeTheme() {
@@ -272,74 +291,6 @@ function handleImportFile(event) {
   });
 
   reader.readAsText(file);
-}
-
-function normalizeImportedTasks(backupData) {
-  const rawTasks = Array.isArray(backupData) ? backupData : backupData.tasks;
-
-  if (!Array.isArray(rawTasks)) {
-    throw new Error("Formato de backup inválido.");
-  }
-
-  return rawTasks
-    .map((task) => {
-      const title = String(task.title || "").trim();
-      const dueDate = String(task.dueDate || "").trim();
-
-      if (!title || !dueDate) {
-        return null;
-      }
-
-      return {
-        id: task.id || createId(),
-        title,
-        type: normalizeOption(task.type, ["Trabalho", "Avaliação", "Tarefa", "Apresentação", "Outro"], "Outro"),
-        subject: String(task.subject || "").trim(),
-        dueDate,
-        priority: normalizeOption(task.priority, ["Baixa", "Média", "Alta"], "Média"),
-        status: normalizeOption(task.status, ["Pendente", "Em andamento", "Concluída"], "Pendente"),
-        description: String(task.description || "").trim(),
-        tags: normalizeTags(task.tags),
-        subtasks: normalizeSubtasks(task.subtasks),
-        createdAt: task.createdAt || new Date().toISOString(),
-        updatedAt: task.updatedAt || new Date().toISOString(),
-      };
-    })
-    .filter(Boolean);
-}
-
-function normalizeOption(value, validOptions, fallback) {
-  return validOptions.includes(value) ? value : fallback;
-}
-
-function normalizeTags(tags) {
-  if (!Array.isArray(tags)) {
-    return [];
-  }
-
-  return tags.map((tag) => String(tag).trim()).filter(Boolean);
-}
-
-function normalizeSubtasks(subtasks) {
-  if (!Array.isArray(subtasks)) {
-    return [];
-  }
-
-  return subtasks
-    .map((subtask) => {
-      const title = typeof subtask === "string" ? subtask.trim() : String(subtask.title || "").trim();
-
-      if (!title) {
-        return null;
-      }
-
-      return {
-        id: subtask.id || createId(),
-        title,
-        done: Boolean(subtask.done),
-      };
-    })
-    .filter(Boolean);
 }
 
 function openCreateTaskDialog() {
@@ -628,25 +579,6 @@ function toggleFiltersPanel() {
   filtersPanel.classList.toggle("filters-collapsed", !isExpanded);
   filtersToggleButton.setAttribute("aria-expanded", String(isExpanded));
   filtersToggleButton.textContent = isExpanded ? "🔎 Ocultar filtros" : "🔎 Filtros";
-}
-
-function loadCollapsedGroupKeys() {
-  const storedValue = localStorage.getItem(GROUP_COLLAPSE_STORAGE_KEY);
-
-  if (!storedValue) {
-    return new Set();
-  }
-
-  try {
-    const parsedValue = JSON.parse(storedValue);
-    return new Set(Array.isArray(parsedValue) ? parsedValue : []);
-  } catch {
-    return new Set();
-  }
-}
-
-function saveCollapsedGroupKeys() {
-  localStorage.setItem(GROUP_COLLAPSE_STORAGE_KEY, JSON.stringify([...collapsedGroupKeys]));
 }
 
 function toggleGroup(groupKey) {
@@ -1089,78 +1021,6 @@ function renderGroupedTasks(filteredTasks) {
     const groupSection = createTaskGroupSection(group);
     taskList.appendChild(groupSection);
   });
-}
-
-function getTaskGroups(filteredTasks) {
-  const groupDefinitions = [
-    {
-      key: "overdue",
-      title: "Atrasadas",
-      description: "Atividades pendentes que já passaram da data de entrega.",
-      icon: "⚠️",
-    },
-    {
-      key: "today",
-      title: "Hoje",
-      description: "Compromissos que precisam de atenção ainda hoje.",
-      icon: "📌",
-    },
-    {
-      key: "tomorrow",
-      title: "Amanhã",
-      description: "Atividades com prazo para o próximo dia.",
-      icon: "🌤️",
-    },
-    {
-      key: "week",
-      title: "Esta semana",
-      description: "Atividades pendentes com vencimento nos próximos 7 dias.",
-      icon: "🗓️",
-    },
-    {
-      key: "future",
-      title: "Futuras",
-      description: "Demandas com prazo mais distante.",
-      icon: "📚",
-    },
-    {
-      key: "completed",
-      title: "Concluídas",
-      description: "Atividades finalizadas e mantidas no histórico.",
-      icon: "✅",
-    },
-  ];
-
-  return groupDefinitions.map((group) => ({
-    ...group,
-    tasks: filteredTasks.filter((task) => getTaskGroupKey(task) === group.key),
-  }));
-}
-
-function getTaskGroupKey(task) {
-  if (task.status === "Concluída") {
-    return "completed";
-  }
-
-  const differenceInDays = getDifferenceInDays(task.dueDate);
-
-  if (differenceInDays < 0) {
-    return "overdue";
-  }
-
-  if (differenceInDays === 0) {
-    return "today";
-  }
-
-  if (differenceInDays === 1) {
-    return "tomorrow";
-  }
-
-  if (differenceInDays <= 7) {
-    return "week";
-  }
-
-  return "future";
 }
 
 function createTaskGroupSection(group) {
@@ -1684,13 +1544,6 @@ function createSubtaskButtonHtml(taskId, subtask) {
 	`;
 }
 
-function getChecklistProgress(subtasks) {
-  return {
-    total: subtasks.length,
-    done: subtasks.filter((subtask) => subtask.done).length,
-  };
-}
-
 function resetForm(clearMessage = true) {
   taskForm.reset();
 
@@ -1711,125 +1564,3 @@ function showFormMessage(message, type) {
   formMessage.className = `form-message ${type || ""}`;
 }
 
-function loadTasks() {
-  const storedTasks = localStorage.getItem(STORAGE_KEY);
-
-  if (!storedTasks) {
-    return [];
-  }
-
-  try {
-    return JSON.parse(storedTasks);
-  } catch {
-    return [];
-  }
-}
-
-function saveTasks() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-}
-
-function createId() {
-  if (crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-
-  return String(Date.now() + Math.random());
-}
-
-function createLocalDate(dateString) {
-  const [year, month, day] = dateString.split("-").map(Number);
-  return new Date(year, month - 1, day);
-}
-
-function getToday() {
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-}
-
-function formatDateTime(value) {
-  if (!value) {
-    return "Não registrado";
-  }
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) {
-    return "Não registrado";
-  }
-
-  return date.toLocaleString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function formatDate(dateString) {
-  if (!dateString) {
-    return "Sem data";
-  }
-
-  const date = createLocalDate(dateString);
-
-  return date.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
-
-function getDueDateText(task) {
-  if (task.status === "Concluída") {
-    return "concluída";
-  }
-
-  const differenceInDays = getDifferenceInDays(task.dueDate);
-
-  if (differenceInDays < 0) {
-    const days = Math.abs(differenceInDays);
-    return `atrasada há ${days} dia${days > 1 ? "s" : ""}`;
-  }
-
-  if (differenceInDays === 0) {
-    return "vence hoje";
-  }
-
-  if (differenceInDays === 1) {
-    return "vence amanhã";
-  }
-
-  return `faltam ${differenceInDays} dias`;
-}
-
-function getDifferenceInDays(dateString) {
-  const today = getToday();
-  const dueDate = createLocalDate(dateString);
-
-  const differenceInTime = dueDate - today;
-  return Math.round(differenceInTime / 86400000);
-}
-
-function isOverdue(task) {
-  if (task.status === "Concluída") {
-    return false;
-  }
-
-  return getDifferenceInDays(task.dueDate) < 0;
-}
-
-function getPriorityWeight(priority) {
-  const weights = {
-    Baixa: 1,
-    Média: 2,
-    Alta: 3,
-  };
-
-  return weights[priority] || 0;
-}
-
-function escapeHtml(value) {
-  return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-}
