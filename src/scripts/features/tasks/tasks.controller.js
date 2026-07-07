@@ -3,7 +3,6 @@
 // File: features/tasks/tasks.controller.js
 // =============================
 
-import { INLINE_SELECT_OPTIONS } from "./tasks.constants.js";
 import { getPriorityWeight, getTaskGroups } from "./tasks.model.js";
 import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
 import { createId, createLocalDate, getToday } from "./tasks.utils.js";
@@ -11,6 +10,7 @@ import { createDetailsHtml, createTaskGroupSection } from "./tasks.ui.js";
 import { exportTasksBackup, getImportSummaryText, readImportedTasksFile } from "./tasks.backup.js";
 import { closeClearAllDialog as closeClearAllDialogUi, closeDialog, closeOptionsMenu as closeOptionsMenuUi, isClearAllConfirmationValid, openClearAllDialog as openClearAllDialogUi, openCreateTaskDialog as openCreateTaskDialogUi, openDialog, openImportDialog, toggleOptionsMenu as toggleOptionsMenuUi, updateClearAllConfirmation } from "./tasks.dialogs.js";
 import { initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme } from "./tasks.theme.js";
+import { createInlineEditController } from "./tasks.inline-edit.js";
 
 const taskForm = document.querySelector("#taskForm");
 const taskIdInput = document.querySelector("#taskId");
@@ -87,8 +87,6 @@ let taskIdToDelete = null;
 let pendingImportedTasks = null;
 let collapsedGroupKeys = loadCollapsedGroupKeys();
 let expandedChecklistTaskIds = new Set();
-let activeInlineSelect = null;
-let activeInlineEditor = null;
 
 function saveTasks() {
   persistTasks(tasks);
@@ -97,6 +95,15 @@ function saveTasks() {
 function saveCollapsedGroupKeys() {
   persistCollapsedGroupKeys(collapsedGroupKeys);
 }
+
+const inlineEdit = createInlineEditController({
+  getTasks: () => tasks,
+  setTasks: (nextTasks) => {
+    tasks = nextTasks;
+  },
+  saveTasks,
+  render,
+});
 
 function getThemeElements() {
   return {
@@ -161,9 +168,9 @@ export function initTasksFeature() {
   filtersToggleButton.addEventListener("click", toggleFiltersPanel);
 
   taskList.addEventListener("click", handleTaskAction);
-  taskList.addEventListener("keydown", handleInlineEditorKeydown);
-  taskList.addEventListener("focusout", handleInlineEditorFocusOut);
-  taskList.addEventListener("change", handleInlineEditorChange);
+  taskList.addEventListener("keydown", inlineEdit.handleInlineEditorKeydown);
+  taskList.addEventListener("focusout", inlineEdit.handleInlineEditorFocusOut);
+  taskList.addEventListener("change", inlineEdit.handleInlineEditorChange);
 
   detailsBody.addEventListener("click", handleDetailsAction);
 
@@ -201,22 +208,15 @@ export function initTasksFeature() {
 
     const clickedInsideInlineEdit = event.target.closest(".inline-edit-control");
 
-    if (!clickedInsideInlineEdit && (activeInlineSelect || activeInlineEditor)) {
-      activeInlineSelect = null;
-      activeInlineEditor = null;
-      render();
+    if (!clickedInsideInlineEdit) {
+      inlineEdit.clearInlineEditAndRender();
     }
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeOptionsMenu();
-
-      if (activeInlineSelect || activeInlineEditor) {
-        activeInlineSelect = null;
-        activeInlineEditor = null;
-        render();
-      }
+      inlineEdit.clearInlineEditAndRender();
     }
   });
 }
@@ -429,17 +429,17 @@ function handleTaskAction(event) {
   const action = button.dataset.action;
 
   if (action === "open-inline-editor") {
-    openInlineEditor(taskId, button.dataset.field);
+    inlineEdit.openInlineEditor(taskId, button.dataset.field);
     return;
   }
 
   if (action === "open-inline-select") {
-    openInlineSelect(taskId, button.dataset.field);
+    inlineEdit.openInlineSelect(taskId, button.dataset.field);
     return;
   }
 
   if (action === "update-inline-select") {
-    updateInlineSelect(taskId, button.dataset.field, button.dataset.value);
+    inlineEdit.updateInlineSelect(taskId, button.dataset.field, button.dataset.value);
     return;
   }
 
@@ -569,182 +569,6 @@ function toggleChecklistPreview(taskId) {
   render();
 }
 
-function openInlineSelect(taskId, field) {
-  if (!taskId || !INLINE_SELECT_OPTIONS[field]) {
-    return;
-  }
-
-  const isSameSelectOpen = activeInlineSelect && activeInlineSelect.taskId === taskId && activeInlineSelect.field === field;
-
-  activeInlineSelect = isSameSelectOpen ? null : { taskId, field };
-
-  render();
-}
-
-function updateInlineSelect(taskId, field, value) {
-  const validOptions = INLINE_SELECT_OPTIONS[field];
-
-  if (!taskId || !validOptions || !validOptions.includes(value)) {
-    return;
-  }
-
-  tasks = tasks.map((task) => {
-    if (task.id !== taskId) {
-      return task;
-    }
-
-    return {
-      ...task,
-      [field]: value,
-      updatedAt: new Date().toISOString(),
-    };
-  });
-
-  activeInlineSelect = null;
-
-  saveTasks();
-  render();
-}
-
-function openInlineEditor(taskId, field) {
-  if (!taskId || !["title", "subject", "description", "tags", "dueDate"].includes(field)) {
-    return;
-  }
-
-  const isSameEditorOpen = activeInlineEditor && activeInlineEditor.taskId === taskId && activeInlineEditor.field === field;
-
-  activeInlineSelect = null;
-  activeInlineEditor = isSameEditorOpen ? null : { taskId, field };
-
-  render();
-
-  if (!isSameEditorOpen) {
-    focusInlineEditor(taskId, field);
-  }
-}
-
-function focusInlineEditor(taskId, field) {
-  requestAnimationFrame(() => {
-    const input = document.querySelector(`[data-inline-editor="${CSS.escape(taskId)}-${CSS.escape(field)}"]`);
-
-    if (!input) {
-      return;
-    }
-
-    input.focus();
-
-    if (input.type === "text" || input.tagName === "TEXTAREA") {
-      input.select();
-    }
-
-    if (input.type === "date" && typeof input.showPicker === "function") {
-      try {
-        input.showPicker();
-      } catch {
-        // Alguns navegadores bloqueiam o seletor se não considerarem o foco uma ação direta.
-      }
-    }
-  });
-}
-
-function handleInlineEditorKeydown(event) {
-  const input = event.target.closest("[data-inline-field]");
-
-  if (!input) {
-    return;
-  }
-
-  const isTextarea = input.tagName === "TEXTAREA";
-
-  if (event.key === "Enter" && !isTextarea) {
-    event.preventDefault();
-    commitInlineEditor(input);
-  }
-
-  if (event.key === "Enter" && isTextarea && event.ctrlKey) {
-    event.preventDefault();
-    commitInlineEditor(input);
-  }
-
-  if (event.key === "Escape") {
-    event.preventDefault();
-    activeInlineEditor = null;
-    render();
-  }
-}
-
-function handleInlineEditorFocusOut(event) {
-  const input = event.target.closest("[data-inline-field]");
-
-  if (!input) {
-    return;
-  }
-
-  setTimeout(() => {
-    const stillInsideSameEditor = document.activeElement?.closest(".inline-edit-control");
-
-    if (!stillInsideSameEditor) {
-      commitInlineEditor(input);
-    }
-  }, 0);
-}
-
-function handleInlineEditorChange(event) {
-  const input = event.target.closest('[data-inline-field="dueDate"]');
-
-  if (!input) {
-    return;
-  }
-
-  commitInlineEditor(input);
-}
-
-function commitInlineEditor(input) {
-  const taskId = input.dataset.id;
-  const field = input.dataset.inlineField;
-  const rawValue = input.value.trim();
-
-  if (!taskId || !field) {
-    return;
-  }
-
-  let nextValue = rawValue;
-
-  if (field === "dueDate" && !nextValue) {
-    activeInlineEditor = null;
-    render();
-    return;
-  }
-
-  tasks = tasks.map((task) => {
-    if (task.id !== taskId) {
-      return task;
-    }
-
-    if (field === "tags") {
-      return {
-        ...task,
-        tags: nextValue
-          .split(",")
-          .map((tag) => tag.trim())
-          .filter(Boolean),
-        updatedAt: new Date().toISOString(),
-      };
-    }
-
-    return {
-      ...task,
-      [field]: nextValue,
-      updatedAt: new Date().toISOString(),
-    };
-  });
-
-  activeInlineEditor = null;
-
-  saveTasks();
-  render();
-}
-
 function openDetails(taskId) {
   const task = tasks.find((item) => item.id === taskId);
 
@@ -860,8 +684,7 @@ function renderGroupedTasks(filteredTasks) {
     const groupSection = createTaskGroupSection(group, {
       collapsedGroupKeys,
       expandedChecklistTaskIds,
-      activeInlineSelect,
-      activeInlineEditor,
+      ...inlineEdit.getState(),
     });
     taskList.appendChild(groupSection);
   });
