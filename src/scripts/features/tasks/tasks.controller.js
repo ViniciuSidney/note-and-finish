@@ -3,84 +3,76 @@
 // File: features/tasks/tasks.controller.js
 // =============================
 
-import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
-import { createId } from "./tasks.utils.js";
-import { exportTasksBackup, getImportSummaryText, readImportedTasksFile } from "./tasks.backup.js";
-import { closeClearAllDialog as closeClearAllDialogUi, closeDialog, closeOptionsMenu as closeOptionsMenuUi, isClearAllConfirmationValid, openClearAllDialog as openClearAllDialogUi, openCreateTaskDialog as openCreateTaskDialogUi, openDialog, openImportDialog, toggleOptionsMenu as toggleOptionsMenuUi, updateClearAllConfirmation } from "./tasks.dialogs.js";
-import { initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme } from "./tasks.theme.js";
-import { createInlineEditController } from "./tasks.inline-edit.js";
-import { createTasksRenderer } from "./tasks.render.js";
-import { createTaskActionsController } from "./tasks.actions.js";
+import {loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks} from './tasks.storage.js';
+import {createId} from './tasks.utils.js';
+import {exportTasksBackup, getImportSummaryText, readImportedTasksFile} from './tasks.backup.js';
+import {
+	closeClearAllDialog as closeClearAllDialogUi,
+	closeCreateTaskDialog as closeCreateTaskDialogUi,
+	closeDialog,
+	closeOptionsMenu as closeOptionsMenuUi,
+	isClearAllConfirmationValid,
+	openClearAllDialog as openClearAllDialogUi,
+	openCreateTaskDialog as openCreateTaskDialogUi,
+	openDialog,
+	openImportDialog,
+	toggleOptionsMenu as toggleOptionsMenuUi,
+	updateClearAllConfirmation
+} from './tasks.dialogs.js';
+import {initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme} from './tasks.theme.js';
+import {createInlineEditController} from './tasks.inline-edit.js';
+import {createTasksRenderer} from './tasks.render.js';
+import {createTaskActionsController} from './tasks.actions.js';
+import {getTaskElements} from './tasks.dom.js';
+import {bindTaskEvents} from './tasks.events.js';
 
-const taskForm = document.querySelector("#taskForm");
-const taskIdInput = document.querySelector("#taskId");
-const titleInput = document.querySelector("#title");
-const typeInput = document.querySelector("#type");
-const subjectInput = document.querySelector("#subject");
-const dueDateInput = document.querySelector("#dueDate");
-const priorityInput = document.querySelector("#priority");
-const statusInput = document.querySelector("#status");
-const descriptionInput = document.querySelector("#description");
-const subtasksInput = document.querySelector("#subtasks");
-const tagsInput = document.querySelector("#tags");
+const elements = getTaskElements();
 
-const formTitle = document.querySelector("#formTitle");
-const submitButton = document.querySelector("#submitButton");
-const clearButton = document.querySelector("#clearButton");
-const formMessage = document.querySelector("#formMessage");
-
-const searchInput = document.querySelector("#searchInput");
-const statusFilter = document.querySelector("#statusFilter");
-const typeFilter = document.querySelector("#typeFilter");
-const sortFilter = document.querySelector("#sortFilter");
-
-const taskList = document.querySelector("#taskList");
-const emptyState = document.querySelector("#emptyState");
-
-const totalTasks = document.querySelector("#totalTasks");
-const pendingTasks = document.querySelector("#pendingTasks");
-const weekTasks = document.querySelector("#weekTasks");
-const completedTasks = document.querySelector("#completedTasks");
-
-const detailsDialog = document.querySelector("#detailsDialog");
-const detailsTitle = document.querySelector("#detailsTitle");
-const detailsBody = document.querySelector("#detailsBody");
-const closeDetailsButton = document.querySelector("#closeDetailsButton");
-
-const deleteDialog = document.querySelector("#deleteDialog");
-const cancelDeleteButton = document.querySelector("#cancelDeleteButton");
-const cancelDeleteTopButton = document.querySelector("#cancelDeleteTopButton");
-const confirmDeleteButton = document.querySelector("#confirmDeleteButton");
-const optionsButton = document.querySelector("#optionsButton");
-const optionsDropdown = document.querySelector("#optionsDropdown");
-const themeToggleButton = document.querySelector("#themeToggleButton");
-const themeIcon = document.querySelector("#themeIcon");
-const themeText = document.querySelector("#themeText");
-
-const exportBackupButton = document.querySelector("#exportBackupButton");
-const importBackupButton = document.querySelector("#importBackupButton");
-const importFileInput = document.querySelector("#importFileInput");
-
-const importDialog = document.querySelector("#importDialog");
-const importSummary = document.querySelector("#importSummary");
-const cancelImportButton = document.querySelector("#cancelImportButton");
-const cancelImportTopButton = document.querySelector("#cancelImportTopButton");
-const confirmImportButton = document.querySelector("#confirmImportButton");
-
-const clearAllButton = document.querySelector("#clearAllButton");
-const clearAllDialog = document.querySelector("#clearAllDialog");
-const clearAllConfirmInput = document.querySelector("#clearAllConfirmInput");
-const clearAllMessage = document.querySelector("#clearAllMessage");
-const cancelClearAllButton = document.querySelector("#cancelClearAllButton");
-const cancelClearAllTopButton = document.querySelector("#cancelClearAllTopButton");
-const confirmClearAllButton = document.querySelector("#confirmClearAllButton");
-const filtersToggleButton = document.querySelector("#filtersToggleButton");
-const filtersPanel = document.querySelector("#filtersPanel");
-
-const createTaskDialog = document.querySelector("#createTaskDialog");
-const openTaskFormButton = document.querySelector("#openTaskFormButton");
-const emptyCreateTaskButton = document.querySelector("#emptyCreateTaskButton");
-const closeTaskFormButton = document.querySelector("#closeTaskFormButton");
+const {
+	taskForm,
+	taskIdInput,
+	titleInput,
+	typeInput,
+	subjectInput,
+	dueDateInput,
+	priorityInput,
+	statusInput,
+	descriptionInput,
+	subtasksInput,
+	tagsInput,
+	formTitle,
+	submitButton,
+	formMessage,
+	searchInput,
+	statusFilter,
+	typeFilter,
+	sortFilter,
+	taskList,
+	emptyState,
+	totalTasks,
+	pendingTasks,
+	weekTasks,
+	completedTasks,
+	detailsDialog,
+	detailsTitle,
+	detailsBody,
+	deleteDialog,
+	optionsButton,
+	optionsDropdown,
+	themeToggleButton,
+	themeIcon,
+	themeText,
+	importFileInput,
+	importDialog,
+	importSummary,
+	clearAllDialog,
+	clearAllConfirmInput,
+	clearAllMessage,
+	confirmClearAllButton,
+	filtersToggleButton,
+	filtersPanel,
+	createTaskDialog
+} = elements;
 
 let tasks = loadTasks();
 let pendingImportedTasks = null;
@@ -88,206 +80,176 @@ let collapsedGroupKeys = loadCollapsedGroupKeys();
 let expandedChecklistTaskIds = new Set();
 
 function saveTasks() {
-  persistTasks(tasks);
+	persistTasks(tasks);
 }
 
 function saveCollapsedGroupKeys() {
-  persistCollapsedGroupKeys(collapsedGroupKeys);
+	persistCollapsedGroupKeys(collapsedGroupKeys);
 }
 
 const inlineEdit = createInlineEditController({
-  getTasks: () => tasks,
-  setTasks: (nextTasks) => {
-    tasks = nextTasks;
-  },
-  saveTasks,
-  render,
+	getTasks: () => tasks,
+	setTasks: (nextTasks) => {
+		tasks = nextTasks;
+	},
+	saveTasks,
+	render
 });
 
 const renderer = createTasksRenderer({
-  elements: {
-    taskList,
-    emptyState,
-    totalTasks,
-    pendingTasks,
-    weekTasks,
-    completedTasks,
-    searchInput,
-    statusFilter,
-    typeFilter,
-    sortFilter,
-  },
-  getTasks: () => tasks,
-  getCollapsedGroupKeys: () => collapsedGroupKeys,
-  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
-  getInlineEditState: inlineEdit.getState,
+	elements: {
+		taskList,
+		emptyState,
+		totalTasks,
+		pendingTasks,
+		weekTasks,
+		completedTasks,
+		searchInput,
+		statusFilter,
+		typeFilter,
+		sortFilter
+	},
+	getTasks: () => tasks,
+	getCollapsedGroupKeys: () => collapsedGroupKeys,
+	getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
+	getInlineEditState: inlineEdit.getState
 });
 
 const taskActions = createTaskActionsController({
-  elements: {
-    detailsDialog,
-    detailsTitle,
-    detailsBody,
-    deleteDialog,
-    taskIdInput,
-    titleInput,
-    typeInput,
-    subjectInput,
-    dueDateInput,
-    priorityInput,
-    statusInput,
-    descriptionInput,
-    subtasksInput,
-    tagsInput,
-    formTitle,
-    submitButton,
-  },
-  getTasks: () => tasks,
-  setTasks: (nextTasks) => {
-    tasks = nextTasks;
-  },
-  saveTasks,
-  render,
-  resetForm,
-  showFormMessage,
-  getCollapsedGroupKeys: () => collapsedGroupKeys,
-  saveCollapsedGroupKeys,
-  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
-  openDialog,
-  closeDialog,
+	elements: {
+		detailsDialog,
+		detailsTitle,
+		detailsBody,
+		deleteDialog,
+		taskIdInput,
+		titleInput,
+		typeInput,
+		subjectInput,
+		dueDateInput,
+		priorityInput,
+		statusInput,
+		descriptionInput,
+		subtasksInput,
+		tagsInput,
+		formTitle,
+		submitButton
+	},
+	getTasks: () => tasks,
+	setTasks: (nextTasks) => {
+		tasks = nextTasks;
+	},
+	saveTasks,
+	render,
+	resetForm,
+	showFormMessage,
+	getCollapsedGroupKeys: () => collapsedGroupKeys,
+	saveCollapsedGroupKeys,
+	getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
+	openDialog,
+	closeDialog
 });
 
 function getThemeElements() {
-  return {
-    themeToggleButton,
-    themeIcon,
-    themeText,
-  };
+	return {
+		themeToggleButton,
+		themeIcon,
+		themeText
+	};
 }
 
 function getOptionsMenuElements() {
-  return {
-    optionsButton,
-    optionsDropdown,
-  };
+	return {
+		optionsButton,
+		optionsDropdown
+	};
 }
 
 function getCreateTaskDialogElements() {
-  return {
-    createTaskDialog,
-    titleInput,
-    formTitle,
-    submitButton,
-    resetForm,
-  };
+	return {
+		createTaskDialog,
+		titleInput,
+		formTitle,
+		submitButton,
+		resetForm
+	};
 }
 
 function getImportDialogElements() {
-  return {
-    importDialog,
-    importSummary,
-  };
+	return {
+		importDialog,
+		importSummary
+	};
 }
 
 function getClearAllDialogElements() {
-  return {
-    clearAllDialog,
-    clearAllConfirmInput,
-    clearAllMessage,
-    confirmClearAllButton,
-  };
+	return {
+		clearAllDialog,
+		clearAllConfirmInput,
+		clearAllMessage,
+		confirmClearAllButton
+	};
 }
 
 let isInitialized = false;
 
 export function initTasksFeature() {
-  if (isInitialized) {
-    return;
-  }
+	if (isInitialized) {
+		return;
+	}
 
-  isInitialized = true;
+	isInitialized = true;
 
-  initializeTheme();
-  render();
+	initializeTheme();
+	render();
 
-  taskForm.addEventListener("submit", handleSubmit);
-  clearButton.addEventListener("click", resetForm);
-
-  searchInput.addEventListener("input", render);
-  statusFilter.addEventListener("change", render);
-  typeFilter.addEventListener("change", render);
-  sortFilter.addEventListener("change", render);
-  filtersToggleButton.addEventListener("click", toggleFiltersPanel);
-
-  taskList.addEventListener("click", handleTaskAction);
-  taskList.addEventListener("keydown", inlineEdit.handleInlineEditorKeydown);
-  taskList.addEventListener("focusout", inlineEdit.handleInlineEditorFocusOut);
-  taskList.addEventListener("change", inlineEdit.handleInlineEditorChange);
-
-  detailsBody.addEventListener("click", taskActions.handleDetailsAction);
-
-  closeDetailsButton.addEventListener("click", () => detailsDialog.close());
-
-  cancelDeleteButton.addEventListener("click", taskActions.closeDeleteDialog);
-  cancelDeleteTopButton.addEventListener("click", taskActions.closeDeleteDialog);
-  confirmDeleteButton.addEventListener("click", taskActions.deleteSelectedTask);
-  optionsButton.addEventListener("click", toggleOptionsMenu);
-  themeToggleButton.addEventListener("click", toggleTheme);
-  exportBackupButton.addEventListener("click", exportBackup);
-  importBackupButton.addEventListener("click", openImportFilePicker);
-  importFileInput.addEventListener("change", handleImportFile);
-  clearAllButton.addEventListener("click", openClearAllDialog);
-
-  cancelImportButton.addEventListener("click", closeImportDialog);
-  cancelImportTopButton.addEventListener("click", closeImportDialog);
-  confirmImportButton.addEventListener("click", confirmImportBackup);
-
-  cancelClearAllButton.addEventListener("click", closeClearAllDialog);
-  cancelClearAllTopButton.addEventListener("click", closeClearAllDialog);
-  confirmClearAllButton.addEventListener("click", clearAllTasks);
-  clearAllConfirmInput.addEventListener("input", validateClearAllConfirmation);
-
-  openTaskFormButton.addEventListener("click", openCreateTaskDialog);
-  emptyCreateTaskButton.addEventListener("click", openCreateTaskDialog);
-  closeTaskFormButton.addEventListener("click", closeCreateTaskDialog);
-
-  document.addEventListener("click", (event) => {
-    const clickedInsideMenu = event.target.closest(".options-menu");
-
-    if (!clickedInsideMenu) {
-      closeOptionsMenu();
-    }
-
-    const clickedInsideInlineEdit = event.target.closest(".inline-edit-control");
-
-    if (!clickedInsideInlineEdit) {
-      inlineEdit.clearInlineEditAndRender();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeOptionsMenu();
-      inlineEdit.clearInlineEditAndRender();
-    }
-  });
+	bindTaskEvents({
+		elements,
+		inlineEdit,
+		taskActions,
+		handlers: {
+			handleSubmit,
+			resetForm,
+			render,
+			toggleFiltersPanel,
+			handleTaskAction,
+			closeDetailsDialog,
+			toggleOptionsMenu,
+			toggleTheme,
+			exportBackup,
+			openImportFilePicker,
+			handleImportFile,
+			openClearAllDialog,
+			closeImportDialog,
+			confirmImportBackup,
+			closeClearAllDialog,
+			clearAllTasks,
+			validateClearAllConfirmation,
+			openCreateTaskDialog,
+			closeCreateTaskDialog,
+			closeOptionsMenu
+		}
+	});
 }
 
 function initializeTheme() {
-  initializeAppTheme(getThemeElements());
+	initializeAppTheme(getThemeElements());
 }
 
 function toggleTheme() {
-  toggleAppTheme(getThemeElements());
-  closeOptionsMenu();
+	toggleAppTheme(getThemeElements());
+	closeOptionsMenu();
 }
 
 function toggleOptionsMenu() {
-  toggleOptionsMenuUi(getOptionsMenuElements());
+	toggleOptionsMenuUi(getOptionsMenuElements());
 }
 
 function closeOptionsMenu() {
-  closeOptionsMenuUi(getOptionsMenuElements());
+	closeOptionsMenuUi(getOptionsMenuElements());
+}
+
+function closeDetailsDialog() {
+	closeDialog(detailsDialog);
 }
 
 function toggleFiltersPanel() {
@@ -299,264 +261,262 @@ function toggleFiltersPanel() {
 }
 
 function exportBackup() {
-  exportTasksBackup(tasks);
+	exportTasksBackup(tasks);
 
-  closeOptionsMenu();
-  showFormMessage("Backup exportado com sucesso.", "success");
+	closeOptionsMenu();
+	showFormMessage('Backup exportado com sucesso.', 'success');
 }
 
 function openImportFilePicker() {
-  closeOptionsMenu();
-  importFileInput.click();
+	closeOptionsMenu();
+	importFileInput.click();
 }
 
 async function handleImportFile(event) {
-  const file = event.target.files[0];
+	const file = event.target.files[0];
 
-  if (!file) {
-    return;
-  }
+	if (!file) {
+		return;
+	}
 
-  try {
-    const importedTasks = await readImportedTasksFile(file);
+	try {
+		const importedTasks = await readImportedTasksFile(file);
 
-    if (!importedTasks.length) {
-      showFormMessage("O arquivo não possui atividades válidas para importar.", "error");
-      return;
-    }
+		if (!importedTasks.length) {
+			showFormMessage('O arquivo não possui atividades válidas para importar.', 'error');
+			return;
+		}
 
-    pendingImportedTasks = importedTasks;
-    openImportDialog(getImportDialogElements(), getImportSummaryText(importedTasks.length));
-  } catch {
-    showFormMessage("Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.", "error");
-  } finally {
-    importFileInput.value = "";
-  }
+		pendingImportedTasks = importedTasks;
+		openImportDialog(getImportDialogElements(), getImportSummaryText(importedTasks.length));
+	} catch {
+		showFormMessage('Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.', 'error');
+	} finally {
+		importFileInput.value = '';
+	}
 }
 
 function openCreateTaskDialog() {
-  openCreateTaskDialogUi(getCreateTaskDialogElements());
+	openCreateTaskDialogUi(getCreateTaskDialogElements());
 }
 
 function closeCreateTaskDialog() {
-  closeCreateTaskDialogUi(getCreateTaskDialogElements());
+	closeCreateTaskDialogUi(getCreateTaskDialogElements());
 }
 
 function confirmImportBackup() {
-  if (!pendingImportedTasks) {
-    return;
-  }
+	if (!pendingImportedTasks) {
+		return;
+	}
 
-  tasks = pendingImportedTasks;
-  pendingImportedTasks = null;
+	tasks = pendingImportedTasks;
+	pendingImportedTasks = null;
 
-  saveTasks();
-  resetForm();
-  render();
-  closeImportDialog();
+	saveTasks();
+	resetForm();
+	render();
+	closeImportDialog();
 
-  showFormMessage("Backup importado com sucesso.", "success");
+	showFormMessage('Backup importado com sucesso.', 'success');
 }
 
 function closeImportDialog() {
-  pendingImportedTasks = null;
-  closeDialog(importDialog);
+	pendingImportedTasks = null;
+	closeDialog(importDialog);
 }
 
 function openClearAllDialog() {
-  closeOptionsMenu();
-  openClearAllDialogUi(getClearAllDialogElements());
+	closeOptionsMenu();
+	openClearAllDialogUi(getClearAllDialogElements());
 }
 
 function validateClearAllConfirmation() {
-  updateClearAllConfirmation(getClearAllDialogElements());
+	updateClearAllConfirmation(getClearAllDialogElements());
 }
 
 function clearAllTasks() {
-  if (!isClearAllConfirmationValid(clearAllConfirmInput.value)) {
-    clearAllMessage.textContent = "Digite APAGAR para confirmar.";
-    clearAllMessage.className = "form-message error";
-    return;
-  }
+	if (!isClearAllConfirmationValid(clearAllConfirmInput.value)) {
+		clearAllMessage.textContent = 'Digite APAGAR para confirmar.';
+		clearAllMessage.className = 'form-message error';
+		return;
+	}
 
-  tasks = [];
+	tasks = [];
 
-  saveTasks();
-  resetForm();
-  render();
-  closeClearAllDialog();
+	saveTasks();
+	resetForm();
+	render();
+	closeClearAllDialog();
 
-  showFormMessage("Todas as atividades foram apagadas.", "success");
+	showFormMessage('Todas as atividades foram apagadas.', 'success');
 }
 
 function closeClearAllDialog() {
-  closeClearAllDialogUi(getClearAllDialogElements());
+	closeClearAllDialogUi(getClearAllDialogElements());
 }
 
 function handleSubmit(event) {
-  event.preventDefault();
+	event.preventDefault();
 
-  const taskData = getFormData();
+	const taskData = getFormData();
 
-  if (!taskData.title || !taskData.dueDate) {
-    showFormMessage("Preencha pelo menos o título e a data de entrega.", "error");
-    return;
-  }
+	if (!taskData.title || !taskData.dueDate) {
+		showFormMessage('Preencha pelo menos o título e a data de entrega.', 'error');
+		return;
+	}
 
-  const editingId = taskIdInput.value;
+	const editingId = taskIdInput.value;
 
-  if (editingId) {
-    tasks = tasks.map((task) => {
-      if (task.id !== editingId) {
-        return task;
-      }
+	if (editingId) {
+		tasks = tasks.map((task) => {
+			if (task.id !== editingId) {
+				return task;
+			}
 
-      return {
-        ...task,
-        ...taskData,
-        updatedAt: new Date().toISOString(),
-      };
-    });
+			return {
+				...task,
+				...taskData,
+				updatedAt: new Date().toISOString()
+			};
+		});
 
-    showFormMessage("Atividade atualizada com sucesso.", "success");
-  } else {
-    const newTask = {
-      id: createId(),
-      ...taskData,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
+		showFormMessage('Atividade atualizada com sucesso.', 'success');
+	} else {
+		const newTask = {
+			id: createId(),
+			...taskData,
+			createdAt: new Date().toISOString(),
+			updatedAt: new Date().toISOString()
+		};
 
-    tasks.unshift(newTask);
+		tasks.unshift(newTask);
 
-    showFormMessage("Atividade cadastrada com sucesso.", "success");
-  }
+		showFormMessage('Atividade cadastrada com sucesso.', 'success');
+	}
 
-  saveTasks();
-  resetForm(false);
-  render();
+	saveTasks();
+	resetForm(false);
+	render();
 
-  if (createTaskDialog.open) {
-    closeCreateTaskDialog();
-  }
+	if (createTaskDialog.open) {
+		closeCreateTaskDialog();
+	}
 }
 
 function getFormData() {
-  const existingTask = tasks.find((task) => task.id === taskIdInput.value);
+	const existingTask = tasks.find((task) => task.id === taskIdInput.value);
 
-  return {
-    title: titleInput.value.trim(),
-    type: typeInput.value,
-    subject: subjectInput.value.trim(),
-    dueDate: dueDateInput.value,
-    priority: priorityInput.value,
-    status: statusInput.value,
-    description: descriptionInput.value.trim(),
-    subtasks: getSubtasksFromInput(existingTask ? existingTask.subtasks : []),
-    tags: tagsInput.value
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter(Boolean),
-  };
+	return {
+		title: titleInput.value.trim(),
+		type: typeInput.value,
+		subject: subjectInput.value.trim(),
+		dueDate: dueDateInput.value,
+		priority: priorityInput.value,
+		status: statusInput.value,
+		description: descriptionInput.value.trim(),
+		subtasks: getSubtasksFromInput(existingTask ? existingTask.subtasks : []),
+		tags: tagsInput.value
+			.split(',')
+			.map((tag) => tag.trim())
+			.filter(Boolean)
+	};
 }
 
 function getSubtasksFromInput(existingSubtasks = []) {
-  const existingSubtasksByTitle = new Map(existingSubtasks.map((subtask) => [subtask.title.trim().toLowerCase(), subtask]));
+	const existingSubtasksByTitle = new Map(existingSubtasks.map((subtask) => [subtask.title.trim().toLowerCase(), subtask]));
 
-  return subtasksInput.value
-    .split("\n")
-    .map((subtask) => subtask.trim())
-    .filter(Boolean)
-    .map((title) => {
-      const existingSubtask = existingSubtasksByTitle.get(title.toLowerCase());
+	return subtasksInput.value
+		.split('\n')
+		.map((subtask) => subtask.trim())
+		.filter(Boolean)
+		.map((title) => {
+			const existingSubtask = existingSubtasksByTitle.get(title.toLowerCase());
 
-      return {
-        id: existingSubtask ? existingSubtask.id : createId(),
-        title,
-        done: existingSubtask ? existingSubtask.done : false,
-      };
-    });
+			return {
+				id: existingSubtask ? existingSubtask.id : createId(),
+				title,
+				done: existingSubtask ? existingSubtask.done : false
+			};
+		});
 }
 
 function handleTaskAction(event) {
-  const button = event.target.closest("button[data-action]");
+	const button = event.target.closest('button[data-action]');
 
-  if (!button) {
-    return;
-  }
+	if (!button) {
+		return;
+	}
 
-  const taskId = button.dataset.id;
-  const action = button.dataset.action;
+	const taskId = button.dataset.id;
+	const action = button.dataset.action;
 
-  if (action === "open-inline-editor") {
-    inlineEdit.openInlineEditor(taskId, button.dataset.field);
-    return;
-  }
+	if (action === 'open-inline-editor') {
+		inlineEdit.openInlineEditor(taskId, button.dataset.field);
+		return;
+	}
 
-  if (action === "open-inline-select") {
-    inlineEdit.openInlineSelect(taskId, button.dataset.field);
-    return;
-  }
+	if (action === 'open-inline-select') {
+		inlineEdit.openInlineSelect(taskId, button.dataset.field);
+		return;
+	}
 
-  if (action === "update-inline-select") {
-    inlineEdit.updateInlineSelect(taskId, button.dataset.field, button.dataset.value);
-    return;
-  }
+	if (action === 'update-inline-select') {
+		inlineEdit.updateInlineSelect(taskId, button.dataset.field, button.dataset.value);
+		return;
+	}
 
-  if (action === "toggle-group") {
-    taskActions.toggleGroup(button.dataset.groupKey);
-    return;
-  }
+	if (action === 'toggle-group') {
+		taskActions.toggleGroup(button.dataset.groupKey);
+		return;
+	}
 
-  if (action === "toggle-checklist-preview") {
-    taskActions.toggleChecklistPreview(taskId);
-    return;
-  }
+	if (action === 'toggle-checklist-preview') {
+		taskActions.toggleChecklistPreview(taskId);
+		return;
+	}
 
-  if (action === "toggle-subtask") {
-    taskActions.toggleSubtask(taskId, button.dataset.subtaskId);
-    return;
-  }
+	if (action === 'toggle-subtask') {
+		taskActions.toggleSubtask(taskId, button.dataset.subtaskId);
+		return;
+	}
 
-  if (action === "view") {
-    taskActions.openDetails(taskId);
-  }
+	if (action === 'view') {
+		taskActions.openDetails(taskId);
+	}
 
-  if (action === "edit") {
-    taskActions.editTask(taskId);
-  }
+	if (action === 'edit') {
+		taskActions.editTask(taskId);
+	}
 
-  if (action === "delete") {
-    taskActions.openDeleteDialog(taskId);
-  }
+	if (action === 'delete') {
+		taskActions.openDeleteDialog(taskId);
+	}
 
-  if (action === "toggle") {
-    taskActions.toggleTaskStatus(taskId);
-  }
+	if (action === 'toggle') {
+		taskActions.toggleTaskStatus(taskId);
+	}
 }
 
-
 function render() {
-  renderer.render();
+	renderer.render();
 }
 
 function resetForm(clearMessage = true) {
-  taskForm.reset();
+	taskForm.reset();
 
-  taskIdInput.value = "";
-  priorityInput.value = "Média";
-  statusInput.value = "Pendente";
+	taskIdInput.value = '';
+	priorityInput.value = 'Média';
+	statusInput.value = 'Pendente';
 
-  formTitle.textContent = "Nova atividade";
-  submitButton.textContent = "Salvar atividade";
+	formTitle.textContent = 'Nova atividade';
+	submitButton.textContent = 'Salvar atividade';
 
-  if (clearMessage) {
-    showFormMessage("", "");
-  }
+	if (clearMessage) {
+		showFormMessage('', '');
+	}
 }
 
 function showFormMessage(message, type) {
-  formMessage.textContent = message;
-  formMessage.className = `form-message ${type || ""}`;
+	formMessage.textContent = message;
+	formMessage.className = `form-message ${type || ''}`;
 }
-
