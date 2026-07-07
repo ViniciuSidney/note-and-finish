@@ -3,14 +3,14 @@
 // File: features/tasks/tasks.controller.js
 // =============================
 
-import { getPriorityWeight, getTaskGroups } from "./tasks.model.js";
 import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
-import { createId, createLocalDate, getToday } from "./tasks.utils.js";
-import { createDetailsHtml, createTaskGroupSection } from "./tasks.ui.js";
+import { createId } from "./tasks.utils.js";
+import { createDetailsHtml } from "./tasks.ui.js";
 import { exportTasksBackup, getImportSummaryText, readImportedTasksFile } from "./tasks.backup.js";
 import { closeClearAllDialog as closeClearAllDialogUi, closeDialog, closeOptionsMenu as closeOptionsMenuUi, isClearAllConfirmationValid, openClearAllDialog as openClearAllDialogUi, openCreateTaskDialog as openCreateTaskDialogUi, openDialog, openImportDialog, toggleOptionsMenu as toggleOptionsMenuUi, updateClearAllConfirmation } from "./tasks.dialogs.js";
 import { initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme } from "./tasks.theme.js";
 import { createInlineEditController } from "./tasks.inline-edit.js";
+import { createTasksRenderer } from "./tasks.render.js";
 
 const taskForm = document.querySelector("#taskForm");
 const taskIdInput = document.querySelector("#taskId");
@@ -103,6 +103,25 @@ const inlineEdit = createInlineEditController({
   },
   saveTasks,
   render,
+});
+
+const renderer = createTasksRenderer({
+  elements: {
+    taskList,
+    emptyState,
+    totalTasks,
+    pendingTasks,
+    weekTasks,
+    completedTasks,
+    searchInput,
+    statusFilter,
+    typeFilter,
+    sortFilter,
+  },
+  getTasks: () => tasks,
+  getCollapsedGroupKeys: () => collapsedGroupKeys,
+  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
+  getInlineEditState: inlineEdit.getState,
 });
 
 function getThemeElements() {
@@ -658,104 +677,7 @@ function toggleTaskStatus(taskId) {
 }
 
 function render() {
-  renderSummary();
-
-  const filteredTasks = getFilteredTasks();
-
-  taskList.innerHTML = "";
-
-  if (!filteredTasks.length) {
-    emptyState.classList.add("is-visible");
-    return;
-  }
-
-  emptyState.classList.remove("is-visible");
-  renderGroupedTasks(filteredTasks);
-}
-
-function renderGroupedTasks(filteredTasks) {
-  const groups = getTaskGroups(filteredTasks);
-
-  groups.forEach((group) => {
-    if (!group.tasks.length) {
-      return;
-    }
-
-    const groupSection = createTaskGroupSection(group, {
-      collapsedGroupKeys,
-      expandedChecklistTaskIds,
-      ...inlineEdit.getState(),
-    });
-    taskList.appendChild(groupSection);
-  });
-}
-
-function renderSummary() {
-  const today = getToday();
-  const sevenDaysFromNow = new Date(today);
-  sevenDaysFromNow.setDate(today.getDate() + 7);
-
-  const pending = tasks.filter((task) => task.status !== "Concluída");
-  const completed = tasks.filter((task) => task.status === "Concluída");
-
-  const nextSevenDays = tasks.filter((task) => {
-    const dueDate = createLocalDate(task.dueDate);
-
-    return task.status !== "Concluída" && dueDate >= today && dueDate <= sevenDaysFromNow;
-  });
-
-  totalTasks.textContent = tasks.length;
-  pendingTasks.textContent = pending.length;
-  weekTasks.textContent = nextSevenDays.length;
-  completedTasks.textContent = completed.length;
-}
-
-function getFilteredTasks() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  const selectedStatus = statusFilter.value;
-  const selectedType = typeFilter.value;
-  const selectedSort = sortFilter.value;
-
-  let filtered = [...tasks];
-
-  if (searchTerm) {
-    filtered = filtered.filter((task) => {
-      const subtasksText = (task.subtasks || []).map((subtask) => subtask.title).join(" ");
-      const searchableText = [task.title, task.type, task.subject, task.description, subtasksText, task.tags.join(" ")].join(" ").toLowerCase();
-
-      return searchableText.includes(searchTerm);
-    });
-  }
-
-  if (selectedStatus !== "Todos") {
-    filtered = filtered.filter((task) => task.status === selectedStatus);
-  }
-
-  if (selectedType !== "Todos") {
-    filtered = filtered.filter((task) => task.type === selectedType);
-  }
-
-  filtered.sort((a, b) => {
-    if (selectedSort === "dateAsc") {
-      return createLocalDate(a.dueDate) - createLocalDate(b.dueDate);
-    }
-
-    if (selectedSort === "dateDesc") {
-      return createLocalDate(b.dueDate) - createLocalDate(a.dueDate);
-    }
-
-    if (selectedSort === "priority") {
-      return getPriorityWeight(b.priority) - getPriorityWeight(a.priority);
-    }
-
-    if (selectedSort === "createdDesc") {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    }
-
-    return 0;
-  });
-
-  return filtered;
+  renderer.render();
 }
 
 function resetForm(clearMessage = true) {
