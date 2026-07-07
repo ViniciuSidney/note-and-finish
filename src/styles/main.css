@@ -2165,3 +2165,245 @@ body[data-theme="dark"] #createTaskDialog .task-form::-webkit-scrollbar-thumb:ho
 #createTaskDialog .dialog-header {
   margin-bottom: 12px;
 }
+
+/* ============================= */
+/* Ajuste da galeria de tarefas  */
+/* ============================= */
+
+/* Cards em grid responsivo: 3 a 4 por linha em telas largas */
+.task-group-items {
+  columns: initial;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  align-items: start;
+}
+
+/* Evita sobras estranhas vindas do antigo layout em columns */
+.task-card {
+  break-inside: auto;
+  margin-bottom: 0;
+}
+
+/* Em grupos com bastante largura, limita para até 4 colunas visuais */
+@media (min-width: 1400px) {
+  .task-group-items {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Em telas médias, tende a 3 colunas */
+@media (min-width: 1050px) and (max-width: 1399px) {
+  .task-group-items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Em telas menores, 2 colunas */
+@media (min-width: 720px) and (max-width: 1049px) {
+  .task-group-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: 1 coluna */
+@media (max-width: 719px) {
+  .task-group-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Título da tarefa mais chamativo */
+.task-title,
+.inline-title-button {
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Respiro melhor abaixo do título */
+.task-title-group {
+  display: grid;
+  gap: 6px;
+}
+
+/* Ajuste fino para o botão editável do título não parecer botão */
+.inline-title-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Cards um pouco mais equilibrados no novo grid */
+.task-card {
+  padding: 12px;
+  gap: 8px;
+}
+
+/* ============================= */
+/* Cards mais uniformes          */
+/* ============================= */
+
+.task-group-items {
+  align-items: stretch;
+}
+
+.task-card {
+  min-height: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.task-title-group {
+  display: grid;
+  gap: 6px;
+}
+
+.task-description {
+  min-height: 46px;
+  line-height: 1.4;
+}
+
+/* Dá um respiro visual e ajuda a alinhar melhor o rodapé do card */
+.task-date {
+  margin-top: auto;
+}
+
+.task-actions {
+  margin-top: 4px;
+}
+
+.task-description {
+  min-height: 46px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================= */
+/* Modal de visualização wide    */
+/* ============================= */
+
+#detailsDialog {
+  width: min(1120px, calc(100% - 32px));
+}
+
+#detailsDialog .dialog-content {
+  width: 100%;
+  max-height: calc(100dvh - 42px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#detailsDialog .dialog-header {
+  flex: 0 0 auto;
+  margin-bottom: 14px;
+}
+
+#detailsDialog #detailsBody {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  display: grid;
+  gap: 14px;
+}
+
+#detailsDialog #detailsBody > * {
+  min-width: 0;
+}
+
+#detailsDialog .details-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+  padding: 18px;
+}
+
+#detailsDialog .details-hero h3 {
+  font-size: 1.75rem;
+}
+
+#detailsDialog .details-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#detailsDialog .details-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 14px;
+}
+
+#detailsDialog .details-card {
+  padding: 16px;
+}
+
+#detailsDialog .details-card strong {
+  font-size: 1.02rem;
+}
+
+#detailsDialog .details-progress-card {
+  padding: 16px;
+}
+
+#detailsDialog .details-checklist-area .task-checklist {
+  margin-top: 10px;
+}
+
+#detailsDialog .details-record-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#detailsDialog #detailsBody::-webkit-scrollbar {
+  width: 8px;
+}
+
+#detailsDialog #detailsBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#detailsDialog #detailsBody::-webkit-scrollbar-thumb {
+  background: rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
+}
+
+#detailsDialog #detailsBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 94, 52, 0.42);
+}
+
+body[data-theme="dark"] #detailsDialog #detailsBody::-webkit-scrollbar-thumb {
+  background: rgba(214, 155, 97, 0.28);
+}
+
+body[data-theme="dark"] #detailsDialog #detailsBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(214, 155, 97, 0.42);
+}
+
+@media (max-width: 920px) {
+  #detailsDialog {
+    width: min(760px, calc(100% - 24px));
+  }
+
+  #detailsDialog .details-hero {
+    grid-template-columns: 1fr;
+  }
+
+  #detailsDialog .details-status-stack {
+    justify-content: flex-start;
+  }
+
+  #detailsDialog .details-grid,
+  #detailsDialog .details-grid-compact,
+  #detailsDialog .details-record-grid {
+    grid-template-columns: 1fr;
+  }
+}
