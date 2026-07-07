@@ -1,87 +1,54 @@
 /* ============================= */
-/* Layout: Empty State           */
+/* Empty State                   */
 /* ============================= */
 
-.layout-empty-state {
-  min-height: calc(100vh - var(--header-height));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-xl);
-}
-
 .empty-state {
-  width: min(100%, 520px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
+  display: none;
+
+  border: 1px dashed var(--border);
+  border-radius: 20px;
+
+  padding: 28px;
+  margin-top: 18px;
+
   text-align: center;
 
-  padding: var(--space-2xl);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  background: rgba(255, 244, 220, 0.45);
+}
+
+.empty-state.is-visible {
+  display: grid;
+  gap: 8px;
+}
+
+.empty-state span {
+  color: var(--muted);
 }
 
 .empty-state-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 4rem;
-  height: 4rem;
-
-  border-radius: var(--radius-pill);
-  background: var(--color-surface-soft);
-  color: var(--color-primary);
-
-  font-size: var(--font-size-2xl);
+  font-size: 2rem;
 }
 
 .empty-state-title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text);
+  display: block;
+  color: var(--text);
+  font-size: 1.05rem;
 }
 
 .empty-state-description {
-  max-width: 38rem;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  line-height: var(--line-height-normal);
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .empty-state-actions {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
   flex-wrap: wrap;
+  gap: 8px;
 
-  margin-top: var(--space-sm);
+  margin-top: 8px;
 }
 
-.empty-state-note {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-soft);
-}
-
-@media (max-width: 600px) {
-  .layout-empty-state {
-    padding: var(--space-md);
-  }
-
-  .empty-state {
-    padding: var(--space-xl);
-  }
-
-  .empty-state-actions {
-    width: 100%;
-  }
-
-  .empty-state-actions .btn {
-    width: 100%;
-  }
+body[data-theme="dark"] .empty-state {
+  background: rgba(45, 33, 24, 0.45);
 }

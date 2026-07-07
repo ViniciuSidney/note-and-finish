@@ -1,0 +1,232 @@
+/* ============================= */
+/* Details                       */
+/* ============================= */
+
+.details-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  background: rgba(255, 244, 220, 0.42);
+
+  padding: 16px;
+}
+
+.details-kicker {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 0.82rem;
+  font-weight: 800;
+
+  margin-bottom: 6px;
+}
+
+.details-hero h3 {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.details-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  margin-top: 10px;
+}
+
+.details-hero-meta span {
+  display: inline-flex;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--panel);
+  color: var(--accent-dark);
+
+  padding: 4px 8px;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.details-status-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.details-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.details-progress-pill {
+  flex: 0 0 auto;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--panel-strong);
+  color: var(--accent-dark);
+
+  padding: 5px 9px;
+
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.details-progress-track {
+  height: 9px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--panel-strong);
+
+  overflow: hidden;
+
+  margin: 12px 0;
+}
+
+.details-progress-track span {
+  display: block;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--accent);
+}
+
+.details-checklist-area .task-checklist {
+  margin-top: 8px;
+}
+
+.details-long-text {
+  white-space: pre-wrap;
+}
+
+.details-empty-text {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.details-record-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.details-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Modal de visualização wide */
+#detailsDialog {
+  width: min(1120px, calc(100% - 32px));
+}
+
+#detailsDialog .dialog-content {
+  width: 100%;
+  max-height: calc(100dvh - 42px);
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+#detailsDialog .dialog-header {
+  flex: 0 0 auto;
+  margin-bottom: 14px;
+}
+
+#detailsDialog #detailsBody {
+  min-height: 0;
+
+  overflow-y: auto;
+
+  display: grid;
+  gap: 14px;
+
+  padding-right: 6px;
+}
+
+#detailsDialog #detailsBody > * {
+  min-width: 0;
+}
+
+#detailsDialog .details-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+
+  padding: 18px;
+}
+
+#detailsDialog .details-hero h3 {
+  font-size: 1.75rem;
+}
+
+#detailsDialog .details-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#detailsDialog .details-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 14px;
+}
+
+#detailsDialog .details-card {
+  padding: 16px;
+}
+
+#detailsDialog .details-card strong {
+  font-size: 1.02rem;
+}
+
+#detailsDialog .details-progress-card {
+  padding: 16px;
+}
+
+#detailsDialog .details-checklist-area .task-checklist {
+  margin-top: 10px;
+}
+
+#detailsDialog .details-record-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Tema escuro */
+body[data-theme="dark"] .details-hero {
+  background: rgba(45, 33, 24, 0.42);
+}
+
+body[data-theme="dark"] .details-hero-meta span,
+body[data-theme="dark"] .details-progress-pill {
+  background: #1b1510;
+}
+
+body[data-theme="dark"] .details-progress-track {
+  background: #2d2118;
+}

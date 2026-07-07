@@ -1,0 +1,139 @@
+/* ============================= */
+/* Inline Edit                   */
+/* ============================= */
+
+.inline-edit-control-wide {
+  min-width: min(100%, 180px);
+}
+
+.inline-edit-control-date {
+  width: 100%;
+}
+
+.inline-edit-input {
+  width: 100%;
+  min-width: 120px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: #fffdf8;
+  color: var(--text);
+
+  padding: 5px 8px;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  outline: none;
+}
+
+.inline-edit-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.14);
+}
+
+.inline-edit-date-input {
+  min-width: 145px;
+}
+
+.inline-date-button {
+  width: fit-content;
+  max-width: 100%;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--muted);
+
+  padding: 0;
+
+  font-size: 0.82rem;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.inline-date-button:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.inline-edit-control-title,
+.inline-edit-control-description {
+  width: 100%;
+}
+
+.inline-edit-title-input {
+  font-size: 0.96rem;
+}
+
+.inline-title-button {
+  width: fit-content;
+  max-width: 100%;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--text);
+
+  padding: 0;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.inline-title-button:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.inline-description-button {
+  width: fit-content;
+  max-width: 100%;
+
+  border: 0;
+  background: transparent;
+
+  padding: 0;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.inline-description-button:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.inline-edit-textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.35;
+}
+
+/* Tema escuro */
+body[data-theme="dark"] .inline-edit-input {
+  background: #1b1510;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+body[data-theme="dark"] .inline-edit-input:focus {
+  box-shadow: 0 0 0 3px rgba(214, 155, 97, 0.14);
+}
+
+body[data-theme="dark"] .inline-date-button:hover {
+  color: var(--accent-dark);
+}
+
+body[data-theme="dark"] .inline-title-button {
+  color: var(--text);
+}
+
+body[data-theme="dark"] .inline-title-button:hover,
+body[data-theme="dark"] .inline-description-button:hover {
+  color: var(--accent-dark);
+}

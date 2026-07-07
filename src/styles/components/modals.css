@@ -89,6 +89,20 @@
   transform: translateY(-1px);
 }
 
+/* ============================= */
+/* Modal messages                */
+/* ============================= */
+
+#clearAllDialog #clearAllMessage {
+  margin: 12px 0 18px;
+  min-height: 22px;
+  line-height: 1.45;
+}
+
+#clearAllDialog .dialog-actions {
+  margin-top: 4px;
+}
+
 /* Tema escuro */
 body[data-theme="dark"] .dialog-content {
   background: var(--panel);

@@ -21,15 +21,21 @@
 @import url("./components/toggles.css");
 @import url("./components/modals.css");
 @import url("./components/panels.css");
+@import url("./components/dropdowns.css");
+@import url("./components/inline-edit.css");
+@import url("./components/details.css");
 
 /* Layouts */
 @import url("./layouts/layout-gallery.css");
+@import url("./layouts/layout-form.css");
+@import url("./layouts/layout-empty-state.css");
 
 /* Utilidades */
 @import url("./utilities/scrollbar.css");
+@import url("./utilities/helpers.css");
 
 /* Página atual */
 @import url("./pages/home.css");
 
-/* Responsividade global da aplicação */
+/* Responsividade global */
 @import url("./utilities/responsive.css");

@@ -80,6 +80,120 @@
   border-radius: var(--radius-lg);
 }
 
+/* ============================= */
+/* Task Form Dialog              */
+/* ============================= */
+
+.task-form-dialog {
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+
+  overflow-y: auto;
+}
+
+.task-form-dialog .task-form {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+/* Modal wide de criação de atividade */
+#createTaskDialog {
+  width: min(1040px, calc(100% - 32px));
+}
+
+#createTaskDialog .task-form-dialog {
+  width: 100%;
+  max-height: calc(100dvh - 48px);
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#createTaskDialog .dialog-header {
+  flex: 0 0 auto;
+  margin-bottom: 14px;
+}
+
+#createTaskDialog .task-form {
+  min-height: 0;
+  max-height: calc(100dvh - 170px);
+
+  overflow-y: auto;
+
+  padding-right: 6px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px 12px;
+}
+
+#createTaskDialog .task-form > .form-group,
+#createTaskDialog .task-form > .form-row,
+#createTaskDialog .task-form > .form-message,
+#createTaskDialog .task-form > .form-actions {
+  grid-column: 1 / -1;
+}
+
+#createTaskDialog .task-form > .form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Coloca descrição e checklist lado a lado */
+#createTaskDialog .form-group:has(#description) {
+  grid-column: 1;
+}
+
+#createTaskDialog .form-group:has(#subtasks) {
+  grid-column: 2;
+}
+
+#createTaskDialog #description,
+#createTaskDialog #subtasks {
+  height: 158px;
+  min-height: 158px;
+}
+
+#createTaskDialog .form-group:has(#tags),
+#createTaskDialog .form-message,
+#createTaskDialog .form-actions {
+  grid-column: 1 / -1;
+}
+
+#createTaskDialog .form-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+
+  padding-top: 10px;
+
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+}
+
+#createTaskDialog .form-group:has(#description),
+#createTaskDialog .form-group:has(#subtasks) {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+}
+
+#createTaskDialog .form-group:has(#subtasks) small {
+  margin-top: 2px;
+}
+
+#createTaskDialog .task-form {
+  gap: 10px 12px;
+}
+
+#createTaskDialog .dialog-header {
+  margin-bottom: 12px;
+}
+
 @media (max-width: 900px) {
   .form-layout-grid {
     grid-template-columns: 1fr;
