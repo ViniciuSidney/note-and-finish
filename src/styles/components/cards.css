@@ -352,53 +352,6 @@
   padding: 8px;
 }
 
-.task-checklist-toggle {
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px;
-
-  border: 0;
-  background: transparent;
-  color: var(--text);
-
-  padding: 0;
-  text-align: left;
-}
-
-.task-checklist-toggle:hover .task-checklist-label {
-  color: var(--accent-dark);
-}
-
-.task-checklist-arrow {
-  color: var(--accent-dark);
-  font-size: 0.9rem;
-  line-height: 1;
-}
-
-.task-checklist-label {
-  font-size: 0.9rem;
-  font-weight: 800;
-  transition: color 0.2s;
-}
-
-.task-checklist-progress {
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.task-checklist.is-collapsed {
-  gap: 0;
-}
-
-.task-checklist.is-collapsed .subtask-list,
-.task-checklist.is-collapsed .task-checklist-more {
-  display: none;
-}
-
 .task-checklist-header {
   display: flex;
   align-items: center;
