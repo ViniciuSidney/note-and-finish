@@ -3,80 +3,98 @@
 // File: features/tasks/tasks.dom.js
 // =============================
 
+const TASK_ELEMENT_SELECTORS = {
+  taskForm: "#taskForm",
+  taskIdInput: "#taskId",
+  titleInput: "#title",
+  typeInput: "#type",
+  subjectInput: "#subject",
+  dueDateInput: "#dueDate",
+  priorityInput: "#priority",
+  statusInput: "#status",
+  descriptionInput: "#description",
+  subtasksInput: "#subtasks",
+  tagsInput: "#tags",
+
+  formTitle: "#formTitle",
+  submitButton: "#submitButton",
+  clearButton: "#clearButton",
+  formMessage: "#formMessage",
+
+  searchInput: "#searchInput",
+  statusFilter: "#statusFilter",
+  typeFilter: "#typeFilter",
+  sortFilter: "#sortFilter",
+
+  taskList: "#taskList",
+  emptyState: "#emptyState",
+
+  totalTasks: "#totalTasks",
+  pendingTasks: "#pendingTasks",
+  weekTasks: "#weekTasks",
+  completedTasks: "#completedTasks",
+
+  detailsDialog: "#detailsDialog",
+  detailsTitle: "#detailsTitle",
+  detailsBody: "#detailsBody",
+  closeDetailsButton: "#closeDetailsButton",
+
+  deleteDialog: "#deleteDialog",
+  cancelDeleteButton: "#cancelDeleteButton",
+  cancelDeleteTopButton: "#cancelDeleteTopButton",
+  confirmDeleteButton: "#confirmDeleteButton",
+
+  optionsButton: "#optionsButton",
+  optionsDropdown: "#optionsDropdown",
+  themeToggleButton: "#themeToggleButton",
+  themeIcon: "#themeIcon",
+  themeText: "#themeText",
+
+  exportBackupButton: "#exportBackupButton",
+  importBackupButton: "#importBackupButton",
+  importFileInput: "#importFileInput",
+
+  importDialog: "#importDialog",
+  importSummary: "#importSummary",
+  cancelImportButton: "#cancelImportButton",
+  cancelImportTopButton: "#cancelImportTopButton",
+  confirmImportButton: "#confirmImportButton",
+
+  clearAllButton: "#clearAllButton",
+  clearAllDialog: "#clearAllDialog",
+  clearAllConfirmInput: "#clearAllConfirmInput",
+  clearAllMessage: "#clearAllMessage",
+  cancelClearAllButton: "#cancelClearAllButton",
+  cancelClearAllTopButton: "#cancelClearAllTopButton",
+  confirmClearAllButton: "#confirmClearAllButton",
+
+  filtersToggleButton: "#filtersToggleButton",
+  filtersPanel: "#filtersPanel",
+
+  createTaskDialog: "#createTaskDialog",
+  openTaskFormButton: "#openTaskFormButton",
+  emptyCreateTaskButton: "#emptyCreateTaskButton",
+  closeTaskFormButton: "#closeTaskFormButton",
+};
+
+function getRequiredElement(root, key, selector) {
+  const element = root.querySelector(selector);
+
+  if (!element) {
+    throw new Error(`[Tasks DOM] Elemento obrigatório não encontrado: ${key} (${selector})`);
+  }
+
+  return element;
+}
+
 export function getTaskElements(root = document) {
-  return {
+  const elements = {
     rootDocument: root,
-
-    taskForm: root.querySelector("#taskForm"),
-    taskIdInput: root.querySelector("#taskId"),
-    titleInput: root.querySelector("#title"),
-    typeInput: root.querySelector("#type"),
-    subjectInput: root.querySelector("#subject"),
-    dueDateInput: root.querySelector("#dueDate"),
-    priorityInput: root.querySelector("#priority"),
-    statusInput: root.querySelector("#status"),
-    descriptionInput: root.querySelector("#description"),
-    subtasksInput: root.querySelector("#subtasks"),
-    tagsInput: root.querySelector("#tags"),
-
-    formTitle: root.querySelector("#formTitle"),
-    submitButton: root.querySelector("#submitButton"),
-    clearButton: root.querySelector("#clearButton"),
-    formMessage: root.querySelector("#formMessage"),
-
-    searchInput: root.querySelector("#searchInput"),
-    statusFilter: root.querySelector("#statusFilter"),
-    typeFilter: root.querySelector("#typeFilter"),
-    sortFilter: root.querySelector("#sortFilter"),
-
-    taskList: root.querySelector("#taskList"),
-    emptyState: root.querySelector("#emptyState"),
-
-    totalTasks: root.querySelector("#totalTasks"),
-    pendingTasks: root.querySelector("#pendingTasks"),
-    weekTasks: root.querySelector("#weekTasks"),
-    completedTasks: root.querySelector("#completedTasks"),
-
-    detailsDialog: root.querySelector("#detailsDialog"),
-    detailsTitle: root.querySelector("#detailsTitle"),
-    detailsBody: root.querySelector("#detailsBody"),
-    closeDetailsButton: root.querySelector("#closeDetailsButton"),
-
-    deleteDialog: root.querySelector("#deleteDialog"),
-    cancelDeleteButton: root.querySelector("#cancelDeleteButton"),
-    cancelDeleteTopButton: root.querySelector("#cancelDeleteTopButton"),
-    confirmDeleteButton: root.querySelector("#confirmDeleteButton"),
-
-    optionsButton: root.querySelector("#optionsButton"),
-    optionsDropdown: root.querySelector("#optionsDropdown"),
-    themeToggleButton: root.querySelector("#themeToggleButton"),
-    themeIcon: root.querySelector("#themeIcon"),
-    themeText: root.querySelector("#themeText"),
-
-    exportBackupButton: root.querySelector("#exportBackupButton"),
-    importBackupButton: root.querySelector("#importBackupButton"),
-    importFileInput: root.querySelector("#importFileInput"),
-
-    importDialog: root.querySelector("#importDialog"),
-    importSummary: root.querySelector("#importSummary"),
-    cancelImportButton: root.querySelector("#cancelImportButton"),
-    cancelImportTopButton: root.querySelector("#cancelImportTopButton"),
-    confirmImportButton: root.querySelector("#confirmImportButton"),
-
-    clearAllButton: root.querySelector("#clearAllButton"),
-    clearAllDialog: root.querySelector("#clearAllDialog"),
-    clearAllConfirmInput: root.querySelector("#clearAllConfirmInput"),
-    clearAllMessage: root.querySelector("#clearAllMessage"),
-    cancelClearAllButton: root.querySelector("#cancelClearAllButton"),
-    cancelClearAllTopButton: root.querySelector("#cancelClearAllTopButton"),
-    confirmClearAllButton: root.querySelector("#confirmClearAllButton"),
-
-    filtersToggleButton: root.querySelector("#filtersToggleButton"),
-    filtersPanel: root.querySelector("#filtersPanel"),
-
-    createTaskDialog: root.querySelector("#createTaskDialog"),
-    openTaskFormButton: root.querySelector("#openTaskFormButton"),
-    emptyCreateTaskButton: root.querySelector("#emptyCreateTaskButton"),
-    closeTaskFormButton: root.querySelector("#closeTaskFormButton"),
   };
+
+  Object.entries(TASK_ELEMENT_SELECTORS).forEach(([key, selector]) => {
+    elements[key] = getRequiredElement(root, key, selector);
+  });
+
+  return elements;
 }
