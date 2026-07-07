@@ -3,11 +3,14 @@
 // File: features/tasks/tasks.controller.js
 // =============================
 
-import { BACKUP_FILE_PREFIX, INLINE_SELECT_OPTIONS, THEME_STORAGE_KEY } from "./tasks.constants.js";
-import { getPriorityWeight, getTaskGroups, normalizeImportedTasks } from "./tasks.model.js";
+import { INLINE_SELECT_OPTIONS } from "./tasks.constants.js";
+import { getPriorityWeight, getTaskGroups } from "./tasks.model.js";
 import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
 import { createId, createLocalDate, getToday } from "./tasks.utils.js";
 import { createDetailsHtml, createTaskGroupSection } from "./tasks.ui.js";
+import { exportTasksBackup, getImportSummaryText, readImportedTasksFile } from "./tasks.backup.js";
+import { closeClearAllDialog as closeClearAllDialogUi, closeDialog, closeOptionsMenu as closeOptionsMenuUi, isClearAllConfirmationValid, openClearAllDialog as openClearAllDialogUi, openCreateTaskDialog as openCreateTaskDialogUi, openDialog, openImportDialog, toggleOptionsMenu as toggleOptionsMenuUi, updateClearAllConfirmation } from "./tasks.dialogs.js";
+import { initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme } from "./tasks.theme.js";
 
 const taskForm = document.querySelector("#taskForm");
 const taskIdInput = document.querySelector("#taskId");
@@ -95,6 +98,47 @@ function saveCollapsedGroupKeys() {
   persistCollapsedGroupKeys(collapsedGroupKeys);
 }
 
+function getThemeElements() {
+  return {
+    themeToggleButton,
+    themeIcon,
+    themeText,
+  };
+}
+
+function getOptionsMenuElements() {
+  return {
+    optionsButton,
+    optionsDropdown,
+  };
+}
+
+function getCreateTaskDialogElements() {
+  return {
+    createTaskDialog,
+    titleInput,
+    formTitle,
+    submitButton,
+    resetForm,
+  };
+}
+
+function getImportDialogElements() {
+  return {
+    importDialog,
+    importSummary,
+  };
+}
+
+function getClearAllDialogElements() {
+  return {
+    clearAllDialog,
+    clearAllConfirmInput,
+    clearAllMessage,
+    confirmClearAllButton,
+  };
+}
+
 let isInitialized = false;
 
 export function initTasksFeature() {
@@ -178,68 +222,24 @@ export function initTasksFeature() {
 }
 
 function initializeTheme() {
-  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-  const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  const initialTheme = savedTheme || (prefersDarkTheme ? "dark" : "light");
-
-  applyTheme(initialTheme);
-}
-
-function applyTheme(theme) {
-  const isDarkTheme = theme === "dark";
-
-  document.body.dataset.theme = theme;
-
-  themeIcon.textContent = isDarkTheme ? "☀️" : "🌙";
-  themeText.textContent = isDarkTheme ? "Tema claro" : "Tema escuro";
-
-  themeToggleButton.setAttribute("aria-label", isDarkTheme ? "Ativar tema claro" : "Ativar tema escuro");
+  initializeAppTheme(getThemeElements());
 }
 
 function toggleTheme() {
-  const currentTheme = document.body.dataset.theme === "dark" ? "dark" : "light";
-  const nextTheme = currentTheme === "dark" ? "light" : "dark";
-
-  localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-
-  applyTheme(nextTheme);
+  toggleAppTheme(getThemeElements());
   closeOptionsMenu();
 }
 
 function toggleOptionsMenu() {
-  const isOpen = optionsDropdown.classList.toggle("is-open");
-
-  optionsButton.setAttribute("aria-expanded", String(isOpen));
-  optionsDropdown.setAttribute("aria-hidden", String(!isOpen));
+  toggleOptionsMenuUi(getOptionsMenuElements());
 }
 
 function closeOptionsMenu() {
-  optionsDropdown.classList.remove("is-open");
-  optionsButton.setAttribute("aria-expanded", "false");
-  optionsDropdown.setAttribute("aria-hidden", "true");
+  closeOptionsMenuUi(getOptionsMenuElements());
 }
 
 function exportBackup() {
-  const backup = {
-    app: "Agenda Escolar",
-    version: "1.2",
-    exportedAt: new Date().toISOString(),
-    tasks,
-  };
-
-  const backupContent = JSON.stringify(backup, null, 2);
-  const blob = new Blob([backupContent], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-  const date = new Date().toISOString().slice(0, 10);
-
-  link.href = url;
-  link.download = `${BACKUP_FILE_PREFIX}-${date}.json`;
-  link.click();
-
-  URL.revokeObjectURL(url);
+  exportTasksBackup(tasks);
 
   closeOptionsMenu();
   showFormMessage("Backup exportado com sucesso.", "success");
@@ -250,57 +250,36 @@ function openImportFilePicker() {
   importFileInput.click();
 }
 
-function handleImportFile(event) {
+async function handleImportFile(event) {
   const file = event.target.files[0];
 
   if (!file) {
     return;
   }
 
-  const reader = new FileReader();
+  try {
+    const importedTasks = await readImportedTasksFile(file);
 
-  reader.addEventListener("load", () => {
-    try {
-      const parsedBackup = JSON.parse(reader.result);
-      const importedTasks = normalizeImportedTasks(parsedBackup);
-
-      if (!importedTasks.length) {
-        showFormMessage("O arquivo não possui atividades válidas para importar.", "error");
-        return;
-      }
-
-      pendingImportedTasks = importedTasks;
-      importSummary.textContent = `O arquivo possui ${importedTasks.length} atividade${importedTasks.length > 1 ? "s" : ""}. Deseja importar esse backup agora?`;
-      importDialog.showModal();
-    } catch {
-      showFormMessage("Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.", "error");
-    } finally {
-      importFileInput.value = "";
+    if (!importedTasks.length) {
+      showFormMessage("O arquivo não possui atividades válidas para importar.", "error");
+      return;
     }
-  });
 
-  reader.addEventListener("error", () => {
-    showFormMessage("Ocorreu um erro ao ler o arquivo de backup.", "error");
+    pendingImportedTasks = importedTasks;
+    openImportDialog(getImportDialogElements(), getImportSummaryText(importedTasks.length));
+  } catch {
+    showFormMessage("Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.", "error");
+  } finally {
     importFileInput.value = "";
-  });
-
-  reader.readAsText(file);
+  }
 }
 
 function openCreateTaskDialog() {
-  resetForm();
-
-  formTitle.textContent = "Nova atividade";
-  submitButton.textContent = "Salvar atividade";
-
-  createTaskDialog.showModal();
-
-  setTimeout(() => titleInput.focus(), 50);
+  openCreateTaskDialogUi(getCreateTaskDialogElements());
 }
 
 function closeCreateTaskDialog() {
-  resetForm();
-  createTaskDialog.close();
+  closeCreateTaskDialogUi(getCreateTaskDialogElements());
 }
 
 function confirmImportBackup() {
@@ -321,31 +300,20 @@ function confirmImportBackup() {
 
 function closeImportDialog() {
   pendingImportedTasks = null;
-  importDialog.close();
+  closeDialog(importDialog);
 }
 
 function openClearAllDialog() {
   closeOptionsMenu();
-
-  clearAllConfirmInput.value = "";
-  clearAllMessage.textContent = "";
-  clearAllMessage.className = "form-message";
-  confirmClearAllButton.disabled = true;
-
-  clearAllDialog.showModal();
-  setTimeout(() => clearAllConfirmInput.focus(), 50);
+  openClearAllDialogUi(getClearAllDialogElements());
 }
 
 function validateClearAllConfirmation() {
-  const canDelete = clearAllConfirmInput.value.trim().toUpperCase() === "APAGAR";
-
-  confirmClearAllButton.disabled = !canDelete;
-  clearAllMessage.textContent = canDelete ? "Confirmação liberada." : "";
-  clearAllMessage.className = `form-message ${canDelete ? "success" : ""}`;
+  updateClearAllConfirmation(getClearAllDialogElements());
 }
 
 function clearAllTasks() {
-  if (clearAllConfirmInput.value.trim().toUpperCase() !== "APAGAR") {
+  if (!isClearAllConfirmationValid(clearAllConfirmInput.value)) {
     clearAllMessage.textContent = "Digite APAGAR para confirmar.";
     clearAllMessage.className = "form-message error";
     return;
@@ -362,10 +330,7 @@ function clearAllTasks() {
 }
 
 function closeClearAllDialog() {
-  clearAllDialog.close();
-  clearAllConfirmInput.value = "";
-  clearAllMessage.textContent = "";
-  confirmClearAllButton.disabled = true;
+  closeClearAllDialogUi(getClearAllDialogElements());
 }
 
 function handleSubmit(event) {
@@ -828,12 +793,12 @@ function editTask(taskId) {
 
 function openDeleteDialog(taskId) {
   taskIdToDelete = taskId;
-  deleteDialog.showModal();
+  openDialog(deleteDialog);
 }
 
 function closeDeleteDialog() {
   taskIdToDelete = null;
-  deleteDialog.close();
+  closeDialog(deleteDialog);
 }
 
 function deleteSelectedTask() {
