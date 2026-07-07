@@ -358,98 +358,6 @@
   text-decoration: line-through;
 }
 
-.task-meta {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border-radius: 999px;
-  padding: 3px 7px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  background: var(--panel-strong);
-  color: var(--accent-dark);
-  border: 1px solid var(--border);
-}
-
-.inline-edit-control {
-  position: relative;
-  display: inline-flex;
-  max-width: 100%;
-}
-
-.editable-badge {
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.editable-badge:hover {
-  background: #f2dfbf;
-  transform: translateY(-1px);
-}
-
-.editable-badge-icon {
-  font-size: 0.65rem;
-  opacity: 0.75;
-}
-
-.inline-select-menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  z-index: 30;
-  min-width: 145px;
-  display: grid;
-  gap: 4px;
-  padding: 6px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-}
-
-.inline-select-option {
-  width: 100%;
-  border: 0;
-  border-radius: 9px;
-  background: transparent;
-  color: var(--text);
-  padding: 7px 9px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-align: left;
-}
-
-.inline-select-option:hover {
-  background: var(--panel-strong);
-}
-
-.inline-select-option.is-selected {
-  background: var(--panel-strong);
-  color: var(--accent-dark);
-}
-
-.badge-priority-high {
-  background: #fff0f0;
-  color: var(--danger);
-}
-
-.badge-priority-medium {
-  background: #fff6e7;
-  color: var(--warning);
-}
-
-.badge-priority-low {
-  background: #eef8ef;
-  color: var(--success);
-}
-
 .task-description {
   margin: 0;
   color: var(--muted);
@@ -900,12 +808,6 @@
   white-space: pre-wrap;
 }
 
-.details-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
 .details-empty-text {
   color: var(--muted);
   font-size: 0.9rem;
@@ -995,21 +897,6 @@ body[data-theme="dark"] .empty-state {
   background: rgba(45, 33, 24, 0.45);
 }
 
-body[data-theme="dark"] .badge-priority-high {
-  background: rgba(224, 109, 109, 0.15);
-  color: var(--danger);
-}
-
-body[data-theme="dark"] .badge-priority-medium {
-  background: rgba(226, 164, 79, 0.15);
-  color: var(--warning);
-}
-
-body[data-theme="dark"] .badge-priority-low {
-  background: rgba(130, 201, 138, 0.15);
-  color: var(--success);
-}
-
 body[data-theme="dark"] .task-checklist {
   background: rgba(45, 33, 24, 0.45);
 }
@@ -1051,17 +938,6 @@ body[data-theme="dark"] .task-list::-webkit-scrollbar-thumb:hover {
 
 body[data-theme="dark"] .filters {
   background: rgba(45, 33, 24, 0.32);
-}
-
-body[data-theme="dark"] .editable-badge:hover,
-body[data-theme="dark"] .inline-select-option:hover,
-body[data-theme="dark"] .inline-select-option.is-selected {
-  background: #38291e;
-}
-
-body[data-theme="dark"] .inline-select-menu {
-  background: var(--panel);
-  border-color: var(--border);
 }
 
 body[data-theme="dark"] .inline-edit-input {
