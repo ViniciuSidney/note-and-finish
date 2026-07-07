@@ -1,0 +1,166 @@
+<!--
+  Layout: L04 - Formulário Guiado
+  Uso: criação ou edição de dados com orientação lateral e validações.
+-->
+
+<section class="layout-form">
+  <header class="form-layout-header">
+    <h1 class="form-layout-title">
+      Título do Formulário
+    </h1>
+
+    <p class="form-layout-description">
+      Explique rapidamente o objetivo deste formulário e quais informações o usuário deve preencher.
+    </p>
+  </header>
+
+  <div class="form-layout-grid">
+    <main class="panel form-main-panel">
+      <form class="form">
+        <section class="form-section">
+          <h2 class="form-section-title">
+            Informações principais
+          </h2>
+
+          <div class="form-group">
+            <label class="form-label" for="itemName">
+              Nome do item <span class="form-required">*</span>
+            </label>
+
+            <input
+              class="input"
+              id="itemName"
+              name="itemName"
+              type="text"
+              placeholder="Digite o nome do item"
+            />
+
+            <p class="form-hint">
+              Use um nome claro, curto e fácil de identificar.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="itemDescription">
+              Descrição
+            </label>
+
+            <textarea
+              class="textarea"
+              id="itemDescription"
+              name="itemDescription"
+              placeholder="Digite uma descrição"
+            ></textarea>
+
+            <p class="form-hint">
+              A descrição pode ser usada para explicar melhor o item.
+            </p>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2 class="form-section-title">
+            Organização
+          </h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="itemCategory">
+                Categoria
+              </label>
+
+              <select class="select" id="itemCategory" name="itemCategory">
+                <option value="">Selecione uma categoria</option>
+                <option value="categoria-1">Categoria 1</option>
+                <option value="categoria-2">Categoria 2</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="itemStatus">
+                Status
+              </label>
+
+              <select class="select" id="itemStatus" name="itemStatus">
+                <option value="">Selecione um status</option>
+                <option value="ativo">Ativo</option>
+                <option value="pendente">Pendente</option>
+                <option value="concluido">Concluído</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </form>
+    </main>
+
+    <aside class="form-side-panel">
+      <section class="panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Orientações
+            </h2>
+
+            <p class="panel-description">
+              Use esta área para explicar regras, exemplos e cuidados importantes.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <div class="alert alert-info">
+            <div>
+              <h3 class="alert-title">
+                Dica
+              </h3>
+
+              <p class="alert-text">
+                Preencha apenas o necessário. Campos extras podem ser deixados para versões futuras.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Validações
+            </h2>
+
+            <p class="panel-description">
+              Confira se os dados principais foram preenchidos corretamente.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <div class="form-validation-list">
+            <p class="form-validation-item is-invalid">
+              ● Nome obrigatório.
+            </p>
+
+            <p class="form-validation-item is-valid">
+              ● Descrição opcional.
+            </p>
+
+            <p class="form-validation-item">
+              ● Categoria pode ser definida depois.
+            </p>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="form-layout-actions">
+    <button class="btn btn-secondary" type="button">
+      Cancelar
+    </button>
+
+    <button class="btn btn-primary" type="submit">
+      Salvar
+    </button>
+  </footer>
+</section>

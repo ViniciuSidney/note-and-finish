@@ -1,0 +1,155 @@
+<!--
+  Layout: L02 - Shell Modular
+  Uso: tela principal de trabalho com painel central e áreas laterais de apoio.
+
+  Variações possíveis:
+  - class="layout-shell"
+  - class="layout-shell layout-shell-left-dominant"
+  - class="layout-shell layout-shell-multipanel"
+-->
+
+<section class="layout-shell layout-shell-left-dominant">
+  <header class="shell-header">
+    <div class="shell-title-group">
+      <h1 class="shell-title">
+        Shell Modular
+      </h1>
+
+      <p class="shell-description">
+        Use este layout para telas com uma ação central forte e painéis laterais de apoio.
+      </p>
+    </div>
+
+    <div class="shell-actions-top">
+      <button class="btn btn-secondary" type="button">
+        Ajuda
+      </button>
+
+      <button class="btn btn-primary" type="button">
+        Ação global
+      </button>
+    </div>
+  </header>
+
+  <div class="shell-grid">
+    <aside class="shell-left">
+      <section class="panel shell-panel-large">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Painel lateral esquerdo
+            </h2>
+
+            <p class="panel-description">
+              Use para contexto, instruções, filtros ou informações da sessão.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <p class="text-muted">
+            Conteúdo auxiliar do painel esquerdo.
+          </p>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" type="button">
+              Filtro 1
+            </button>
+
+            <button class="btn btn-outline btn-sm" type="button">
+              Filtro 2
+            </button>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <main class="shell-main">
+      <header class="shell-main-header">
+        <div>
+          <h2 class="shell-main-title">
+            Painel principal
+          </h2>
+
+          <p class="shell-main-description">
+            Esta é a área mais importante da tela. Coloque aqui a ação ou conteúdo principal.
+          </p>
+        </div>
+
+        <span class="badge badge-primary">
+          Principal
+        </span>
+      </header>
+
+      <div class="shell-main-body">
+        <section class="panel panel-center">
+          <div>
+            <h3 class="panel-title">
+              Conteúdo central
+            </h3>
+
+            <p class="panel-description">
+              Pode ser um timer, uma questão, um editor, uma tarefa atual ou qualquer elemento principal da aplicação.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <aside class="shell-right">
+      <section class="panel shell-panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Apoio 1
+            </h2>
+
+            <p class="panel-description">
+              Histórico, status ou resumo.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <p class="text-muted">
+            Informação auxiliar.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel shell-panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Apoio 2
+            </h2>
+
+            <p class="panel-description">
+              Dicas, atalhos ou ações rápidas.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <button class="btn btn-secondary btn-sm" type="button">
+            Ação rápida
+          </button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="shell-bottom-actions">
+    <button class="btn btn-secondary" type="button">
+      Voltar
+    </button>
+
+    <button class="btn btn-outline" type="button">
+      Pausar
+    </button>
+
+    <button class="btn btn-primary" type="button">
+      Confirmar ação
+    </button>
+  </footer>
+</section>

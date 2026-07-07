@@ -1,0 +1,138 @@
+<!--
+  Layout: L23 - Search
+  Uso: busca, filtragem, ordenação e visualização de resultados.
+-->
+
+<section class="layout-search">
+  <header class="search-header">
+    <h1 class="search-title">
+      Buscar Registros
+    </h1>
+
+    <p class="search-description">
+      Use esta tela para pesquisar informações, aplicar filtros e visualizar resultados encontrados.
+    </p>
+  </header>
+
+  <section class="search-panel">
+    <div class="search-main">
+      <input
+        class="input search-input"
+        type="search"
+        placeholder="Digite o que deseja pesquisar..."
+      />
+
+      <button class="btn btn-primary" type="button">
+        Pesquisar
+      </button>
+    </div>
+
+    <div class="search-filters">
+      <button class="btn btn-secondary btn-sm" type="button">
+        Todos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Recentes
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Favoritos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Com pendências
+      </button>
+    </div>
+
+    <div class="search-active-filters">
+      <span>
+        Filtros ativos:
+      </span>
+
+      <span class="badge badge-outline">
+        Recentes
+      </span>
+
+      <span class="badge badge-outline">
+        Favoritos
+      </span>
+    </div>
+  </section>
+
+  <header class="search-results-header">
+    <span>
+      2 resultados encontrados
+    </span>
+
+    <div class="btn-group">
+      <button class="btn btn-ghost btn-sm" type="button">
+        Ordenar por data
+      </button>
+
+      <button class="btn btn-ghost btn-sm" type="button">
+        Limpar filtros
+      </button>
+    </div>
+  </header>
+
+  <main class="search-results">
+    <article class="search-result-item">
+      <div class="search-result-content">
+        <h2 class="search-result-title">
+          Resultado exemplo
+        </h2>
+
+        <p class="search-result-description">
+          Esta é uma descrição resumida do resultado encontrado pela busca.
+        </p>
+
+        <div class="search-result-meta">
+          <span>Categoria</span>
+          <span>•</span>
+          <span>Atualizado recentemente</span>
+        </div>
+      </div>
+
+      <div class="search-result-actions">
+        <button class="btn btn-secondary btn-sm" type="button">
+          Abrir
+        </button>
+
+        <button class="btn btn-ghost btn-sm" type="button">
+          Editar
+        </button>
+      </div>
+    </article>
+
+    <article class="search-result-item">
+      <div class="search-result-content">
+        <h2 class="search-result-title">
+          Outro resultado
+        </h2>
+
+        <p class="search-result-description">
+          Outro item encontrado. Pode ser exibido como lista ou adaptado para cards.
+        </p>
+
+        <div class="search-result-meta">
+          <span>Status</span>
+          <span>•</span>
+          <span>Exemplo</span>
+        </div>
+      </div>
+
+      <div class="search-result-actions">
+        <button class="btn btn-secondary btn-sm" type="button">
+          Selecionar
+        </button>
+      </div>
+    </article>
+  </main>
+
+  <footer class="search-footer">
+    <button class="btn btn-outline" type="button">
+      Carregar mais resultados
+    </button>
+  </footer>
+</section>

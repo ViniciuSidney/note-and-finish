@@ -1,0 +1,107 @@
+/* ============================= */
+/* Utility: Component States     */
+/* ============================= */
+
+/* Estado genérico: escondido */
+.is-hidden {
+  display: none !important;
+}
+
+/* Estado genérico: visível */
+.is-visible {
+  display: initial !important;
+}
+
+/* Estado genérico: ativo */
+.is-active {
+  border-color: var(--color-primary);
+}
+
+/* Estado genérico: selecionado */
+.is-selected {
+  border-color: var(--color-primary);
+  background: var(--color-surface-soft);
+}
+
+/* Estado genérico: destacado */
+.is-highlighted {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+/* Estado genérico: desabilitado */
+.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Estado genérico: carregando */
+.is-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.is-loading::after {
+  content: "";
+
+  width: 1rem;
+  height: 1rem;
+
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-pill);
+
+  animation: spin 0.8s linear infinite;
+}
+
+/* Estado genérico: vazio */
+.is-empty {
+  opacity: 0.85;
+}
+
+/* Estado genérico: erro */
+.has-error {
+  border-color: var(--color-danger);
+}
+
+/* Estado genérico: sucesso */
+.has-success {
+  border-color: var(--color-success);
+}
+
+/* Estado genérico: aviso */
+.has-warning {
+  border-color: var(--color-warning);
+}
+
+/* Estado genérico: bloqueado */
+.is-locked {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Estado genérico: arrastando */
+.is-dragging {
+  opacity: 0.65;
+  transform: scale(0.98);
+}
+
+/* Estado genérico: expandido */
+.is-expanded {
+  max-height: none;
+}
+
+/* Estado genérico: recolhido */
+.is-collapsed {
+  overflow: hidden;
+}
+
+/* Animações */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,188 @@
+<!--
+  Layout: L05 - Wizard
+  Uso: processo dividido em etapas, configuração inicial, importação ou criação guiada.
+-->
+
+<section class="layout-wizard">
+  <header class="wizard-header">
+    <h1 class="wizard-title">
+      Processo em Etapas
+    </h1>
+
+    <p class="wizard-description">
+      Use este layout para guiar o usuário por uma sequência de etapas organizadas.
+    </p>
+  </header>
+
+  <nav class="wizard-progress" aria-label="Etapas do processo">
+    <div class="wizard-step is-completed">
+      <span class="wizard-step-number">
+        1
+      </span>
+
+      <span>
+        Etapa 1
+      </span>
+    </div>
+
+    <div class="wizard-step is-active">
+      <span class="wizard-step-number">
+        2
+      </span>
+
+      <span>
+        Etapa atual
+      </span>
+    </div>
+
+    <div class="wizard-step">
+      <span class="wizard-step-number">
+        3
+      </span>
+
+      <span>
+        Revisão
+      </span>
+    </div>
+
+    <div class="wizard-step">
+      <span class="wizard-step-number">
+        4
+      </span>
+
+      <span>
+        Conclusão
+      </span>
+    </div>
+  </nav>
+
+  <div class="wizard-grid">
+    <main class="wizard-main">
+      <section class="wizard-step-content">
+        <h2 class="wizard-step-title">
+          Título da etapa atual
+        </h2>
+
+        <p class="wizard-step-description">
+          Explique aqui o que o usuário precisa fazer nesta etapa específica.
+        </p>
+
+        <form class="form">
+          <div class="form-group">
+            <label class="form-label" for="wizardFieldName">
+              Campo da etapa <span class="form-required">*</span>
+            </label>
+
+            <input
+              class="input"
+              id="wizardFieldName"
+              name="wizardFieldName"
+              type="text"
+              placeholder="Digite uma informação"
+            />
+
+            <p class="form-hint">
+              Dica curta para ajudar o usuário a preencher corretamente.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="wizardFieldDescription">
+              Descrição
+            </label>
+
+            <textarea
+              class="textarea"
+              id="wizardFieldDescription"
+              name="wizardFieldDescription"
+              placeholder="Digite uma descrição"
+            ></textarea>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <aside class="wizard-side">
+      <section class="panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Validações
+            </h2>
+
+            <p class="panel-description">
+              Confira se a etapa atual está pronta para avançar.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <div class="form-validation-list">
+            <p class="form-validation-item is-invalid">
+              ● Campo obrigatório pendente.
+            </p>
+
+            <p class="form-validation-item is-valid">
+              ● Descrição opcional.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Resumo de revisão
+            </h2>
+
+            <p class="panel-description">
+              Acompanhe as informações principais preenchidas até agora.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <div class="wizard-summary-list">
+            <div class="wizard-summary-item">
+              <span>Etapa 1</span>
+              <strong>Concluída</strong>
+            </div>
+
+            <div class="wizard-summary-item">
+              <span>Etapa 2</span>
+              <strong>Atual</strong>
+            </div>
+
+            <div class="wizard-summary-item">
+              <span>Etapa 3</span>
+              <strong>Pendente</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="wizard-actions">
+    <div class="wizard-actions-left">
+      <button class="btn btn-secondary" type="button">
+        Voltar
+      </button>
+    </div>
+
+    <div class="wizard-actions-right">
+      <button class="btn btn-outline" type="button">
+        Salvar rascunho
+      </button>
+
+      <button class="btn btn-primary" type="button">
+        Avançar
+      </button>
+
+      <button class="btn btn-success" type="button">
+        Concluir
+      </button>
+    </div>
+  </footer>
+</section>

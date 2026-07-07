@@ -1,0 +1,140 @@
+<!--
+  Layout: L09 - Galeria de Cards
+  Uso: listagem visual de itens, módulos, categorias, matérias, temas, projetos ou modelos.
+-->
+
+<section class="layout-gallery">
+  <header class="gallery-header">
+    <div class="gallery-title-group">
+      <h1 class="gallery-title">
+        Título da Galeria
+      </h1>
+
+      <p class="gallery-description">
+        Use esta tela para organizar itens em formato de cards visuais.
+      </p>
+    </div>
+
+    <div class="gallery-actions">
+      <button class="btn btn-primary" type="button">
+        Adicionar item
+      </button>
+    </div>
+  </header>
+
+  <div class="gallery-toolbar">
+    <input
+      class="input gallery-search"
+      type="search"
+      placeholder="Pesquisar item..."
+    />
+
+    <div class="gallery-filters">
+      <button class="btn btn-secondary btn-sm" type="button">
+        Todos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Ativos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Recentes
+      </button>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+    <article class="card gallery-card">
+      <header class="card-header">
+        <div>
+          <h2 class="card-title">
+            Card exemplo
+          </h2>
+
+          <p class="card-description">
+            Descrição curta do item apresentado neste card.
+          </p>
+        </div>
+
+        <span class="badge badge-primary">
+          Novo
+        </span>
+      </header>
+
+      <div class="card-body">
+        <p class="card-description">
+          Use esta área para informações resumidas, status, quantidade de itens relacionados ou observações.
+        </p>
+
+        <div class="card-meta">
+          <span>Categoria</span>
+          <span>•</span>
+          <span>Atualizado recentemente</span>
+        </div>
+      </div>
+
+      <footer class="card-footer">
+        <button class="btn btn-secondary btn-sm" type="button">
+          Abrir
+        </button>
+
+        <div class="card-actions">
+          <button class="btn btn-ghost btn-sm" type="button">
+            Editar
+          </button>
+
+          <button class="btn btn-ghost btn-sm" type="button">
+            Excluir
+          </button>
+        </div>
+      </footer>
+    </article>
+
+    <article class="card gallery-card">
+      <header class="card-header">
+        <div>
+          <h2 class="card-title">
+            Outro card
+          </h2>
+
+          <p class="card-description">
+            Outro exemplo de item dentro da galeria.
+          </p>
+        </div>
+
+        <span class="badge badge-outline">
+          Exemplo
+        </span>
+      </header>
+
+      <div class="card-body">
+        <p class="card-description">
+          Cards podem representar matérias, temas, tarefas, projetos, modelos ou atalhos.
+        </p>
+      </div>
+
+      <footer class="card-footer">
+        <button class="btn btn-secondary btn-sm" type="button">
+          Selecionar
+        </button>
+
+        <div class="card-actions">
+          <button class="btn btn-ghost btn-sm" type="button">
+            Editar
+          </button>
+        </div>
+      </footer>
+    </article>
+  </div>
+
+  <footer class="gallery-footer">
+    <span>
+      2 itens exibidos
+    </span>
+
+    <span>
+      Ajuste ou remova esta área conforme a necessidade da aplicação.
+    </span>
+  </footer>
+</section>

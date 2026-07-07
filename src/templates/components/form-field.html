@@ -1,0 +1,59 @@
+<!--
+  Componente: Form Field
+  Uso: campos de formulário com label, dica e validação.
+-->
+
+<div class="form-group">
+  <label class="form-label" for="fieldName">
+    Nome do Campo <span class="form-required">*</span>
+  </label>
+
+  <input
+    class="input"
+    id="fieldName"
+    name="fieldName"
+    type="text"
+    placeholder="Digite uma informação"
+  />
+
+  <p class="form-hint">
+    Escreva uma dica curta para orientar o preenchimento.
+  </p>
+
+  <p class="form-error">
+    Mensagem de erro, se houver.
+  </p>
+</div>
+
+<!-- Textarea -->
+
+<div class="form-group">
+  <label class="form-label" for="fieldDescription">
+    Descrição
+  </label>
+
+  <textarea
+    class="textarea"
+    id="fieldDescription"
+    name="fieldDescription"
+    placeholder="Digite uma descrição"
+  ></textarea>
+
+  <p class="form-hint">
+    A descrição pode ser opcional.
+  </p>
+</div>
+
+<!-- Select -->
+
+<div class="form-group">
+  <label class="form-label" for="fieldCategory">
+    Categoria
+  </label>
+
+  <select class="select" id="fieldCategory" name="fieldCategory">
+    <option value="">Selecione uma categoria</option>
+    <option value="categoria-1">Categoria 1</option>
+    <option value="categoria-2">Categoria 2</option>
+  </select>
+</div>

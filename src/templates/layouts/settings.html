@@ -1,0 +1,136 @@
+<!--
+  Layout: L19 - Settings
+  Uso: configurações, preferências, aparência, dados e zona de perigo.
+-->
+
+<section class="layout-settings">
+	<header class="settings-header">
+		<div class="settings-title-group">
+			<h1 class="settings-title">Configurações</h1>
+
+			<p class="settings-description">Ajuste preferências da aplicação, aparência, dados salvos e ações administrativas.</p>
+		</div>
+
+		<div class="settings-actions">
+			<button class="btn btn-secondary" type="button">Restaurar padrão</button>
+
+			<button class="btn btn-primary" type="button">Salvar alterações</button>
+		</div>
+	</header>
+
+	<div class="settings-grid">
+		<aside class="settings-menu">
+			<h2 class="settings-menu-title">Categorias</h2>
+
+			<nav class="settings-menu-list" aria-label="Categorias de configuração">
+				<button class="settings-menu-item is-active" type="button">
+					<span>Aparência</span>
+					<span>›</span>
+				</button>
+
+				<button class="settings-menu-item" type="button">
+					<span>Dados</span>
+					<span>›</span>
+				</button>
+
+				<button class="settings-menu-item" type="button">
+					<span>Comportamento</span>
+					<span>›</span>
+				</button>
+
+				<button class="settings-menu-item" type="button">
+					<span>Sobre</span>
+					<span>›</span>
+				</button>
+			</nav>
+		</aside>
+
+		<main class="settings-content">
+			<section class="settings-section">
+				<header class="settings-section-header">
+					<h2 class="settings-section-title">Aparência</h2>
+
+					<p class="settings-section-description">Personalize o modo visual e alguns detalhes da interface.</p>
+				</header>
+
+				<div class="settings-option">
+					<div class="settings-option-content">
+						<h3 class="settings-option-title">Tema da aplicação</h3>
+
+						<p class="settings-option-description">Escolha entre tema claro, escuro ou automático.</p>
+					</div>
+
+					<select class="select" aria-label="Selecionar tema">
+						<option value="dark">Escuro</option>
+						<option value="light">Claro</option>
+						<option value="auto">Automático</option>
+					</select>
+				</div>
+
+				<div class="settings-option">
+					<div class="settings-option-content">
+						<h3 class="settings-option-title">Exibir animações</h3>
+
+						<p class="settings-option-description">Ative ou desative animações visuais da interface.</p>
+					</div>
+
+					<label class="switch">
+						<input class="switch-input" type="checkbox" checked />
+
+						<span class="switch-track" aria-hidden="true">
+							<span class="switch-thumb"></span>
+						</span>
+
+						<span class="switch-label"> Ativado </span>
+					</label>
+				</div>
+			</section>
+
+			<section class="settings-section">
+				<header class="settings-section-header">
+					<h2 class="settings-section-title">Dados</h2>
+
+					<p class="settings-section-description">Gerencie salvamento local, importação, exportação e backup.</p>
+				</header>
+
+				<div class="settings-option">
+					<div class="settings-option-content">
+						<h3 class="settings-option-title">Exportar dados</h3>
+
+						<p class="settings-option-description">Gere uma cópia dos dados salvos nesta aplicação.</p>
+					</div>
+
+					<button class="btn btn-secondary btn-sm" type="button">Exportar</button>
+				</div>
+
+				<div class="settings-option">
+					<div class="settings-option-content">
+						<h3 class="settings-option-title">Importar dados</h3>
+
+						<p class="settings-option-description">Restaure informações a partir de um arquivo externo.</p>
+					</div>
+
+					<button class="btn btn-secondary btn-sm" type="button">Importar</button>
+				</div>
+			</section>
+
+			<section class="settings-section settings-danger-zone">
+				<header class="settings-section-header">
+					<h2 class="settings-section-title">Zona de perigo</h2>
+
+					<p class="settings-section-description">Ações desta área podem alterar ou remover dados importantes.</p>
+				</header>
+
+				<div class="settings-option">
+					<div class="settings-option-content">
+						<h3 class="settings-option-title">Apagar todos os dados</h3>
+
+						<p class="settings-option-description">Remove todos os registros salvos localmente nesta aplicação.</p>
+					</div>
+
+					<button class="btn btn-danger btn-sm" type="button">Apagar tudo</button>
+				</div>
+			</section>
+		</main>
+	</div>
+</section>

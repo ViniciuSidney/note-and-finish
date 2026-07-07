@@ -1,0 +1,158 @@
+/* ============================= */
+/* Tipografia Base               */
+/* ============================= */
+
+body {
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+}
+
+/* Títulos gerais */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-title);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+/* Escala de títulos */
+h1 {
+  font-size: var(--font-size-display);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+h4 {
+  font-size: var(--font-size-lg);
+}
+
+h5 {
+  font-size: var(--font-size-md);
+}
+
+h6 {
+  font-size: var(--font-size-sm);
+}
+
+/* Parágrafos */
+p {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-muted);
+}
+
+/* Textos pequenos */
+small {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-soft);
+}
+
+/* Destaques */
+strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+em {
+  font-style: italic;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Código inline */
+code {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+  padding: 0.15rem 0.35rem;
+  border-radius: var(--radius-xs);
+}
+
+/* Blocos de código */
+pre {
+  overflow-x: auto;
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Classes utilitárias de texto */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-soft {
+  color: var(--color-text-soft);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+/* Alinhamentos */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Pesos */
+.text-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.text-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.text-bold {
+  font-weight: var(--font-weight-bold);
+}

@@ -1,0 +1,138 @@
+/* ============================= */
+/* Layout: CRUD                  */
+/* ============================= */
+
+.layout-crud {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+}
+
+.crud-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.crud-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.crud-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.crud-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.crud-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.crud-toolbar {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto;
+  gap: var(--space-md);
+  align-items: center;
+
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.crud-search {
+  width: 100%;
+}
+
+.crud-filters {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.crud-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.crud-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.crud-table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.crud-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.crud-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .layout-crud {
+    padding: var(--space-md);
+  }
+
+  .crud-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .crud-filters {
+    justify-content: flex-start;
+  }
+
+  .crud-actions,
+  .crud-actions .btn,
+  .crud-footer .btn {
+    width: 100%;
+  }
+
+  .crud-footer {
+    align-items: stretch;
+  }
+
+  .crud-bulk-actions {
+    width: 100%;
+  }
+}

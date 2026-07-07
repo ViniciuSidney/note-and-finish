@@ -1,0 +1,160 @@
+<!--
+  Layout: L06 - Mestre-Detalhe
+  Uso: lista de itens com painel de detalhamento do item selecionado.
+-->
+
+<section class="layout-master-detail">
+  <header class="master-detail-header">
+    <div class="master-detail-title-group">
+      <h1 class="master-detail-title">
+        Mestre-Detalhe
+      </h1>
+
+      <p class="master-detail-description">
+        Use este layout para navegar por uma lista de itens e visualizar detalhes sem sair da tela.
+      </p>
+    </div>
+
+    <div class="master-detail-actions-top">
+      <button class="btn btn-secondary" type="button">
+        Filtrar
+      </button>
+
+      <button class="btn btn-primary" type="button">
+        Novo item
+      </button>
+    </div>
+  </header>
+
+  <div class="master-detail-grid">
+    <aside class="master-list-panel">
+      <input
+        class="input master-list-search"
+        type="search"
+        placeholder="Pesquisar item..."
+      />
+
+      <div class="master-list">
+        <button class="master-list-item is-active" type="button">
+          <span class="master-list-item-title">
+            Item selecionado
+          </span>
+
+          <span class="master-list-item-description">
+            Descrição curta do item ativo.
+          </span>
+        </button>
+
+        <button class="master-list-item" type="button">
+          <span class="master-list-item-title">
+            Segundo item
+          </span>
+
+          <span class="master-list-item-description">
+            Outra descrição curta.
+          </span>
+        </button>
+
+        <button class="master-list-item" type="button">
+          <span class="master-list-item-title">
+            Terceiro item
+          </span>
+
+          <span class="master-list-item-description">
+            Informação resumida do item.
+          </span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="detail-area">
+      <section class="detail-panel">
+        <header class="detail-header">
+          <div class="detail-title-group">
+            <h2 class="detail-title">
+              Detalhamento do item
+            </h2>
+
+            <p class="detail-description">
+              Aqui aparecem as informações completas do item selecionado na lista.
+            </p>
+          </div>
+
+          <span class="badge badge-primary">
+            Selecionado
+          </span>
+        </header>
+
+        <div class="detail-body">
+          <p class="text-muted">
+            Use esta área para apresentar descrição completa, dados relacionados, status, observações ou conteúdo do item selecionado.
+          </p>
+
+          <section class="panel">
+            <header class="panel-header">
+              <div>
+                <h3 class="panel-title">
+                  Informações complementares
+                </h3>
+
+                <p class="panel-description">
+                  Este painel pode mostrar histórico, metadados ou detalhes extras.
+                </p>
+              </div>
+            </header>
+
+            <div class="panel-body">
+              <div class="badge-group">
+                <span class="badge badge-success">
+                  Ativo
+                </span>
+
+                <span class="badge badge-outline">
+                  Categoria
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <footer class="detail-actions">
+        <button class="btn btn-secondary" type="button">
+          Voltar
+        </button>
+
+        <button class="btn btn-outline" type="button">
+          Duplicar
+        </button>
+
+        <button class="btn btn-primary" type="button">
+          Editar
+        </button>
+
+        <button class="btn btn-danger" type="button">
+          Excluir
+        </button>
+      </footer>
+
+      <section class="panel detail-extra-panel">
+        <header class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              Painel extra
+            </h2>
+
+            <p class="panel-description">
+              Use para observações, relações, histórico ou ações complementares.
+            </p>
+          </div>
+        </header>
+
+        <div class="panel-body">
+          <p class="text-muted">
+            Conteúdo extra relacionado ao item selecionado.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+</section>

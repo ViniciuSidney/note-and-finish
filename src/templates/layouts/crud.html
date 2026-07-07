@@ -1,0 +1,145 @@
+<!--
+  Layout: L07 - Gerenciador de Registros
+  Uso: criar, listar, editar, visualizar e excluir registros.
+-->
+
+<section class="layout-crud">
+  <header class="crud-header">
+    <div class="crud-title-group">
+      <h1 class="crud-title">
+        Gerenciar Registros
+      </h1>
+
+      <p class="crud-description">
+        Use esta tela para cadastrar, pesquisar, editar e excluir registros da aplicação.
+      </p>
+    </div>
+
+    <div class="crud-actions">
+      <button class="btn btn-primary" type="button">
+        Adicionar registro
+      </button>
+    </div>
+  </header>
+
+  <div class="crud-toolbar">
+    <input
+      class="input crud-search"
+      type="search"
+      placeholder="Pesquisar registro..."
+    />
+
+    <div class="crud-filters">
+      <button class="btn btn-secondary btn-sm" type="button">
+        Todos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Ativos
+      </button>
+
+      <button class="btn btn-outline btn-sm" type="button">
+        Pendentes
+      </button>
+    </div>
+  </div>
+
+  <main class="crud-content">
+    <div class="crud-summary">
+      <span>
+        2 registros encontrados
+      </span>
+
+      <span>
+        Ordenado por mais recente
+      </span>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Registro exemplo</td>
+
+            <td>
+              <span class="badge badge-success">
+                Ativo
+              </span>
+            </td>
+
+            <td>04/07/2026</td>
+
+            <td>
+              <div class="crud-table-actions">
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Ver
+                </button>
+
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Editar
+                </button>
+
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Excluir
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Outro registro</td>
+
+            <td>
+              <span class="badge badge-warning">
+                Pendente
+              </span>
+            </td>
+
+            <td>04/07/2026</td>
+
+            <td>
+              <div class="crud-table-actions">
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Ver
+                </button>
+
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Editar
+                </button>
+
+                <button class="btn btn-ghost btn-sm" type="button">
+                  Excluir
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="crud-footer">
+    <span class="text-muted">
+      Selecione registros para executar ações em massa.
+    </span>
+
+    <div class="crud-bulk-actions">
+      <button class="btn btn-secondary btn-sm" type="button">
+        Exportar
+      </button>
+
+      <button class="btn btn-danger btn-sm" type="button">
+        Excluir selecionados
+      </button>
+    </div>
+  </footer>
+</section>

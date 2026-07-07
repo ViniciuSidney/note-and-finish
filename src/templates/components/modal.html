@@ -1,0 +1,66 @@
+<!--
+  Componente: Modal
+  Uso: confirmação, alerta, visualização ou formulário rápido.
+-->
+
+<div class="modal-overlay">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-header">
+      <h2 class="modal-title" id="modalTitle">
+        Título do Modal
+      </h2>
+
+      <button class="modal-close" type="button" aria-label="Fechar modal">
+        ×
+      </button>
+    </header>
+
+    <div class="modal-body">
+      <p>
+        Conteúdo do modal. Pode ser uma mensagem, detalhes de um item ou um pequeno formulário.
+      </p>
+    </div>
+
+    <footer class="modal-actions">
+      <button class="btn btn-secondary" type="button">
+        Cancelar
+      </button>
+
+      <button class="btn btn-primary" type="button">
+        Confirmar
+      </button>
+    </footer>
+  </section>
+</div>
+
+<!-- Modal de confirmação perigosa -->
+
+<div class="modal-overlay">
+  <section class="modal modal-danger" role="dialog" aria-modal="true" aria-labelledby="dangerModalTitle">
+    <header class="modal-header">
+      <h2 class="modal-title" id="dangerModalTitle">
+        Confirmar exclusão
+      </h2>
+
+      <button class="modal-close" type="button" aria-label="Fechar modal">
+        ×
+      </button>
+    </header>
+
+    <div class="modal-body">
+      <p>
+        Esta ação não poderá ser desfeita. Tem certeza de que deseja continuar?
+      </p>
+    </div>
+
+    <footer class="modal-actions">
+      <button class="btn btn-secondary" type="button">
+        Cancelar
+      </button>
+
+      <button class="btn btn-danger" type="button">
+        Excluir
+      </button>
+    </footer>
+  </section>
+</div>

@@ -1,0 +1,58 @@
+/* ============================= */
+/* Scrollbar Customizada         */
+/* ============================= */
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-surface-soft) var(--color-surface-strong);
+}
+
+*::-webkit-scrollbar {
+	width: 0.75rem;
+	height: 0.75rem;
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--color-surface-strong);
+	border-radius: var(--radius-pill);
+}
+
+*::-webkit-scrollbar-thumb {
+	border: 2px solid var(--color-surface-strong);
+	border-radius: var(--radius-pill);
+	background: var(--color-surface-soft);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background: var(--color-primary);
+}
+
+*::-webkit-scrollbar-corner {
+	background: var(--color-surface-strong);
+}
+
+/* Remove botões/setas da scrollbar em navegadores WebKit */
+*::-webkit-scrollbar-button {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+/* Classes utilitárias */
+
+.scroll-area {
+	overflow: auto;
+	scrollbar-gutter: stable;
+}
+
+.scroll-area-x {
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-gutter: stable;
+}
+
+.scroll-area-y {
+	overflow-y: auto;
+	overflow-x: hidden;
+	scrollbar-gutter: stable;
+}

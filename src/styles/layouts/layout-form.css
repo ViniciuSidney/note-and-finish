@@ -1,0 +1,101 @@
+/* ============================= */
+/* Layout: Form                  */
+/* ============================= */
+
+.layout-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+}
+
+.form-layout-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-layout-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.form-layout-description {
+  max-width: 720px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.form-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.form-main-panel {
+  min-width: 0;
+}
+
+.form-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-validation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.form-validation-item.is-valid {
+  color: var(--color-success);
+}
+
+.form-validation-item.is-invalid {
+  color: var(--color-danger);
+}
+
+.form-layout-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 900px) {
+  .form-layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-side-panel {
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .layout-form {
+    padding: var(--space-md);
+  }
+
+  .form-layout-actions .btn {
+    width: 100%;
+  }
+}

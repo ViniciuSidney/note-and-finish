@@ -1,0 +1,73 @@
+<!--
+  Componente: Table
+  Uso: exibir dados em linhas e colunas.
+-->
+
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Status</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Registro exemplo</td>
+        <td>
+          <span class="badge badge-success">Ativo</span>
+        </td>
+        <td>04/07/2026</td>
+        <td>
+          <div class="table-actions">
+            <button class="btn btn-ghost btn-sm" type="button">
+              Ver
+            </button>
+
+            <button class="btn btn-ghost btn-sm" type="button">
+              Editar
+            </button>
+
+            <button class="btn btn-ghost btn-sm" type="button">
+              Excluir
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Outro registro</td>
+        <td>
+          <span class="badge badge-warning">Pendente</span>
+        </td>
+        <td>04/07/2026</td>
+        <td>
+          <div class="table-actions">
+            <button class="btn btn-ghost btn-sm" type="button">
+              Ver
+            </button>
+
+            <button class="btn btn-ghost btn-sm" type="button">
+              Editar
+            </button>
+
+            <button class="btn btn-ghost btn-sm" type="button">
+              Excluir
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Estado vazio de tabela -->
+
+<div class="table-wrapper">
+  <div class="table-empty">
+    Nenhum registro encontrado.
+  </div>
+</div>

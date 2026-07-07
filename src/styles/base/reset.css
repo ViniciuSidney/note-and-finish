@@ -1,0 +1,107 @@
+/* ============================= */
+/* Reset Base                    */
+/* ============================= */
+
+/* Remove diferenças padrões entre navegadores */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Melhora comportamento de rolagem */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base do corpo da aplicação */
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove estilos padrões de listas */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Links sem decoração padrão */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Imagens e mídias responsivas */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Formulários herdam fonte */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Botões sem estilo nativo */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Campos sem aparência inconsistente */
+input,
+textarea,
+select {
+  border: none;
+  outline: none;
+}
+
+/* Textareas mais previsíveis */
+textarea {
+  resize: vertical;
+}
+
+/* Tabelas mais estáveis */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Evita quebra visual em textos longos */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Elemento raiz da aplicação */
+#app {
+  min-height: 100vh;
+}
+
+/* Elementos ocultos */
+
+[hidden] {
+  display: none !important;
+}

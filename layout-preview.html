@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Layout Preview | Modelo de Projeto</title>
+
+		<link rel="stylesheet" href="./src/styles/main.css" />
+	</head>
+
+	<body class="preview-page">
+		<div class="preview-shell">
+			<header class="preview-hero" id="inicio">
+				<div class="preview-hero-content">
+					<span class="preview-kicker"> Modelo de Projeto </span>
+
+					<h1 class="preview-title">Biblioteca de Layouts e Componentes</h1>
+
+					<p class="preview-description">
+						Uma vitrine visual para testar a base de UI, consultar templates HTML reutilizáveis e escolher o melhor layout antes de construir uma tela real da aplicação.
+					</p>
+
+					<div class="preview-hero-actions">
+						<a class="btn btn-primary" href="#layouts"> Explorar layouts </a>
+
+						<a class="btn btn-secondary" href="#componentes"> Ver componentes </a>
+
+						<a class="btn btn-outline" href="./src/templates/README.md"> Abrir README </a>
+					</div>
+				</div>
+
+				<aside class="preview-status-panel" aria-label="Resumo da biblioteca">
+					<h2 class="preview-status-title">Status da biblioteca</h2>
+
+					<div class="preview-status-list">
+						<div class="preview-status-item">
+							<strong class="preview-status-value"> 13 </strong>
+
+							<span class="preview-status-label"> Layouts HTML </span>
+						</div>
+
+						<div class="preview-status-item">
+							<strong class="preview-status-value"> 10 </strong>
+
+							<span class="preview-status-label"> Componentes </span>
+						</div>
+
+						<div class="preview-status-item">
+							<strong class="preview-status-value"> CSS </strong>
+
+							<span class="preview-status-label"> Base reutilizável </span>
+						</div>
+
+						<div class="preview-status-item">
+							<strong class="preview-status-value"> UI </strong>
+
+							<span class="preview-status-label"> Preview visual </span>
+						</div>
+					</div>
+
+					<div class="alert alert-success alert-compact">
+						<div>
+							<h3 class="alert-title">Base pronta para evolução</h3>
+
+							<p class="alert-text">Agora os templates podem ser usados como moldes para telas reais.</p>
+						</div>
+					</div>
+				</aside>
+			</header>
+
+			<nav class="preview-nav" aria-label="Navegação da página">
+				<div class="preview-nav-links">
+					<a class="preview-nav-link" href="#inicio"> Início </a>
+
+					<a class="preview-nav-link" href="#componentes"> Componentes </a>
+
+					<a class="preview-nav-link" href="#visuais"> Visuais </a>
+
+					<a class="preview-nav-link" href="#layouts"> Layouts </a>
+
+					<a class="preview-nav-link" href="#fluxo"> Fluxo de uso </a>
+
+					<a class="preview-nav-link" href="#boas-praticas"> Boas práticas </a>
+				</div>
+
+				<div class="preview-theme-control">
+					<label class="switch">
+						<input class="switch-input" type="checkbox" data-theme-toggle />
+
+						<span class="switch-track" aria-hidden="true">
+							<span class="switch-thumb"></span>
+						</span>
+
+						<span class="switch-label" data-theme-label> Tema escuro </span>
+					</label>
+				</div>
+			</nav>
+
+			<main>
+				<section class="preview-section" id="componentes">
+					<header class="preview-section-header">
+						<div>
+							<span class="preview-section-eyebrow"> Componentes </span>
+
+							<h2 class="preview-section-title">Peças reutilizáveis da interface</h2>
+
+							<p class="preview-section-description">Estes componentes são os blocos menores que sustentam os layouts: botões, badges, alertas, inputs, cards, painéis, tabelas e toggles.</p>
+						</div>
+					</header>
+
+					<div class="preview-grid preview-components-grid">
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Botões</h3>
+
+									<p class="preview-showcase-description">Ações principais, secundárias, discretas e de conclusão.</p>
+								</div>
+
+								<span class="badge badge-primary"> button.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="btn-group">
+									<button class="btn btn-primary" type="button">Primário</button>
+
+									<button class="btn btn-secondary" type="button">Secundário</button>
+
+									<button class="btn btn-outline" type="button">Outline</button>
+
+									<button class="btn btn-ghost" type="button">Ghost</button>
+
+									<button class="btn btn-success" type="button">Sucesso</button>
+
+									<button class="btn btn-danger" type="button">Perigo</button>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Badges</h3>
+
+									<p class="preview-showcase-description">Status, categorias, prioridades e etiquetas rápidas.</p>
+								</div>
+
+								<span class="badge badge-outline"> badge.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="badge-group">
+									<span class="badge"> Padrão </span>
+
+									<span class="badge badge-primary"> Primário </span>
+
+									<span class="badge badge-success"> Sucesso </span>
+
+									<span class="badge badge-warning"> Atenção </span>
+
+									<span class="badge badge-danger"> Perigo </span>
+
+									<span class="badge badge-outline"> Outline </span>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Campos</h3>
+
+									<p class="preview-showcase-description">Inputs, selects e áreas de texto com aparência customizada.</p>
+								</div>
+
+								<span class="badge badge-outline"> input.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<input class="input" type="text" placeholder="Campo de texto" />
+
+								<select class="select" aria-label="Categoria">
+									<option value="">Selecione uma categoria</option>
+
+									<option value="interface">Interface</option>
+
+									<option value="dados">Dados</option>
+								</select>
+
+								<textarea class="textarea" placeholder="Campo de texto longo"></textarea>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Toggle</h3>
+
+									<p class="preview-showcase-description">Controle booleano para preferências e configurações.</p>
+								</div>
+
+								<span class="badge badge-outline"> toggle.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<label class="switch">
+									<input class="switch-input" type="checkbox" checked />
+
+									<span class="switch-track" aria-hidden="true">
+										<span class="switch-thumb"></span>
+									</span>
+
+									<span class="switch-label"> Exibir animações </span>
+								</label>
+
+								<label class="switch">
+									<input class="switch-input" type="checkbox" />
+
+									<span class="switch-track" aria-hidden="true">
+										<span class="switch-thumb"></span>
+									</span>
+
+									<span class="switch-label"> Modo compacto </span>
+								</label>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Alertas</h3>
+
+									<p class="preview-showcase-description">Mensagens de informação, sucesso, aviso e erro.</p>
+								</div>
+
+								<span class="badge badge-outline"> alert.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="alert alert-info alert-compact" role="alert">
+									<div>
+										<h3 class="alert-title">Informação</h3>
+
+										<p class="alert-text">Mensagem informativa.</p>
+									</div>
+								</div>
+
+								<div class="alert alert-warning alert-compact" role="alert">
+									<div>
+										<h3 class="alert-title">Atenção</h3>
+
+										<p class="alert-text">Revise antes de continuar.</p>
+									</div>
+								</div>
+
+								<div class="alert alert-success alert-compact" role="alert">
+									<div>
+										<h3 class="alert-title">Sucesso</h3>
+
+										<p class="alert-text">Operação realizada com sucesso.</p>
+									</div>
+								</div>
+
+								<div class="alert alert-danger alert-compact" role="alert">
+									<div>
+										<h3 class="alert-title">Erro / Perigo</h3>
+
+										<p class="alert-text">Ocorreu um erro ao realizar a operação.</p>
+									</div>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Estados</h3>
+
+									<p class="preview-showcase-description">Exemplos de componentes ativos, selecionados, carregando e destacados.</p>
+								</div>
+
+								<span class="badge badge-primary"> states.css </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="btn-group">
+									<button class="btn btn-primary is-loading" type="button">Salvando</button>
+
+									<button class="btn btn-secondary is-selected" type="button">Selecionado</button>
+
+									<button class="btn btn-outline is-disabled" type="button">Desabilitado</button>
+								</div>
+
+								<article class="card is-highlighted">
+									<header class="card-header">
+										<div>
+											<h4 class="card-title">Card destacado</h4>
+
+											<p class="card-description">Exemplo de card em estado de destaque.</p>
+										</div>
+
+										<span class="badge badge-success is-pulse"> Novo </span>
+									</header>
+								</article>
+
+								<section class="panel has-warning">
+									<header class="panel-header">
+										<div>
+											<h4 class="panel-title">Painel com aviso</h4>
+
+											<p class="panel-description">Exemplo de painel com estado de atenção.</p>
+										</div>
+									</header>
+								</section>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Tabela</h3>
+
+									<p class="preview-showcase-description">Visualização de dados com scrollbar customizada.</p>
+								</div>
+
+								<span class="badge badge-outline"> table.html </span>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="table-wrapper">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Status</th>
+												<th>Ações</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<td>Registro exemplo</td>
+
+												<td>
+													<span class="badge badge-success"> Ativo </span>
+												</td>
+
+												<td>
+													<div class="table-actions">
+														<button class="btn btn-ghost btn-sm" type="button">Ver</button>
+													</div>
+												</td>
+											</tr>
+
+											<tr>
+												<td>Outro registro</td>
+
+												<td>
+													<span class="badge badge-warning"> Pendente </span>
+												</td>
+
+												<td>
+													<div class="table-actions">
+														<button class="btn btn-ghost btn-sm" type="button">Ver</button>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<section class="preview-section" id="visuais">
+					<header class="preview-section-header">
+						<div>
+							<span class="preview-section-eyebrow"> Visuais </span>
+
+							<h2 class="preview-section-title">Variações visuais dos componentes</h2>
+
+							<p class="preview-section-description">
+								Estes estilos aumentam a variedade de uso dos componentes sem criar novos componentes. Combine componente, variante, visual e estado conforme a necessidade da aplicação.
+							</p>
+						</div>
+
+						<span class="badge badge-primary"> visual-variants.css </span>
+					</header>
+
+					<div class="preview-grid preview-visual-grid">
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Botões visuais</h3>
+
+									<p class="preview-showcase-description">Variações para ações com mais personalidade visual.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="visual-demo-row">
+									<button class="btn btn-primary btn-pill" type="button">Pill</button>
+
+									<button class="btn btn-primary btn-glass" type="button">Glass</button>
+
+									<button class="btn btn-primary btn-elevated" type="button">Elevated</button>
+
+									<button class="btn btn-outline btn-dashed" type="button">Dashed</button>
+
+									<button class="btn btn-primary btn-neon" type="button">Neon</button>
+
+									<button class="btn btn-link" type="button">Link</button>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Badges visuais</h3>
+
+									<p class="preview-showcase-description">Etiquetas mais suaves, destacadas ou com indicador visual.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="badge-group">
+									<span class="badge badge-soft-primary badge-pill"> Soft Primary </span>
+
+									<span class="badge badge-soft-success badge-dot"> Online </span>
+
+									<span class="badge badge-soft-warning badge-tag"> Atenção </span>
+
+									<span class="badge badge-soft-danger"> Risco </span>
+
+									<span class="badge badge-glass"> Glass </span>
+
+									<span class="badge badge-success is-pulse"> Novo </span>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Cards visuais</h3>
+
+									<p class="preview-showcase-description">Cards para destaque, hero, vidro, numeração ou uso minimalista.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="visual-demo-stack card-numbered-list">
+									<article class="card card-accent card-elevated">
+										<h4 class="card-title">Card com acento</h4>
+										<p class="card-description">Bom para destacar itens importantes.</p>
+									</article>
+
+									<article class="card card-glass">
+										<h4 class="card-title">Card glass</h4>
+										<p class="card-description">Visual mais moderno e translúcido.</p>
+									</article>
+
+									<article class="card card-numbered">
+										<h4 class="card-title">Card numerado</h4>
+										<p class="card-description">Útil para etapas, rankings ou ordem.</p>
+									</article>
+								</div>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Panels visuais</h3>
+
+									<p class="preview-showcase-description">Painéis para chamadas, destaque, vidro e avisos.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<section class="panel panel-callout">
+									<h4 class="panel-title">Panel callout</h4>
+									<p class="panel-description">Bom para orientações ou mensagens importantes.</p>
+								</section>
+
+								<section class="panel panel-accent panel-elevated">
+									<h4 class="panel-title">Panel accent</h4>
+									<p class="panel-description">Usa uma borda lateral para reforçar hierarquia.</p>
+								</section>
+
+								<section class="panel panel-dashed">
+									<h4 class="panel-title">Panel dashed</h4>
+									<p class="panel-description">Útil para áreas vazias, uploads ou zonas editáveis.</p>
+								</section>
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Inputs visuais</h3>
+
+									<p class="preview-showcase-description">Campos com estilos alternativos para formulários diferentes.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<input class="input input-filled" type="text" placeholder="Input filled" />
+
+								<input class="input input-pill" type="text" placeholder="Input pill" />
+
+								<input class="input input-glass" type="text" placeholder="Input glass" />
+
+								<input class="input input-dashed" type="text" placeholder="Input dashed" />
+
+								<input class="input input-underlined" type="text" placeholder="Input underlined" />
+							</div>
+						</article>
+
+						<article class="preview-showcase-card">
+							<header class="preview-showcase-card-header">
+								<div>
+									<h3 class="preview-showcase-title">Tabelas visuais</h3>
+
+									<p class="preview-showcase-description">Tabelas compactas, listradas, hover e estilo cardado.</p>
+								</div>
+							</header>
+
+							<div class="preview-showcase-body">
+								<div class="table-wrapper">
+									<table class="table table-striped table-hover table-compact">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Status</th>
+												<th>Tipo</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<td>Item visual</td>
+												<td><span class="badge badge-success">Ativo</span></td>
+												<td>Striped</td>
+											</tr>
+
+											<tr>
+												<td>Outro item</td>
+												<td><span class="badge badge-warning">Pendente</span></td>
+												<td>Hover</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<section class="preview-section" id="layouts">
+					<header class="preview-section-header">
+						<div>
+							<span class="preview-section-eyebrow"> Layouts </span>
+
+							<h2 class="preview-section-title">Moldes de telas completas</h2>
+
+							<p class="preview-section-description">Pesquise, filtre e escolha o layout mais adequado para uma tela real. Cada card aponta para o template HTML correspondente.</p>
+						</div>
+
+						<span class="badge badge-primary" data-layout-counter> 13 layouts </span>
+					</header>
+
+					<div class="preview-toolbar">
+						<input class="input" type="search" placeholder="Pesquisar layout por nome, uso ou categoria..." data-layout-search />
+
+						<div class="preview-filter-group" aria-label="Filtros de layout">
+							<button class="btn btn-secondary btn-sm" type="button" data-layout-filter="all">Todos</button>
+
+							<button class="btn btn-outline btn-sm" type="button" data-layout-filter="entrada">Entrada</button>
+
+							<button class="btn btn-outline btn-sm" type="button" data-layout-filter="gestao">Gestão</button>
+
+							<button class="btn btn-outline btn-sm" type="button" data-layout-filter="foco">Foco</button>
+
+							<button class="btn btn-outline btn-sm" type="button" data-layout-filter="dados">Dados</button>
+						</div>
+					</div>
+
+					<div class="preview-grid preview-layouts-grid" data-layout-list>
+						<article class="preview-layout-card" data-layout-card data-category="entrada" data-keywords="hub inicial tela inicial menu principal atalhos módulos">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L01 </span>
+
+										<h3 class="preview-layout-title">Hub Inicial</h3>
+									</div>
+
+									<span class="badge badge-primary"> Entrada </span>
+								</div>
+
+								<p class="preview-layout-description">Ideal para tela inicial, menu principal, central de módulos e atalhos rápidos.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/hub.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/hub.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="foco" data-keywords="shell modular painéis laterais ação central workspace tela de trabalho">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L02 </span>
+
+										<h3 class="preview-layout-title">Shell Modular</h3>
+									</div>
+
+									<span class="badge badge-warning"> Estrutural </span>
+								</div>
+
+								<p class="preview-layout-description">Bom para telas de trabalho com conteúdo central e painéis laterais de apoio.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/shell.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/shell.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="dados" data-keywords="dashboard analítico indicadores gráficos métricas resumo desempenho">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L03 </span>
+
+										<h3 class="preview-layout-title">Dashboard Analítico</h3>
+									</div>
+
+									<span class="badge badge-success"> Dados </span>
+								</div>
+
+								<p class="preview-layout-description">Para indicadores, métricas, gráficos, progresso, comparações e visão geral.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/dashboard.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/dashboard.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="form formulário guiado cadastro edição validação campos">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L04 </span>
+
+										<h3 class="preview-layout-title">Formulário Guiado</h3>
+									</div>
+
+									<span class="badge badge-outline"> Gestão </span>
+								</div>
+
+								<p class="preview-layout-description">Para cadastro, edição, validação, orientações laterais e preenchimento estruturado.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/form.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/form.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="wizard etapas processo guiado onboarding importação revisão conclusão">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L05 </span>
+
+										<h3 class="preview-layout-title">Wizard</h3>
+									</div>
+
+									<span class="badge badge-success"> Etapas </span>
+								</div>
+
+								<p class="preview-layout-description">Para processos em etapas, onboarding, importação, configuração inicial e revisão.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/wizard.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/wizard.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="mestre detalhe master detail lista detalhes item selecionado">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L06 </span>
+
+										<h3 class="preview-layout-title">Mestre-Detalhe</h3>
+									</div>
+
+									<span class="badge badge-outline"> Gestão </span>
+								</div>
+
+								<p class="preview-layout-description">Para navegar em uma lista e ver os detalhes do item selecionado na mesma tela.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/master-detail.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/master-detail.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="crud registros tabela criar editar excluir listar gerenciar">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L07 </span>
+
+										<h3 class="preview-layout-title">Gerenciador CRUD</h3>
+									</div>
+
+									<span class="badge badge-outline"> Gestão </span>
+								</div>
+
+								<p class="preview-layout-description">Para criar, listar, editar, visualizar e excluir registros em tabela.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/crud.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/crud.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="galeria cards itens módulos matérias temas projetos">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L09 </span>
+
+										<h3 class="preview-layout-title">Galeria de Cards</h3>
+									</div>
+
+									<span class="badge badge-primary"> Cards </span>
+								</div>
+
+								<p class="preview-layout-description">Para listagens visuais, módulos, matérias, temas, projetos, modelos e atalhos.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/gallery.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/gallery.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="foco" data-keywords="focus modo foco questão revisão timer tarefa leitura concentração">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L13 </span>
+
+										<h3 class="preview-layout-title">Focus Mode</h3>
+									</div>
+
+									<span class="badge badge-warning"> Foco </span>
+								</div>
+
+								<p class="preview-layout-description">Para uma ação principal: resolver questão, estudar, revisar, ler ou executar tarefa.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/focus.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/focus.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="settings configurações preferências tema dados zona de perigo">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L19 </span>
+
+										<h3 class="preview-layout-title">Settings</h3>
+									</div>
+
+									<span class="badge badge-outline"> Sistema </span>
+								</div>
+
+								<p class="preview-layout-description">Para preferências, aparência, dados, importação, exportação e zona de perigo.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/settings.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/settings.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="dados" data-keywords="report relatório resultado final desempenho análise conclusão indicadores">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L20 </span>
+
+										<h3 class="preview-layout-title">Report</h3>
+									</div>
+
+									<span class="badge badge-success"> Dados </span>
+								</div>
+
+								<p class="preview-layout-description">Para relatórios, resultados finais, análises, indicadores e próximos passos.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/report.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/report.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="gestao" data-keywords="search busca pesquisa filtros ordenação resultados encontrar">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L23 </span>
+
+										<h3 class="preview-layout-title">Search</h3>
+									</div>
+
+									<span class="badge badge-primary"> Busca </span>
+								</div>
+
+								<p class="preview-layout-description">Para busca, filtros, ordenação, resultados e exploração de dados.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/search.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/search.html"> Abrir template </a>
+							</div>
+						</article>
+
+						<article class="preview-layout-card" data-layout-card data-category="entrada" data-keywords="empty state vazio sem dados primeiro uso nenhum resultado">
+							<div>
+								<div class="preview-layout-top">
+									<div>
+										<span class="preview-layout-code"> L25 </span>
+
+										<h3 class="preview-layout-title">Empty State</h3>
+									</div>
+
+									<span class="badge badge-outline"> Entrada </span>
+								</div>
+
+								<p class="preview-layout-description">Para tela sem dados, busca sem resultados, primeiro uso ou ausência de registros.</p>
+							</div>
+
+							<div class="preview-layout-meta">
+								<code class="preview-layout-path"> src/templates/layouts/empty-state.html </code>
+
+								<a class="btn btn-secondary btn-sm" href="./src/templates/layouts/empty-state.html"> Abrir template </a>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<section class="preview-section" id="fluxo">
+					<header class="preview-section-header">
+						<div>
+							<span class="preview-section-eyebrow"> Fluxo de uso </span>
+
+							<h2 class="preview-section-title">Como transformar um template em tela real</h2>
+
+							<p class="preview-section-description">
+								O template não é a página final. Ele é a estrutura inicial para copiar, adaptar e conectar com os dados e comportamentos específicos da aplicação.
+							</p>
+						</div>
+					</header>
+
+					<div class="preview-flow">
+						<article class="preview-flow-item">
+							<h3 class="preview-flow-title">Escolha o objetivo</h3>
+
+							<p class="preview-flow-description">Defina se a tela precisa listar, cadastrar, buscar, configurar, focar ou mostrar dados.</p>
+						</article>
+
+						<article class="preview-flow-item">
+							<h3 class="preview-flow-title">Selecione o layout</h3>
+
+							<p class="preview-flow-description">Use a biblioteca para escolher o molde mais próximo da necessidade real.</p>
+						</article>
+
+						<article class="preview-flow-item">
+							<h3 class="preview-flow-title">Copie o HTML</h3>
+
+							<p class="preview-flow-description">Pegue o template em `src/templates/layouts` e cole na tela real da aplicação.</p>
+						</article>
+
+						<article class="preview-flow-item">
+							<h3 class="preview-flow-title">Adapte conteúdo e IDs</h3>
+
+							<p class="preview-flow-description">Troque textos genéricos, remova blocos desnecessários e adicione IDs para o JavaScript.</p>
+						</article>
+
+						<article class="preview-flow-item">
+							<h3 class="preview-flow-title">Conecte a feature</h3>
+
+							<p class="preview-flow-description">Ligue a tela aos arquivos `controller`, `model`, `service` e `ui` da feature correspondente.</p>
+						</article>
+					</div>
+				</section>
+
+				<section class="preview-section" id="boas-praticas">
+					<header class="preview-section-header">
+						<div>
+							<span class="preview-section-eyebrow"> Boas práticas </span>
+
+							<h2 class="preview-section-title">Regras para manter o modelo limpo</h2>
+						</div>
+					</header>
+
+					<div class="preview-grid">
+						<article class="preview-showcase-card">
+							<h3 class="preview-showcase-title">Classes para visual</h3>
+
+							<p class="preview-showcase-description">Use classes para estrutura e aparência. Exemplo: `layout-gallery`, `card`, `btn`, `badge`.</p>
+						</article>
+
+						<article class="preview-showcase-card">
+							<h3 class="preview-showcase-title">IDs para comportamento</h3>
+
+							<p class="preview-showcase-description">Use IDs somente quando o JavaScript precisar localizar um elemento específico.</p>
+						</article>
+
+						<article class="preview-showcase-card">
+							<h3 class="preview-showcase-title">Templates não são páginas finais</h3>
+
+							<p class="preview-showcase-description">Eles são moldes copiáveis. A página real deve adaptar conteúdo, dados e comportamento.</p>
+						</article>
+					</div>
+				</section>
+			</main>
+
+			<footer class="preview-footer">
+				<h2 class="preview-footer-title">Modelo de Projeto pronto para virar aplicações reais</h2>
+
+				<p class="preview-footer-text">A próxima evolução pode ser criar previews completos individuais para cada layout.</p>
+			</footer>
+		</div>
+
+		<script>
+			const root = document.documentElement;
+			const themeToggle = document.querySelector('[data-theme-toggle]');
+			const themeLabel = document.querySelector('[data-theme-label]');
+
+			themeToggle.addEventListener('change', () => {
+				const nextTheme = themeToggle.checked ? 'light' : 'dark';
+
+				root.setAttribute('data-theme', nextTheme);
+				themeLabel.textContent = nextTheme === 'light' ? 'Tema claro' : 'Tema escuro';
+			});
+
+			const searchInput = document.querySelector('[data-layout-search]');
+			const filterButtons = Array.from(document.querySelectorAll('[data-layout-filter]'));
+			const layoutCards = Array.from(document.querySelectorAll('[data-layout-card]'));
+			const layoutCounter = document.querySelector('[data-layout-counter]');
+
+			let activeCategory = 'all';
+
+			function updateLayoutCards() {
+				const searchValue = searchInput.value.trim().toLowerCase();
+				let visibleCount = 0;
+
+				layoutCards.forEach((card) => {
+					card.classList.remove('is-span-full');
+
+					const category = card.dataset.category;
+					const keywords = card.dataset.keywords || '';
+					const text = card.textContent.toLowerCase();
+
+					const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+					const matchesSearch = searchValue === '' || text.includes(searchValue) || keywords.toLowerCase().includes(searchValue);
+
+					const shouldShow = matchesCategory && matchesSearch;
+
+					card.classList.toggle('is-hidden', !shouldShow);
+
+					if (shouldShow) {
+						visibleCount += 1;
+					}
+				});
+
+				const visibleCards = layoutCards.filter((card) => {
+					return !card.classList.contains('is-hidden');
+				});
+
+				const hasSingleCardInLastRow = visibleCards.length % 3 === 1;
+
+				if (hasSingleCardInLastRow && visibleCards.length > 1) {
+					visibleCards[visibleCards.length - 1].classList.add('is-span-full');
+				}
+
+				layoutCounter.textContent = `${visibleCount} layout${visibleCount === 1 ? '' : 's'}`;
+			}
+
+			filterButtons.forEach((button) => {
+				button.addEventListener('click', () => {
+					activeCategory = button.dataset.layoutFilter;
+
+					filterButtons.forEach((item) => {
+						item.classList.remove('btn-secondary');
+						item.classList.add('btn-outline');
+					});
+
+					button.classList.remove('btn-outline');
+					button.classList.add('btn-secondary');
+
+					updateLayoutCards();
+				});
+			});
+
+			searchInput.addEventListener('input', updateLayoutCards);
+		</script>
+	</body>
+</html>

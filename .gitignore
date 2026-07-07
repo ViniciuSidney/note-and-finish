@@ -3,12 +3,14 @@
 Thumbs.db
 
 # Editor
-.vscode/
-.idea/
+.vscode/settings.json
 
-# Backups pessoais exportados pela aplicação
-*.json
-
-# Arquivos temporários
-*.tmp
+# Logs
 *.log
+
+# Dependências futuras
+node_modules/
+
+# Builds futuras
+dist/
+build/

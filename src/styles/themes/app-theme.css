@@ -1,0 +1,29 @@
+:root {
+  /* Identidade da aplicação */
+  --app-name: "Nome da Aplicação";
+
+  /* Cores principais da aplicação */
+  --color-bg: #1d2724;
+  --color-surface: #063b34;
+  --color-surface-soft: #2f8f86;
+  --color-surface-strong: #031f1b;
+
+  --color-primary: #55c7b8;
+  --color-primary-hover: #46b3a5;
+  --color-primary-active: #399c91;
+
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border-strong: rgba(255, 255, 255, 0.26);
+
+  --color-text: #ffffff;
+  --color-text-muted: #d8f5f1;
+  --color-text-soft: #a7d8d2;
+
+  /* Personalidade visual */
+  --app-header-radius: var(--radius-md);
+  --app-panel-radius: var(--radius-md);
+  --app-card-radius: var(--radius-sm);
+
+  --app-title-letter-spacing: 0.25rem;
+  --app-shadow-intensity: var(--shadow-md);
+}
