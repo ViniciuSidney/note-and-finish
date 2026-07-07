@@ -30,3 +30,6 @@
 
 /* Página atual */
 @import url("./pages/home.css");
+
+/* Responsividade global da aplicação */
+@import url("./utilities/responsive.css");
