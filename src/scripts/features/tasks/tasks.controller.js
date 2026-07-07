@@ -5,12 +5,12 @@
 
 import { loadCollapsedGroupKeys, loadTasks, saveCollapsedGroupKeys as persistCollapsedGroupKeys, saveTasks as persistTasks } from "./tasks.storage.js";
 import { createId } from "./tasks.utils.js";
-import { createDetailsHtml } from "./tasks.ui.js";
 import { exportTasksBackup, getImportSummaryText, readImportedTasksFile } from "./tasks.backup.js";
 import { closeClearAllDialog as closeClearAllDialogUi, closeDialog, closeOptionsMenu as closeOptionsMenuUi, isClearAllConfirmationValid, openClearAllDialog as openClearAllDialogUi, openCreateTaskDialog as openCreateTaskDialogUi, openDialog, openImportDialog, toggleOptionsMenu as toggleOptionsMenuUi, updateClearAllConfirmation } from "./tasks.dialogs.js";
 import { initializeTheme as initializeAppTheme, toggleTheme as toggleAppTheme } from "./tasks.theme.js";
 import { createInlineEditController } from "./tasks.inline-edit.js";
 import { createTasksRenderer } from "./tasks.render.js";
+import { createTaskActionsController } from "./tasks.actions.js";
 
 const taskForm = document.querySelector("#taskForm");
 const taskIdInput = document.querySelector("#taskId");
@@ -83,7 +83,6 @@ const emptyCreateTaskButton = document.querySelector("#emptyCreateTaskButton");
 const closeTaskFormButton = document.querySelector("#closeTaskFormButton");
 
 let tasks = loadTasks();
-let taskIdToDelete = null;
 let pendingImportedTasks = null;
 let collapsedGroupKeys = loadCollapsedGroupKeys();
 let expandedChecklistTaskIds = new Set();
@@ -122,6 +121,40 @@ const renderer = createTasksRenderer({
   getCollapsedGroupKeys: () => collapsedGroupKeys,
   getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
   getInlineEditState: inlineEdit.getState,
+});
+
+const taskActions = createTaskActionsController({
+  elements: {
+    detailsDialog,
+    detailsTitle,
+    detailsBody,
+    deleteDialog,
+    taskIdInput,
+    titleInput,
+    typeInput,
+    subjectInput,
+    dueDateInput,
+    priorityInput,
+    statusInput,
+    descriptionInput,
+    subtasksInput,
+    tagsInput,
+    formTitle,
+    submitButton,
+  },
+  getTasks: () => tasks,
+  setTasks: (nextTasks) => {
+    tasks = nextTasks;
+  },
+  saveTasks,
+  render,
+  resetForm,
+  showFormMessage,
+  getCollapsedGroupKeys: () => collapsedGroupKeys,
+  saveCollapsedGroupKeys,
+  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
+  openDialog,
+  closeDialog,
 });
 
 function getThemeElements() {
@@ -191,13 +224,13 @@ export function initTasksFeature() {
   taskList.addEventListener("focusout", inlineEdit.handleInlineEditorFocusOut);
   taskList.addEventListener("change", inlineEdit.handleInlineEditorChange);
 
-  detailsBody.addEventListener("click", handleDetailsAction);
+  detailsBody.addEventListener("click", taskActions.handleDetailsAction);
 
   closeDetailsButton.addEventListener("click", () => detailsDialog.close());
 
-  cancelDeleteButton.addEventListener("click", closeDeleteDialog);
-  cancelDeleteTopButton.addEventListener("click", closeDeleteDialog);
-  confirmDeleteButton.addEventListener("click", deleteSelectedTask);
+  cancelDeleteButton.addEventListener("click", taskActions.closeDeleteDialog);
+  cancelDeleteTopButton.addEventListener("click", taskActions.closeDeleteDialog);
+  confirmDeleteButton.addEventListener("click", taskActions.deleteSelectedTask);
   optionsButton.addEventListener("click", toggleOptionsMenu);
   themeToggleButton.addEventListener("click", toggleTheme);
   exportBackupButton.addEventListener("click", exportBackup);
@@ -255,6 +288,14 @@ function toggleOptionsMenu() {
 
 function closeOptionsMenu() {
   closeOptionsMenuUi(getOptionsMenuElements());
+}
+
+function toggleFiltersPanel() {
+	const isExpanded = filtersPanel.classList.contains('filters-collapsed');
+
+	filtersPanel.classList.toggle('filters-collapsed', !isExpanded);
+	filtersToggleButton.setAttribute('aria-expanded', String(isExpanded));
+	filtersToggleButton.textContent = isExpanded ? '🔎 Ocultar filtros' : '🔎 Filtros';
 }
 
 function exportBackup() {
@@ -463,218 +504,37 @@ function handleTaskAction(event) {
   }
 
   if (action === "toggle-group") {
-    toggleGroup(button.dataset.groupKey);
+    taskActions.toggleGroup(button.dataset.groupKey);
     return;
   }
 
   if (action === "toggle-checklist-preview") {
-    toggleChecklistPreview(taskId);
+    taskActions.toggleChecklistPreview(taskId);
     return;
   }
 
   if (action === "toggle-subtask") {
-    toggleSubtask(taskId, button.dataset.subtaskId);
+    taskActions.toggleSubtask(taskId, button.dataset.subtaskId);
     return;
   }
 
   if (action === "view") {
-    openDetails(taskId);
+    taskActions.openDetails(taskId);
   }
 
   if (action === "edit") {
-    editTask(taskId);
+    taskActions.editTask(taskId);
   }
 
   if (action === "delete") {
-    openDeleteDialog(taskId);
+    taskActions.openDeleteDialog(taskId);
   }
 
   if (action === "toggle") {
-    toggleTaskStatus(taskId);
+    taskActions.toggleTaskStatus(taskId);
   }
 }
 
-function handleDetailsAction(event) {
-  const button = event.target.closest("button[data-action]");
-
-  if (!button) {
-    return;
-  }
-
-  const action = button.dataset.action;
-  const taskId = button.dataset.id;
-
-  if (action === "toggle-subtask") {
-    toggleSubtask(taskId, button.dataset.subtaskId, true);
-    return;
-  }
-
-  if (action === "details-toggle-status") {
-    toggleTaskStatus(taskId);
-    openDetails(taskId);
-    return;
-  }
-
-  if (action === "details-delete") {
-    detailsDialog.close();
-    openDeleteDialog(taskId);
-  }
-}
-
-function toggleSubtask(taskId, subtaskId, shouldRefreshDetails = false) {
-  tasks = tasks.map((task) => {
-    if (task.id !== taskId) {
-      return task;
-    }
-
-    return {
-      ...task,
-      subtasks: (task.subtasks || []).map((subtask) => {
-        if (subtask.id !== subtaskId) {
-          return subtask;
-        }
-
-        return {
-          ...subtask,
-          done: !subtask.done,
-        };
-      }),
-      updatedAt: new Date().toISOString(),
-    };
-  });
-
-  saveTasks();
-  render();
-
-  if (shouldRefreshDetails && detailsDialog.open) {
-    openDetails(taskId);
-  }
-}
-
-function toggleFiltersPanel() {
-  const isExpanded = filtersPanel.classList.contains("filters-collapsed");
-
-  filtersPanel.classList.toggle("filters-collapsed", !isExpanded);
-  filtersToggleButton.setAttribute("aria-expanded", String(isExpanded));
-  filtersToggleButton.textContent = isExpanded ? "🔎 Ocultar filtros" : "🔎 Filtros";
-}
-
-function toggleGroup(groupKey) {
-  if (!groupKey) {
-    return;
-  }
-
-  if (collapsedGroupKeys.has(groupKey)) {
-    collapsedGroupKeys.delete(groupKey);
-  } else {
-    collapsedGroupKeys.add(groupKey);
-  }
-
-  saveCollapsedGroupKeys();
-  render();
-}
-
-function toggleChecklistPreview(taskId) {
-  if (!taskId) {
-    return;
-  }
-
-  if (expandedChecklistTaskIds.has(taskId)) {
-    expandedChecklistTaskIds.delete(taskId);
-  } else {
-    expandedChecklistTaskIds.add(taskId);
-  }
-
-  render();
-}
-
-function openDetails(taskId) {
-  const task = tasks.find((item) => item.id === taskId);
-
-  if (!task) {
-    return;
-  }
-
-  const details = createDetailsHtml(task);
-
-  detailsTitle.textContent = details.title;
-  detailsBody.innerHTML = details.bodyHtml;
-
-  if (!detailsDialog.open) {
-    detailsDialog.showModal();
-  }
-}
-
-function editTask(taskId) {
-  const task = tasks.find((item) => item.id === taskId);
-
-  if (!task) {
-    return;
-  }
-
-  taskIdInput.value = task.id;
-  titleInput.value = task.title;
-  typeInput.value = task.type;
-  subjectInput.value = task.subject;
-  dueDateInput.value = task.dueDate;
-  priorityInput.value = task.priority;
-  statusInput.value = task.status;
-  descriptionInput.value = task.description;
-  subtasksInput.value = (task.subtasks || []).map((subtask) => subtask.title).join("\n");
-  tagsInput.value = task.tags.join(", ");
-
-  formTitle.textContent = "Editar atividade";
-  submitButton.textContent = "Atualizar atividade";
-
-  showFormMessage("Editando atividade selecionada.", "success");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
-
-function openDeleteDialog(taskId) {
-  taskIdToDelete = taskId;
-  openDialog(deleteDialog);
-}
-
-function closeDeleteDialog() {
-  taskIdToDelete = null;
-  closeDialog(deleteDialog);
-}
-
-function deleteSelectedTask() {
-  if (!taskIdToDelete) {
-    return;
-  }
-
-  tasks = tasks.filter((task) => task.id !== taskIdToDelete);
-
-  saveTasks();
-  render();
-  resetForm(false);
-  closeDeleteDialog();
-}
-
-function toggleTaskStatus(taskId) {
-  tasks = tasks.map((task) => {
-    if (task.id !== taskId) {
-      return task;
-    }
-
-    const nextStatus = task.status === "Concluída" ? "Pendente" : "Concluída";
-
-    return {
-      ...task,
-      status: nextStatus,
-      updatedAt: new Date().toISOString(),
-    };
-  });
-
-  saveTasks();
-  render();
-}
 
 function render() {
   renderer.render();
