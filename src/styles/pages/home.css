@@ -764,60 +764,6 @@ small {
   color: var(--muted);
 }
 
-.dialog {
-  width: min(720px, calc(100% - 32px));
-  border: 0;
-  border-radius: 24px;
-  background: transparent;
-  padding: 0;
-}
-
-.dialog::backdrop {
-  background: rgba(45, 36, 23, 0.45);
-  backdrop-filter: blur(4px);
-}
-
-.dialog-content {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 22px;
-  box-shadow: var(--shadow);
-}
-
-.dialog-small {
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-.dialog-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.dialog-header h2 {
-  margin: 0;
-}
-
-.dialog-warning {
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.icon-button {
-  border: 1px solid var(--border);
-  background: var(--panel-strong);
-  color: var(--text);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  font-size: 1.3rem;
-  line-height: 1;
-}
-
 .details-body {
   display: grid;
   gap: 12px;
@@ -1272,22 +1218,6 @@ small {
   flex-wrap: wrap;
 }
 
-/* Ajuste dos modais para respeitarem o tema atual */
-.dialog,
-.dialog-content {
-  color: var(--text);
-}
-
-.dialog-content p {
-  color: var(--muted);
-}
-
-.dialog-header h2,
-.dialog-content label,
-.dialog-content strong {
-  color: var(--text);
-}
-
 /* Ajuste de espaçamento da mensagem no modal Apagar tudo */
 #clearAllDialog #clearAllMessage {
   margin: 12px 0 18px;
@@ -1486,22 +1416,6 @@ body[data-theme="dark"] .details-progress-pill {
 
 body[data-theme="dark"] .details-progress-track {
   background: #2d2118;
-}
-
-body[data-theme="dark"] .dialog-content {
-  background: var(--panel);
-  border-color: var(--border);
-  color: var(--text);
-}
-
-body[data-theme="dark"] .dialog-content p {
-  color: var(--muted);
-}
-
-body[data-theme="dark"] .dialog-header h2,
-body[data-theme="dark"] .dialog-content label,
-body[data-theme="dark"] .dialog-content strong {
-  color: var(--text);
 }
 
 body[data-theme="dark"] .task-action-button:hover {

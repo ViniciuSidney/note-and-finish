@@ -7,10 +7,13 @@
 @import url("./base/reset.css");
 @import url("./base/typography.css");
 
-/* Temas */
+/* Tema */
 @import url("./themes/app-theme.css");
 @import url("./themes/light.css");
 @import url("./themes/dark.css");
 
-/* Página atual */
+/* Componentes */
+@import url("./components/modals.css");
+
+/* Página atual da aplicação */
 @import url("./pages/home.css");
