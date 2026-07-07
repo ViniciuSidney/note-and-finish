@@ -13,6 +13,7 @@
 @import url("./themes/dark.css");
 
 /* Componentes */
+@import url("./components/buttons.css");
 @import url("./components/modals.css");
 
 /* Página atual da aplicação */

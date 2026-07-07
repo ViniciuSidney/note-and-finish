@@ -1,5 +1,3 @@
-
-
 .app {
   width: min(1320px, calc(100% - 24px));
   height: 100dvh;
@@ -53,25 +51,6 @@
   position: relative;
 }
 
-.options-button {
-  border: 1px solid var(--border);
-  background: rgba(255, 250, 241, 0.85);
-  color: var(--text);
-  border-radius: 999px;
-  padding: 9px 14px;
-  font-weight: 800;
-  box-shadow: var(--shadow);
-  transition:
-    transform 0.2s,
-    background 0.2s,
-    border-color 0.2s;
-}
-
-.options-button:hover {
-  transform: translateY(-1px);
-  background: var(--panel-strong);
-}
-
 .options-dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -88,29 +67,6 @@
 
 .options-dropdown.is-open {
   display: grid;
-}
-
-.option-item {
-  width: 100%;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: var(--text);
-  padding: 11px 12px;
-  font-weight: 800;
-  text-align: left;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  transition: background 0.2s;
-}
-
-.option-item:hover {
-  background: var(--panel-strong);
-}
-
-.option-item-danger {
-  color: var(--danger);
 }
 
 .options-divider {
@@ -199,29 +155,6 @@
   line-height: 1.35;
 }
 
-.filters-toggle-button {
-  flex: 0 0 auto;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--panel-strong);
-  color: var(--text);
-  padding: 7px 11px;
-  font-weight: 800;
-  font-size: 0.82rem;
-  transition:
-    background 0.2s,
-    transform 0.2s;
-}
-
-.filters-toggle-button:hover {
-  background: #f2dfbf;
-  transform: translateY(-1px);
-}
-
-body[data-theme="dark"] .filters-toggle-button:hover {
-  background: #38291e;
-}
-
 .task-form,
 .filters {
   display: grid;
@@ -307,54 +240,6 @@ small {
 
 .form-message.error {
   color: var(--danger);
-}
-
-.form-actions,
-.dialog-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.button {
-  border: 0;
-  border-radius: 12px;
-  padding: 9px 13px;
-  font-weight: 800;
-  transition:
-    transform 0.2s,
-    opacity 0.2s,
-    background 0.2s;
-}
-
-.button:hover {
-  transform: translateY(-1px);
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
-  transform: none;
-}
-
-.button-primary {
-  background: var(--accent);
-  color: white;
-}
-
-.button-primary:hover {
-  background: var(--accent-dark);
-}
-
-.button-secondary {
-  background: var(--panel-strong);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.button-danger {
-  background: var(--danger);
-  color: white;
 }
 
 .task-list {
@@ -663,86 +548,6 @@ small {
 .task-date {
   color: var(--muted);
   font-size: 0.82rem;
-}
-
-.task-actions {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.task-action-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-width: 40px;
-  height: 40px;
-  border: 1px solid var(--border);
-  background: var(--panel-strong);
-  color: var(--text);
-  border-radius: 12px;
-  padding: 0 10px;
-  font-weight: 700;
-  transition:
-    background 0.2s,
-    transform 0.2s,
-    border-color 0.2s;
-}
-
-.task-action-button:hover {
-  background: #f2dfbf;
-  transform: translateY(-1px);
-}
-
-.task-action-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.14);
-}
-
-.task-action-button-danger:hover {
-  background: #fff0f0;
-  border-color: rgba(169, 67, 67, 0.35);
-}
-
-.task-action-icon {
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.task-action-label {
-  display: none;
-  font-size: 0.82rem;
-}
-
-.task-action-button::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 8px);
-  transform: translateX(-50%) translateY(4px);
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 6px 8px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  box-shadow: var(--shadow);
-  transition:
-    opacity 0.2s,
-    transform 0.2s;
-  z-index: 25;
-}
-
-.task-action-button:hover::after,
-.task-action-button:focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 .empty-state {
@@ -1231,8 +1036,7 @@ small {
 
 body[data-theme="dark"] .app-tag,
 body[data-theme="dark"] .summary-card,
-body[data-theme="dark"] .panel,
-body[data-theme="dark"] .options-button {
+body[data-theme="dark"] .panel {
   background: rgba(33, 25, 19, 0.9);
 }
 
@@ -1302,15 +1106,6 @@ body[data-theme="dark"] .badge-priority-medium {
 body[data-theme="dark"] .badge-priority-low {
   background: rgba(130, 201, 138, 0.15);
   color: var(--success);
-}
-
-body[data-theme="dark"] .task-actions button:hover,
-body[data-theme="dark"] .option-item:hover {
-  background: #38291e;
-}
-
-body[data-theme="dark"] .option-item-danger {
-  color: var(--danger);
 }
 
 body[data-theme="dark"] .task-checklist {
@@ -1416,25 +1211,6 @@ body[data-theme="dark"] .details-progress-pill {
 
 body[data-theme="dark"] .details-progress-track {
   background: #2d2118;
-}
-
-body[data-theme="dark"] .task-action-button:hover {
-  background: #38291e;
-}
-
-body[data-theme="dark"] .task-action-button-danger:hover {
-  background: rgba(224, 109, 109, 0.14);
-  border-color: rgba(224, 109, 109, 0.38);
-}
-
-body[data-theme="dark"] .task-action-button::after {
-  background: var(--panel);
-  border-color: var(--border);
-  color: var(--text);
-}
-
-body[data-theme="dark"] .task-action-button:focus-visible {
-  box-shadow: 0 0 0 3px rgba(214, 155, 97, 0.14);
 }
 
 @media (max-width: 980px) {
@@ -1566,375 +1342,353 @@ body[data-theme="dark"] .task-action-button:focus-visible {
   }
 }
 
-@media (hover: none), (pointer: coarse), (max-width: 640px) {
-  .task-actions {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .task-action-button {
-    min-width: 0;
-    height: auto;
-    padding: 8px 10px;
-  }
-
-  .task-action-label {
-    display: inline;
-  }
-
-  .task-action-button::after {
-    display: none;
-  }
-}
-
 /* ============================= */
 /* Home refatorada - transição   */
 /* ============================= */
 
 .app-home {
-	height: 100dvh;
-	display: grid;
-	grid-template-rows: minmax(128px, 20dvh) minmax(0, 1fr);
-	gap: 10px;
-	padding: 10px 0;
-	overflow: hidden;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: minmax(128px, 20dvh) minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px 0;
+  overflow: hidden;
 }
 
 .home-top-area {
-	min-height: 0;
-	display: grid;
-	grid-template-rows: auto auto auto;
-	gap: 8px;
-	overflow: hidden;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 8px;
+  overflow: hidden;
 }
 
 .home-action-bar {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-create-button {
-	min-width: 220px;
-	justify-content: center;
-	box-shadow: var(--shadow);
+  min-width: 220px;
+  justify-content: center;
+  box-shadow: var(--shadow);
 }
 
 .tasks-gallery {
-	min-height: 0;
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	background: rgba(255, 250, 241, 0.9);
-	border: 1px solid var(--border);
-	border-radius: 22px;
-	padding: 14px;
-	box-shadow: var(--shadow);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(255, 250, 241, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: var(--shadow);
 }
 
 .tasks-gallery-header {
-	flex: 0 0 auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 14px;
-	margin-bottom: 10px;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
 }
 
 .gallery-title {
-	margin: 0 0 4px;
-	font-size: 1.25rem;
-	color: var(--text);
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  color: var(--text);
 }
 
 .gallery-description {
-	margin: 0;
-	color: var(--muted);
-	font-size: 0.92rem;
-	line-height: 1.35;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.35;
 }
 
 .gallery-actions {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .tasks-gallery .gallery-toolbar {
-	flex: 0 0 auto;
-	margin-bottom: 10px;
+  flex: 0 0 auto;
+  margin-bottom: 10px;
 }
 
 .tasks-grid {
-	min-height: 0;
-	flex: 1 1 auto;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 
 .task-form-dialog {
-	width: min(720px, calc(100% - 32px));
-	max-height: calc(100dvh - 48px);
-	overflow-y: auto;
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
 }
 
 .task-form-dialog .task-form {
-	max-height: none;
-	overflow: visible;
-	padding-right: 0;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .task-form-dialog::-webkit-scrollbar {
-	width: 8px;
+  width: 8px;
 }
 
 .task-form-dialog::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 .task-form-dialog::-webkit-scrollbar-thumb {
-	background: rgba(139, 94, 52, 0.28);
-	border-radius: 999px;
+  background: rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
 }
 
 .task-form-dialog::-webkit-scrollbar-thumb:hover {
-	background: rgba(139, 94, 52, 0.42);
+  background: rgba(139, 94, 52, 0.42);
 }
 
 .empty-state-icon {
-	font-size: 2rem;
+  font-size: 2rem;
 }
 
 .empty-state-title {
-	display: block;
-	color: var(--text);
-	font-size: 1.05rem;
+  display: block;
+  color: var(--text);
+  font-size: 1.05rem;
 }
 
 .empty-state-description {
-	color: var(--muted);
-	line-height: 1.45;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .empty-state-actions {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 body[data-theme="dark"] .tasks-gallery {
-	background: rgba(33, 25, 19, 0.9);
+  background: rgba(33, 25, 19, 0.9);
 }
 
 body[data-theme="dark"] .task-form-dialog::-webkit-scrollbar-thumb {
-	background: rgba(214, 155, 97, 0.28);
+  background: rgba(214, 155, 97, 0.28);
 }
 
 body[data-theme="dark"] .task-form-dialog::-webkit-scrollbar-thumb:hover {
-	background: rgba(214, 155, 97, 0.42);
+  background: rgba(214, 155, 97, 0.42);
 }
 
 @media (max-width: 720px) {
-	.tasks-gallery-header {
-		flex-direction: column;
-	}
+  .tasks-gallery-header {
+    flex-direction: column;
+  }
 
-	.gallery-actions,
-	.filters-toggle-button,
-	.home-create-button {
-		width: 100%;
-	}
+  .gallery-actions,
+  .filters-toggle-button,
+  .home-create-button {
+    width: 100%;
+  }
 
-	.home-action-bar {
-		justify-content: stretch;
-	}
+  .home-action-bar {
+    justify-content: stretch;
+  }
 }
 
 /* Ajuste de proporção da tela inicial */
 .app-home-header {
-	min-height: 0;
+  min-height: 0;
 }
 
 .app-home-header h1 {
-	margin: 6px 0 2px;
-	font-size: clamp(2rem, 3vw, 2.55rem);
+  margin: 6px 0 2px;
+  font-size: clamp(2rem, 3vw, 2.55rem);
 }
 
 .app-home-header p {
-	font-size: 0.9rem;
-	line-height: 1.25;
+  font-size: 0.9rem;
+  line-height: 1.25;
 }
 
 .app-summary {
-	gap: 8px;
+  gap: 8px;
 }
 
 .app-summary .summary-card {
-	padding: 8px 12px;
-	border-radius: 14px;
+  padding: 8px 12px;
+  border-radius: 14px;
 }
 
 .app-summary .summary-card span {
-	margin-bottom: 2px;
-	font-size: 0.8rem;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
 }
 
 .app-summary .summary-card strong {
-	font-size: 1.35rem;
+  font-size: 1.35rem;
 }
 
 .home-action-bar {
-	min-height: 38px;
+  min-height: 38px;
 }
 
 .home-create-button {
-	min-height: 38px;
-	padding: 8px 16px;
+  min-height: 38px;
+  padding: 8px 16px;
 }
 
 .tasks-gallery {
-	min-height: 0;
-	height: 100%;
+  min-height: 0;
+  height: 100%;
 }
 
 .tasks-grid {
-	min-height: 0;
-	flex: 1 1 auto;
-	overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
 /* Modal wide de criação de atividade */
 #createTaskDialog {
-	width: min(1040px, calc(100% - 32px));
+  width: min(1040px, calc(100% - 32px));
 }
 
 #createTaskDialog .task-form-dialog {
-	width: 100%;
-	max-height: calc(100dvh - 48px);
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+  width: 100%;
+  max-height: calc(100dvh - 48px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 #createTaskDialog .dialog-header {
-	flex: 0 0 auto;
-	margin-bottom: 14px;
+  flex: 0 0 auto;
+  margin-bottom: 14px;
 }
 
 #createTaskDialog .task-form {
-	min-height: 0;
-	max-height: calc(100dvh - 170px);
-	overflow-y: auto;
-	padding-right: 6px;
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 11px 12px;
+  min-height: 0;
+  max-height: calc(100dvh - 170px);
+  overflow-y: auto;
+  padding-right: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px 12px;
 }
 
 #createTaskDialog .task-form > .form-group,
 #createTaskDialog .task-form > .form-row,
 #createTaskDialog .task-form > .form-message,
 #createTaskDialog .task-form > .form-actions {
-	grid-column: 1 / -1;
+  grid-column: 1 / -1;
 }
 
 #createTaskDialog .task-form > .form-row {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
 /* Coloca descrição e checklist lado a lado */
 #createTaskDialog .form-group:has(#description) {
-	grid-column: 1;
+  grid-column: 1;
 }
 
 #createTaskDialog .form-group:has(#subtasks) {
-	grid-column: 2;
+  grid-column: 2;
 }
 
 #createTaskDialog #description,
 #createTaskDialog #subtasks {
-	min-height: 150px;
+  min-height: 150px;
 }
 
 #createTaskDialog .form-group:has(#tags),
 #createTaskDialog .form-message,
 #createTaskDialog .form-actions {
-	grid-column: 1 / -1;
+  grid-column: 1 / -1;
 }
 
 #createTaskDialog .form-actions {
-	position: sticky;
-	bottom: 0;
-	z-index: 2;
-	padding-top: 10px;
-	background: var(--panel);
-	border-top: 1px solid var(--border);
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  padding-top: 10px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
 }
 
 #createTaskDialog .task-form::-webkit-scrollbar {
-	width: 8px;
+  width: 8px;
 }
 
 #createTaskDialog .task-form::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 #createTaskDialog .task-form::-webkit-scrollbar-thumb {
-	background: rgba(139, 94, 52, 0.28);
-	border-radius: 999px;
+  background: rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
 }
 
 #createTaskDialog .task-form::-webkit-scrollbar-thumb:hover {
-	background: rgba(139, 94, 52, 0.42);
+  background: rgba(139, 94, 52, 0.42);
 }
 
 body[data-theme="dark"] #createTaskDialog .task-form::-webkit-scrollbar-thumb {
-	background: rgba(214, 155, 97, 0.28);
+  background: rgba(214, 155, 97, 0.28);
 }
 
 body[data-theme="dark"] #createTaskDialog .task-form::-webkit-scrollbar-thumb:hover {
-	background: rgba(214, 155, 97, 0.42);
+  background: rgba(214, 155, 97, 0.42);
 }
 
 @media (max-width: 820px) {
-	.app-home {
-		height: auto;
-		min-height: 100dvh;
-		display: block;
-		overflow: visible;
-	}
+  .app-home {
+    height: auto;
+    min-height: 100dvh;
+    display: block;
+    overflow: visible;
+  }
 
-	.home-top-area {
-		overflow: visible;
-		margin-bottom: 12px;
-	}
+  .home-top-area {
+    overflow: visible;
+    margin-bottom: 12px;
+  }
 
-	.tasks-gallery {
-		min-height: 70dvh;
-	}
+  .tasks-gallery {
+    min-height: 70dvh;
+  }
 
-	#createTaskDialog {
-		width: min(720px, calc(100% - 24px));
-	}
+  #createTaskDialog {
+    width: min(720px, calc(100% - 24px));
+  }
 
-	#createTaskDialog .task-form {
-		grid-template-columns: 1fr;
-		max-height: calc(100dvh - 150px);
-	}
+  #createTaskDialog .task-form {
+    grid-template-columns: 1fr;
+    max-height: calc(100dvh - 150px);
+  }
 
-	#createTaskDialog .form-group:has(#description),
-	#createTaskDialog .form-group:has(#subtasks) {
-		grid-column: 1 / -1;
-	}
+  #createTaskDialog .form-group:has(#description),
+  #createTaskDialog .form-group:has(#subtasks) {
+    grid-column: 1 / -1;
+  }
 
-	#createTaskDialog #description,
-	#createTaskDialog #subtasks {
-		min-height: 110px;
-	}
+  #createTaskDialog #description,
+  #createTaskDialog #subtasks {
+    min-height: 110px;
+  }
 }
 
 /* ============================= */
