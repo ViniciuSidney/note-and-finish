@@ -21,5 +21,8 @@
 @import url("./components/toggles.css");
 @import url("./components/modals.css");
 
+/* Utilidades */
+@import url("./utilities/scrollbar.css");
+
 /* Página atual da aplicação */
 @import url("./pages/home.css");

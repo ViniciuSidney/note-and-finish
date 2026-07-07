@@ -1,58 +1,136 @@
 /* ============================= */
-/* Scrollbar Customizada         */
+/* Scrollbar                     */
 /* ============================= */
 
-* {
-	scrollbar-width: thin;
-	scrollbar-color: var(--color-surface-soft) var(--color-surface-strong);
+.scroll-area,
+.scroll-area-y,
+.scroll-area-x,
+.task-form,
+.task-list,
+.task-form-dialog,
+#detailsDialog .dialog-content,
+#detailsDialog #detailsBody,
+#createTaskDialog .task-form {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 94, 52, 0.28) transparent;
 }
-
-*::-webkit-scrollbar {
-	width: 0.75rem;
-	height: 0.75rem;
-}
-
-*::-webkit-scrollbar-track {
-	background: var(--color-surface-strong);
-	border-radius: var(--radius-pill);
-}
-
-*::-webkit-scrollbar-thumb {
-	border: 2px solid var(--color-surface-strong);
-	border-radius: var(--radius-pill);
-	background: var(--color-surface-soft);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-	background: var(--color-primary);
-}
-
-*::-webkit-scrollbar-corner {
-	background: var(--color-surface-strong);
-}
-
-/* Remove botões/setas da scrollbar em navegadores WebKit */
-*::-webkit-scrollbar-button {
-	display: none;
-	width: 0;
-	height: 0;
-}
-
-/* Classes utilitárias */
 
 .scroll-area {
-	overflow: auto;
-	scrollbar-gutter: stable;
-}
-
-.scroll-area-x {
-	overflow-x: auto;
-	overflow-y: hidden;
-	scrollbar-gutter: stable;
+  overflow: auto;
+  scrollbar-gutter: stable;
 }
 
 .scroll-area-y {
-	overflow-y: auto;
-	overflow-x: hidden;
-	scrollbar-gutter: stable;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.scroll-area-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* WebKit / Chromium */
+.scroll-area::-webkit-scrollbar,
+.scroll-area-y::-webkit-scrollbar,
+.scroll-area-x::-webkit-scrollbar,
+.task-form::-webkit-scrollbar,
+.task-list::-webkit-scrollbar,
+.task-form-dialog::-webkit-scrollbar,
+#detailsDialog .dialog-content::-webkit-scrollbar,
+#detailsDialog #detailsBody::-webkit-scrollbar,
+#createTaskDialog .task-form::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-area::-webkit-scrollbar-track,
+.scroll-area-y::-webkit-scrollbar-track,
+.scroll-area-x::-webkit-scrollbar-track,
+.task-form::-webkit-scrollbar-track,
+.task-list::-webkit-scrollbar-track,
+.task-form-dialog::-webkit-scrollbar-track,
+#detailsDialog .dialog-content::-webkit-scrollbar-track,
+#detailsDialog #detailsBody::-webkit-scrollbar-track,
+#createTaskDialog .task-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb,
+.scroll-area-y::-webkit-scrollbar-thumb,
+.scroll-area-x::-webkit-scrollbar-thumb,
+.task-form::-webkit-scrollbar-thumb,
+.task-list::-webkit-scrollbar-thumb,
+.task-form-dialog::-webkit-scrollbar-thumb,
+#detailsDialog .dialog-content::-webkit-scrollbar-thumb,
+#detailsDialog #detailsBody::-webkit-scrollbar-thumb,
+#createTaskDialog .task-form::-webkit-scrollbar-thumb {
+  background: rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover,
+.scroll-area-y::-webkit-scrollbar-thumb:hover,
+.scroll-area-x::-webkit-scrollbar-thumb:hover,
+.task-form::-webkit-scrollbar-thumb:hover,
+.task-list::-webkit-scrollbar-thumb:hover,
+.task-form-dialog::-webkit-scrollbar-thumb:hover,
+#detailsDialog .dialog-content::-webkit-scrollbar-thumb:hover,
+#detailsDialog #detailsBody::-webkit-scrollbar-thumb:hover,
+#createTaskDialog .task-form::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 94, 52, 0.42);
+}
+
+/* Remove botões/setas da scrollbar em navegadores WebKit */
+.scroll-area::-webkit-scrollbar-button,
+.scroll-area-y::-webkit-scrollbar-button,
+.scroll-area-x::-webkit-scrollbar-button,
+.task-form::-webkit-scrollbar-button,
+.task-list::-webkit-scrollbar-button,
+.task-form-dialog::-webkit-scrollbar-button,
+#detailsDialog .dialog-content::-webkit-scrollbar-button,
+#detailsDialog #detailsBody::-webkit-scrollbar-button,
+#createTaskDialog .task-form::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Tema escuro */
+body[data-theme="dark"] .scroll-area,
+body[data-theme="dark"] .scroll-area-y,
+body[data-theme="dark"] .scroll-area-x,
+body[data-theme="dark"] .task-form,
+body[data-theme="dark"] .task-list,
+body[data-theme="dark"] .task-form-dialog,
+body[data-theme="dark"] #detailsDialog .dialog-content,
+body[data-theme="dark"] #detailsDialog #detailsBody,
+body[data-theme="dark"] #createTaskDialog .task-form {
+  scrollbar-color: rgba(214, 155, 97, 0.28) transparent;
+}
+
+body[data-theme="dark"] .scroll-area::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .scroll-area-y::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .scroll-area-x::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .task-form::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .task-list::-webkit-scrollbar-thumb,
+body[data-theme="dark"] .task-form-dialog::-webkit-scrollbar-thumb,
+body[data-theme="dark"] #detailsDialog .dialog-content::-webkit-scrollbar-thumb,
+body[data-theme="dark"] #detailsDialog #detailsBody::-webkit-scrollbar-thumb,
+body[data-theme="dark"] #createTaskDialog .task-form::-webkit-scrollbar-thumb {
+  background: rgba(214, 155, 97, 0.28);
+}
+
+body[data-theme="dark"] .scroll-area::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] .scroll-area-y::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] .scroll-area-x::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] .task-form::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] .task-list::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] .task-form-dialog::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] #detailsDialog .dialog-content::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] #detailsDialog #detailsBody::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] #createTaskDialog .task-form::-webkit-scrollbar-thumb:hover {
+  background: rgba(214, 155, 97, 0.42);
 }
