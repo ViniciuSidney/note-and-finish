@@ -4,7 +4,7 @@
 // =============================
 
 import { createDetailsHtml } from "./tasks.ui.js";
-import { createId } from "./tasks.utils.js";
+import { addDays, createId, formatDate, getToday, toDateInputValue } from "./tasks.utils.js";
 
 export function createTaskActionsController({
   elements,
@@ -235,6 +235,41 @@ export function createTaskActionsController({
     showToast?.("Atividade excluída.", "success");
   }
 
+  function postponeTask(taskId, days, shouldRefreshDetails = false) {
+    const daysToAdd = Number(days);
+
+    if (!taskId || !Number.isFinite(daysToAdd)) {
+      return;
+    }
+
+    const task = getTasks().find((item) => item.id === taskId);
+
+    if (!task) {
+      return;
+    }
+
+    if (task.status === "Concluída") {
+      showToast?.("Reabra a atividade antes de alterar o prazo.", "warning");
+      return;
+    }
+
+    const nextDate = toDateInputValue(addDays(getToday(), daysToAdd));
+
+    updateTask(taskId, (currentTask) => ({
+      ...currentTask,
+      dueDate: nextDate,
+    }));
+
+    const message = daysToAdd === 1 ? "Prazo alterado para amanhã." : `Prazo alterado para ${formatDate(nextDate)}.`;
+
+    showToast?.(message, "success");
+    render();
+
+    if (shouldRefreshDetails && elements.detailsDialog.open) {
+      openDetails(taskId);
+    }
+  }
+
   function addSubtask(taskId, title, shouldRefreshDetails = false) {
     const nextTitle = String(title || "").trim();
 
@@ -318,6 +353,11 @@ export function createTaskActionsController({
       return;
     }
 
+    if (action === "quick-postpone") {
+      postponeTask(taskId, button.dataset.days, true);
+      return;
+    }
+
     if (action === "details-toggle-status") {
       toggleTaskStatus(taskId);
       openDetails(taskId);
@@ -335,6 +375,7 @@ export function createTaskActionsController({
     openSubtaskComposer,
     closeSubtaskComposer,
     addSubtask,
+    postponeTask,
     handleSubtaskComposerSubmit,
     toggleSubtask,
     toggleTaskStatus,

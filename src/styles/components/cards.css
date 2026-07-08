@@ -454,6 +454,57 @@
   text-decoration: line-through;
 }
 
+
+/* ============================= */
+/* Quick Due Actions             */
+/* ============================= */
+
+.quick-due-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quick-due-actions-details {
+  display: contents;
+}
+
+.quick-due-button {
+  border: 1px solid rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.72);
+  color: var(--accent-dark);
+  padding: 6px 9px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.quick-due-button:hover {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.quick-due-actions-details .quick-due-button {
+  justify-content: center;
+}
+
+body[data-theme="dark"] .quick-due-button {
+  background: rgba(45, 33, 24, 0.72);
+  border-color: rgba(214, 155, 97, 0.32);
+  color: var(--accent-dark);
+}
+
+body[data-theme="dark"] .quick-due-button:hover {
+  background: #38291e;
+  border-color: rgba(214, 155, 97, 0.52);
+}
+
 /* ============================= */
 /* Tema escuro                   */
 /* ============================= */

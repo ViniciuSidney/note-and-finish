@@ -445,6 +445,11 @@ function handleTaskAction(event) {
     return;
   }
 
+  if (action === "quick-postpone") {
+    taskActions.postponeTask(taskId, button.dataset.days);
+    return;
+  }
+
   if (action === "view") {
     taskActions.openDetails(taskId);
   }

@@ -162,6 +162,8 @@ export function createDetailsHtml(task, uiState = {}) {
     </section>
 
     <section class="details-actions">
+      ${createQuickDueActionsHtml(task, "details")}
+
       <button
         type="button"
         class="button button-secondary"
@@ -458,6 +460,8 @@ function createTaskCardHtml(task, uiState = {}) {
 					${createEditableDateHtml(task, uiState)}
 				</span>
 
+				${createQuickDueActionsHtml(task, "card")}
+
 				<div class="task-actions">
 				<button
 					type="button"
@@ -501,6 +505,41 @@ function createTaskCardHtml(task, uiState = {}) {
 			</div>
 		</article>
 	`;
+}
+
+function createQuickDueActionsHtml(task, context = "card") {
+  if (task.status === "Concluída") {
+    return "";
+  }
+
+  const prefixClass = context === "details" ? "quick-due-actions quick-due-actions-details" : "quick-due-actions";
+  const buttonClass = context === "details" ? "button button-secondary quick-due-button" : "quick-due-button";
+
+  return `
+    <div class="${prefixClass}" aria-label="Ações rápidas de prazo">
+      <button
+        type="button"
+        class="${buttonClass}"
+        data-action="quick-postpone"
+        data-id="${escapeHtml(task.id)}"
+        data-days="1"
+        title="Adiar prazo para amanhã"
+      >
+        ↷ Amanhã
+      </button>
+
+      <button
+        type="button"
+        class="${buttonClass}"
+        data-action="quick-postpone"
+        data-id="${escapeHtml(task.id)}"
+        data-days="7"
+        title="Adiar prazo para a próxima semana"
+      >
+        ↷ Próx. semana
+      </button>
+    </div>
+  `;
 }
 
 function createSubtasksPreviewHtml(task, uiState = {}) {
