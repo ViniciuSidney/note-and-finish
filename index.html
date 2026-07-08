@@ -220,6 +220,23 @@
             <div class="form-group">
               <label for="dueDate">Data de entrega *</label>
               <input type="date" id="dueDate" required />
+
+              <div class="date-shortcuts" id="dueDateShortcuts" aria-label="Atalhos de data de entrega">
+                <button type="button" class="date-shortcut-button" data-date-shortcut="0">
+                  <span>Hoje</span>
+                  <strong data-date-shortcut-label="0">--/--</strong>
+                </button>
+
+                <button type="button" class="date-shortcut-button" data-date-shortcut="1">
+                  <span>Amanhã</span>
+                  <strong data-date-shortcut-label="1">--/--</strong>
+                </button>
+
+                <button type="button" class="date-shortcut-button" data-date-shortcut="7">
+                  <span>Semana que vem</span>
+                  <strong data-date-shortcut-label="7">--/--</strong>
+                </button>
+              </div>
             </div>
 
             <div class="form-group">

@@ -69,6 +69,19 @@ export function formatDate(dateString) {
   });
 }
 
+export function formatShortDate(dateInputValue) {
+  if (!dateInputValue) {
+    return "--/--";
+  }
+
+  const date = createLocalDate(dateInputValue);
+
+  return date.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+}
+
 export function escapeHtml(value) {
   return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 }

@@ -36,6 +36,7 @@ const {
   typeInput,
   subjectInput,
   dueDateInput,
+  dueDateShortcuts,
   priorityInput,
   statusInput,
   descriptionInput,
@@ -107,6 +108,7 @@ const taskFormController = createTaskFormController({
     typeInput,
     subjectInput,
     dueDateInput,
+    dueDateShortcuts,
     priorityInput,
     statusInput,
     descriptionInput,
@@ -248,6 +250,7 @@ export function initTasksFeature() {
   isInitialized = true;
 
   initializeTheme();
+  taskFormController.initializeDateShortcuts();
   render();
 
   bindTaskEvents({
@@ -256,6 +259,8 @@ export function initTasksFeature() {
     taskActions,
     handlers: {
       handleSubmit: taskFormController.handleSubmit,
+      handleDueDateShortcut: taskFormController.handleDueDateShortcut,
+      syncDueDateShortcutState: taskFormController.syncDueDateShortcutState,
       resetForm,
       render,
       toggleFiltersPanel,

@@ -14,6 +14,7 @@ const TASK_ELEMENT_SELECTORS = {
   typeInput: "#type",
   subjectInput: "#subject",
   dueDateInput: "#dueDate",
+  dueDateShortcuts: "#dueDateShortcuts",
   priorityInput: "#priority",
   statusInput: "#status",
   descriptionInput: "#description",

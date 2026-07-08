@@ -3,7 +3,7 @@
 // File: features/tasks/tasks.form.js
 // =============================
 
-import { createId } from "./tasks.utils.js";
+import { addDays, createId, formatShortDate, getToday, toDateInputValue } from "./tasks.utils.js";
 
 export function createTaskFormController({ elements, getTasks, setTasks, saveTasks, render, closeCreateTaskDialog, showToast }) {
   const {
@@ -13,6 +13,7 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
     typeInput,
     subjectInput,
     dueDateInput,
+    dueDateShortcuts,
     priorityInput,
     statusInput,
     descriptionInput,
@@ -23,6 +24,64 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
     formMessage,
     createTaskDialog,
   } = elements;
+
+  function getShortcutButtons() {
+    if (!dueDateShortcuts) {
+      return [];
+    }
+
+    return Array.from(dueDateShortcuts.querySelectorAll("[data-date-shortcut]"));
+  }
+
+  function getShortcutDate(daysToAdd) {
+    return toDateInputValue(addDays(getToday(), daysToAdd));
+  }
+
+  function initializeDateShortcuts() {
+    getShortcutButtons().forEach((button) => {
+      const daysToAdd = Number(button.dataset.dateShortcut);
+      const label = button.querySelector("[data-date-shortcut-label]");
+
+      if (!Number.isFinite(daysToAdd) || !label) {
+        return;
+      }
+
+      label.textContent = formatShortDate(getShortcutDate(daysToAdd));
+    });
+
+    syncDueDateShortcutState();
+  }
+
+  function syncDueDateShortcutState() {
+    const selectedDate = dueDateInput.value;
+
+    getShortcutButtons().forEach((button) => {
+      const daysToAdd = Number(button.dataset.dateShortcut);
+      const shortcutDate = Number.isFinite(daysToAdd) ? getShortcutDate(daysToAdd) : "";
+      const isActive = Boolean(selectedDate) && selectedDate === shortcutDate;
+
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  }
+
+  function handleDueDateShortcut(event) {
+    const button = event.target.closest("[data-date-shortcut]");
+
+    if (!button) {
+      return;
+    }
+
+    const daysToAdd = Number(button.dataset.dateShortcut);
+
+    if (!Number.isFinite(daysToAdd)) {
+      return;
+    }
+
+    dueDateInput.value = getShortcutDate(daysToAdd);
+    syncDueDateShortcutState();
+    dueDateInput.dispatchEvent(new Event("change", { bubbles: true }));
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -125,6 +184,8 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
     formTitle.textContent = "Nova atividade";
     submitButton.textContent = "Salvar atividade";
 
+    syncDueDateShortcutState();
+
     if (clearMessage) {
       showFormMessage("", "");
     }
@@ -137,6 +198,9 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
 
   return {
     handleSubmit,
+    handleDueDateShortcut,
+    initializeDateShortcuts,
+    syncDueDateShortcutState,
     getFormData,
     getSubtasksFromInput,
     resetForm,

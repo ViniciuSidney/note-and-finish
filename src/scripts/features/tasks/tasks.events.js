@@ -16,6 +16,8 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
     rootDocument,
     taskForm,
     clearButton,
+    dueDateInput,
+    dueDateShortcuts,
     searchInput,
     statusFilter,
     typeFilter,
@@ -49,6 +51,9 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
 
   addEvent(taskForm, "submit", handlers.handleSubmit);
   addEvent(clearButton, "click", () => handlers.resetForm());
+  addEvent(dueDateShortcuts, "click", handlers.handleDueDateShortcut);
+  addEvent(dueDateInput, "input", handlers.syncDueDateShortcutState);
+  addEvent(dueDateInput, "change", handlers.syncDueDateShortcutState);
 
   addEvent(searchInput, "input", handlers.render);
   addEvent(statusFilter, "change", handlers.render);

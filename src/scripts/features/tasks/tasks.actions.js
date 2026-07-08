@@ -194,6 +194,7 @@ export function createTaskActionsController({
     elements.typeInput.value = task.type;
     elements.subjectInput.value = task.subject;
     elements.dueDateInput.value = task.dueDate;
+    elements.dueDateInput.dispatchEvent(new Event("change", { bubbles: true }));
     elements.priorityInput.value = task.priority;
     elements.statusInput.value = task.status;
     elements.descriptionInput.value = task.description;
