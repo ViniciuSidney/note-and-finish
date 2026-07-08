@@ -62,6 +62,21 @@
     width: min(760px, calc(100% - 24px));
   }
 
+  #detailsDialog #detailsBody {
+    grid-template-columns: 1fr;
+  }
+
+  #detailsDialog .details-hero,
+  #detailsDialog .details-grid,
+  #detailsDialog .details-grid-compact,
+  #detailsDialog .details-progress-card,
+  #detailsDialog #detailsBody > .details-grid:not(.details-grid-compact),
+  #detailsDialog #detailsBody > .details-card:not(.details-progress-card),
+  #detailsDialog .details-actions {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
   #detailsDialog .details-hero {
     grid-template-columns: 1fr;
   }
@@ -72,7 +87,8 @@
 
   #detailsDialog .details-grid,
   #detailsDialog .details-grid-compact,
-  #detailsDialog .details-record-grid {
+  #detailsDialog .details-record-grid,
+  #detailsDialog #detailsBody > .details-grid:not(.details-grid-compact) {
     grid-template-columns: 1fr;
   }
 }
@@ -103,6 +119,17 @@
     max-height: calc(100dvh - 150px);
   }
 
+  #createTaskDialog .task-form > .form-group,
+  #createTaskDialog .task-form > .form-message,
+  #createTaskDialog .task-form > .form-actions,
+  #createTaskDialog .task-form > .form-row > .form-group,
+  #createTaskDialog .form-group:has(#title),
+  #createTaskDialog .form-group:has(#type),
+  #createTaskDialog .form-group:has(#subject),
+  #createTaskDialog .form-group:has(#dueDate),
+  #createTaskDialog .form-group:has(#priority),
+  #createTaskDialog .form-group:has(#status),
+  #createTaskDialog .form-group:has(#tags),
   #createTaskDialog .form-group:has(#description),
   #createTaskDialog .form-group:has(#subtasks) {
     grid-column: 1 / -1;

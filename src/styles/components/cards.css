@@ -725,3 +725,44 @@ body[data-theme="dark"] .subtask-add-input {
   color: var(--text);
   border-color: var(--border);
 }
+
+/* ============================= */
+/* Checklist Scroll Limits        */
+/* ============================= */
+
+.task-checklist-details .subtask-list {
+  max-height: 190px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 94, 52, 0.28) transparent;
+}
+
+.task-checklist-details .subtask-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.task-checklist-details .subtask-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.task-checklist-details .subtask-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 94, 52, 0.28);
+  border-radius: 999px;
+}
+
+.task-checklist-details .subtask-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 94, 52, 0.42);
+}
+
+body[data-theme="dark"] .task-checklist-details .subtask-list {
+  scrollbar-color: rgba(214, 155, 97, 0.28) transparent;
+}
+
+body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar-thumb {
+  background: rgba(214, 155, 97, 0.28);
+}
+
+body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(214, 155, 97, 0.42);
+}

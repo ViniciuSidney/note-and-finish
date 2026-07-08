@@ -164,7 +164,9 @@
   overflow-y: auto;
 
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
 
   padding-right: 6px;
 }
@@ -174,47 +176,77 @@
 }
 
 #detailsDialog .details-hero {
+  grid-column: 1 / -1;
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 18px;
   align-items: start;
 
-  padding: 18px;
+  padding: 16px;
 }
 
 #detailsDialog .details-hero h3 {
-  font-size: 1.75rem;
+  font-size: 1.6rem;
 }
 
 #detailsDialog .details-grid-compact {
+  grid-column: 1 / 8;
+
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
-#detailsDialog .details-grid {
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: 14px;
-}
-
-#detailsDialog .details-card {
-  padding: 16px;
-}
-
-#detailsDialog .details-card strong {
-  font-size: 1.02rem;
+#detailsDialog .details-grid.details-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 #detailsDialog .details-progress-card {
-  padding: 16px;
+  grid-column: 8 / -1;
+  grid-row: span 3;
+
+  padding: 14px;
+}
+
+#detailsDialog #detailsBody > .details-grid:not(.details-grid-compact) {
+  grid-column: 1 / 8;
+
+  grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.9fr);
+  gap: 12px;
+}
+
+#detailsDialog #detailsBody > .details-card:not(.details-progress-card) {
+  grid-column: 1 / 8;
+}
+
+#detailsDialog .details-actions {
+  grid-column: 8 / -1;
+  align-self: end;
+}
+
+#detailsDialog .details-card {
+  padding: 14px;
+}
+
+#detailsDialog .details-card strong {
+  font-size: 1rem;
+}
+
+#detailsDialog .details-card p {
+  margin-top: 8px;
+}
+
+#detailsDialog .details-progress-track {
+  margin: 10px 0;
 }
 
 #detailsDialog .details-checklist-area .task-checklist {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 #detailsDialog .details-record-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Tema escuro */
