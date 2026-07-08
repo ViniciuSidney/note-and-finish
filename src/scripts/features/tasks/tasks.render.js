@@ -7,6 +7,7 @@ import { getPriorityWeight, getTaskGroups } from "./tasks.model.js";
 import { createLocalDate, getToday } from "./tasks.utils.js";
 import { createTaskGroupSection } from "./tasks.ui.js";
 import { renderTodayFocusPanel } from "./tasks.focus.js";
+import { clearListFilters, renderEmptyState } from "./tasks.empty-state.js";
 
 export function createTasksRenderer({
   elements,
@@ -24,12 +25,18 @@ export function createTasksRenderer({
 
     elements.taskList.innerHTML = "";
 
+    renderEmptyState(elements, {
+      tasks: getTasks(),
+      filteredTasks,
+      searchTerm: elements.searchInput.value.trim(),
+      selectedStatus: elements.statusFilter.value,
+      selectedType: elements.typeFilter.value,
+    });
+
     if (!filteredTasks.length) {
-      elements.emptyState.classList.add("is-visible");
       return;
     }
 
-    elements.emptyState.classList.remove("is-visible");
     renderGroupedTasks(filteredTasks);
   }
 
@@ -122,10 +129,16 @@ export function createTasksRenderer({
     return filtered;
   }
 
+  function clearFilters() {
+    clearListFilters(elements);
+    render();
+  }
+
   return {
     render,
     renderGroupedTasks,
     renderSummary,
     getFilteredTasks,
+    clearFilters,
   };
 }

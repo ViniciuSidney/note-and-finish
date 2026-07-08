@@ -43,6 +43,7 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
     confirmClearAllButton,
     clearAllConfirmInput,
     openTaskFormButton,
+    emptyState,
     emptyCreateTaskButton,
     closeTaskFormButton,
   } = elements;
@@ -93,6 +94,7 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
 
   addEvent(openTaskFormButton, "click", handlers.openCreateTaskDialog);
   addEvent(emptyCreateTaskButton, "click", handlers.openCreateTaskDialog);
+  addEvent(emptyState, "click", handlers.handleEmptyStateAction);
   addEvent(closeTaskFormButton, "click", handlers.closeCreateTaskDialog);
 
   addEvent(documentRef, "click", (event) => {

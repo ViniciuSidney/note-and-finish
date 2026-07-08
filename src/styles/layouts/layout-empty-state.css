@@ -52,3 +52,24 @@
 body[data-theme="dark"] .empty-state {
   background: rgba(45, 33, 24, 0.45);
 }
+/* ============================= */
+/* Empty State v0.2              */
+/* ============================= */
+
+.layout-empty-state {
+  align-self: stretch;
+  margin-top: 8px;
+}
+
+.empty-state.is-visible {
+  align-content: start;
+  justify-items: center;
+}
+
+.empty-state-clear-button[hidden] {
+  display: none;
+}
+
+.empty-state-clear-button {
+  min-height: 36px;
+}

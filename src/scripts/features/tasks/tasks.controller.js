@@ -266,6 +266,7 @@ export function initTasksFeature() {
       toggleFiltersPanel,
       handleTaskAction,
       handleSubtaskComposerSubmit,
+      handleEmptyStateAction,
       closeDetailsDialog,
       toggleOptionsMenu,
       toggleTheme,
@@ -493,6 +494,19 @@ function handleTaskAction(event) {
 function handleSubtaskComposerSubmit(event) {
   const shouldRefreshDetails = Boolean(event.target.closest("#detailsBody"));
   taskActions.handleSubtaskComposerSubmit(event, shouldRefreshDetails);
+}
+
+function handleEmptyStateAction(event) {
+  const button = event.target.closest("button[data-action]");
+
+  if (!button) {
+    return;
+  }
+
+  if (button.dataset.action === "clear-empty-state-filters") {
+    renderer.clearFilters();
+    showToast("Filtros limpos.", "success");
+  }
 }
 
 function showToast(message, type = "info", options) {
