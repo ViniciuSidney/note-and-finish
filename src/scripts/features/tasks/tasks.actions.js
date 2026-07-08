@@ -114,6 +114,36 @@ export function createTaskActionsController({
     }
   }
 
+  function deleteSubtask(taskId, subtaskId, shouldRefreshDetails = false) {
+    if (!taskId || !subtaskId) {
+      return;
+    }
+
+    const task = getTasks().find((item) => item.id === taskId);
+
+    if (!task) {
+      return;
+    }
+
+    const hasSubtask = (task.subtasks || []).some((subtask) => subtask.id === subtaskId);
+
+    if (!hasSubtask) {
+      return;
+    }
+
+    updateTask(taskId, (currentTask) => ({
+      ...currentTask,
+      subtasks: (currentTask.subtasks || []).filter((subtask) => subtask.id !== subtaskId),
+    }));
+
+    showToast?.("Etapa removida do checklist.", "success");
+    render();
+
+    if (shouldRefreshDetails && elements.detailsDialog.open) {
+      openDetails(taskId);
+    }
+  }
+
   function toggleTaskStatus(taskId) {
     const task = getTasks().find((item) => item.id === taskId);
 
@@ -343,6 +373,11 @@ export function createTaskActionsController({
       return;
     }
 
+    if (action === "delete-subtask") {
+      deleteSubtask(taskId, button.dataset.subtaskId, true);
+      return;
+    }
+
     if (action === "open-subtask-composer") {
       openSubtaskComposer(taskId, true);
       return;
@@ -379,6 +414,7 @@ export function createTaskActionsController({
     postponeTask,
     handleSubtaskComposerSubmit,
     toggleSubtask,
+    deleteSubtask,
     toggleTaskStatus,
     toggleGroup,
     toggleChecklistPreview,

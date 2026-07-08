@@ -690,18 +690,36 @@ function createSubtaskComposerHtml(taskId, uiState = {}, context = "card") {
 
 function createSubtaskButtonHtml(taskId, subtask) {
   const doneClass = subtask.done ? "is-done" : "";
+  const escapedTaskId = escapeHtml(taskId);
+  const escapedSubtaskId = escapeHtml(subtask.id);
+  const escapedTitle = escapeHtml(subtask.title);
 
   return `
-		<button
-			type="button"
-			class="subtask-item ${doneClass}"
-			data-action="toggle-subtask"
-			data-id="${escapeHtml(taskId)}"
-			data-subtask-id="${escapeHtml(subtask.id)}"
-			aria-pressed="${subtask.done}"
-		>
-			<span class="subtask-checkbox">${subtask.done ? "✓" : ""}</span>
-			<span class="subtask-title">${escapeHtml(subtask.title)}</span>
-		</button>
-	`;
+    <div class="subtask-row ${doneClass}">
+      <button
+        type="button"
+        class="subtask-item ${doneClass}"
+        data-action="toggle-subtask"
+        data-id="${escapedTaskId}"
+        data-subtask-id="${escapedSubtaskId}"
+        aria-pressed="${subtask.done}"
+        title="${subtask.done ? "Reabrir etapa" : "Concluir etapa"}"
+      >
+        <span class="subtask-checkbox">${subtask.done ? "✓" : ""}</span>
+        <span class="subtask-title">${escapedTitle}</span>
+      </button>
+
+      <button
+        type="button"
+        class="subtask-delete-button"
+        data-action="delete-subtask"
+        data-id="${escapedTaskId}"
+        data-subtask-id="${escapedSubtaskId}"
+        aria-label="Excluir etapa ${escapedTitle}"
+        title="Excluir etapa"
+      >
+        ×
+      </button>
+    </div>
+  `;
 }

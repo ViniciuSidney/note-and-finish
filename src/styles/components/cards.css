@@ -393,6 +393,13 @@
   gap: 6px;
 }
 
+.subtask-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 6px;
+}
+
 .subtask-item {
   width: 100%;
   display: flex;
@@ -441,8 +448,42 @@
 }
 
 .subtask-title {
+  min-width: 0;
   color: inherit;
   line-height: 1.35;
+}
+
+.subtask-delete-button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  min-height: 100%;
+
+  border: 1px solid rgba(139, 94, 52, 0.2);
+  border-radius: 11px;
+
+  background: rgba(255, 250, 241, 0.72);
+  color: var(--muted);
+
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.subtask-delete-button:hover {
+  background: rgba(169, 67, 67, 0.1);
+  border-color: rgba(169, 67, 67, 0.38);
+  color: var(--danger);
+  transform: translateY(-1px);
 }
 
 .subtask-item.is-done {
@@ -538,6 +579,18 @@ body[data-theme="dark"] .subtask-item {
 
 body[data-theme="dark"] .subtask-item:hover {
   background: #38291e;
+}
+
+body[data-theme="dark"] .subtask-delete-button {
+  background: rgba(45, 33, 24, 0.72);
+  border-color: rgba(214, 155, 97, 0.24);
+  color: var(--muted);
+}
+
+body[data-theme="dark"] .subtask-delete-button:hover {
+  background: rgba(169, 67, 67, 0.18);
+  border-color: rgba(224, 109, 109, 0.4);
+  color: var(--danger);
 }
 
 body[data-theme="dark"] .subtask-checkbox {

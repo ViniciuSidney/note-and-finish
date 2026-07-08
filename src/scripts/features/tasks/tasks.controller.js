@@ -452,6 +452,11 @@ function handleTaskAction(event) {
     return;
   }
 
+  if (action === "delete-subtask") {
+    taskActions.deleteSubtask(taskId, button.dataset.subtaskId);
+    return;
+  }
+
   if (action === "open-subtask-composer") {
     taskActions.openSubtaskComposer(taskId);
     return;
