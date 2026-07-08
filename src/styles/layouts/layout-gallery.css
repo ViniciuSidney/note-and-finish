@@ -286,3 +286,136 @@ body[data-theme="dark"] .task-group-completed {
 body[data-theme="dark"] .tasks-gallery {
   background: rgba(33, 25, 19, 0.9);
 }
+
+/* ============================= */
+/* Home v0.2 - blocos de prazo   */
+/* ============================= */
+
+.tasks-gallery {
+  padding: 18px;
+}
+
+.tasks-gallery-header {
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tasks-gallery-header .gallery-title {
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.05;
+}
+
+.tasks-gallery-header .gallery-description {
+  max-width: 520px;
+}
+
+.tasks-gallery .gallery-actions {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.tasks-gallery .filters-toggle-button {
+  min-height: 38px;
+  padding: 8px 16px;
+}
+
+.tasks-gallery .gallery-toolbar {
+  margin-bottom: 8px;
+}
+
+.task-list {
+  margin-top: 6px;
+}
+
+.task-group {
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.task-group-header {
+  align-items: center;
+  min-height: 58px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-group.is-collapsed .task-group-header {
+  border-bottom: 0;
+}
+
+.task-group-toggle {
+  align-items: center;
+  gap: 12px;
+}
+
+.task-group-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 0;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.task-group-toggle-title {
+  font-size: 1.03rem;
+}
+
+.task-group-toggle-description {
+  font-size: 0.84rem;
+}
+
+.task-group-count {
+  border-radius: 12px;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.task-group-items {
+  padding: 10px;
+}
+
+/* ============================= */
+/* Correção v0.2 - blocos abertos */
+/* ============================= */
+
+/*
+  Os blocos de prazo não devem cortar os cards internos quando expandidos.
+  O recolhimento continua controlado pelo atributo hidden gerado no JS e pela
+  regra .task-group.is-collapsed .task-group-items { display: none; }.
+*/
+.task-group {
+  overflow: visible;
+}
+
+/* Evita o “salto” vertical do cabeçalho ao abrir/fechar o bloco. */
+.task-group.is-collapsed .task-group-header {
+  padding: 12px 14px;
+}
+
+.task-group-items {
+  min-height: 0;
+  overflow: visible;
+  align-items: start;
+}
+
+/* Dentro dos blocos de prazo, o card precisa ter altura pelo próprio conteúdo. */
+.task-group-items .task-card {
+  height: auto;
+  min-height: 0;
+}
+
+/* Mantém a rolagem concentrada na listagem principal da home. */
+.tasks-gallery,
+.task-list {
+  min-height: 0;
+}
+
+.task-list {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}

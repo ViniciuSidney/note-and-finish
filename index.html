@@ -54,55 +54,60 @@
           </div>
         </header>
 
-        <section class="summary-grid app-summary" aria-label="Resumo da agenda">
-          <article class="summary-card">
-            <span>Total</span>
-            <strong id="totalTasks">0</strong>
-          </article>
+        <section class="home-insights-grid" aria-label="Resumo e foco da agenda">
+          <section class="today-focus-panel" id="todayFocusPanel" aria-label="Foco de hoje">
+            <div class="today-focus-main">
+              <span class="today-focus-kicker">Foco de hoje</span>
+              <strong id="todayFocusTitle">Organize seu próximo passo</strong>
+              <p id="todayFocusMessage">Carregando prioridades do dia...</p>
+            </div>
 
-          <article class="summary-card">
-            <span>Pendentes</span>
-            <strong id="pendingTasks">0</strong>
-          </article>
+            <div class="today-focus-metrics" aria-label="Resumo rápido do foco">
+              <article class="today-focus-chip today-focus-chip-danger">
+                <span>Atrasadas</span>
+                <strong id="todayFocusOverdueCount">0</strong>
+              </article>
 
-          <article class="summary-card">
-            <span>Próximos 7 dias</span>
-            <strong id="weekTasks">0</strong>
-          </article>
+              <article class="today-focus-chip today-focus-chip-warning">
+                <span>Hoje</span>
+                <strong id="todayFocusTodayCount">0</strong>
+              </article>
 
-          <article class="summary-card">
-            <span>Concluídas</span>
-            <strong id="completedTasks">0</strong>
-          </article>
-        </section>
+              <article class="today-focus-chip today-focus-chip-priority">
+                <span>Alta prioridade</span>
+                <strong id="todayFocusHighCount">0</strong>
+              </article>
+            </div>
+          </section>
 
-        <section class="today-focus-panel" id="todayFocusPanel" aria-label="Foco de hoje">
-          <div class="today-focus-main">
-            <span class="today-focus-kicker">Foco de hoje</span>
-            <strong id="todayFocusTitle">Organize seu próximo passo</strong>
-            <p id="todayFocusMessage">Carregando prioridades do dia...</p>
-          </div>
+          <section class="summary-panel" aria-label="Indicadores da agenda">
+            <div class="summary-panel-header">
+              <span class="summary-panel-kicker">Indicadores</span>
+              <p>Visão rápida das atividades cadastradas.</p>
+            </div>
 
-          <div class="today-focus-metrics" aria-label="Resumo rápido do foco">
-            <article class="today-focus-chip today-focus-chip-danger">
-              <span>Atrasadas</span>
-              <strong id="todayFocusOverdueCount">0</strong>
-            </article>
+            <div class="summary-grid app-summary">
+              <article class="summary-card">
+                <span>Total</span>
+                <strong id="totalTasks">0</strong>
+              </article>
 
-            <article class="today-focus-chip today-focus-chip-warning">
-              <span>Hoje</span>
-              <strong id="todayFocusTodayCount">0</strong>
-            </article>
+              <article class="summary-card">
+                <span>Pendentes</span>
+                <strong id="pendingTasks">0</strong>
+              </article>
 
-            <article class="today-focus-chip today-focus-chip-priority">
-              <span>Alta prioridade</span>
-              <strong id="todayFocusHighCount">0</strong>
-            </article>
-          </div>
-        </section>
+              <article class="summary-card">
+                <span>Próximos 7 dias</span>
+                <strong id="weekTasks">0</strong>
+              </article>
 
-        <section class="home-action-bar" aria-label="Ações principais">
-          <button type="button" class="button button-primary home-create-button" id="openTaskFormButton">➕ Nova atividade</button>
+              <article class="summary-card">
+                <span>Concluídas</span>
+                <strong id="completedTasks">0</strong>
+              </article>
+            </div>
+          </section>
         </section>
       </section>
 		
@@ -114,6 +119,7 @@
           </div>
 
           <div class="gallery-actions">
+            <button type="button" class="button button-primary home-create-button" id="openTaskFormButton">➕ Nova atividade</button>
             <button type="button" class="filters-toggle-button" id="filtersToggleButton" aria-expanded="false" aria-controls="filtersPanel">🔎 Filtros</button>
           </div>
         </header>

@@ -124,3 +124,22 @@ body[data-theme="dark"] .today-focus-chip {
 body[data-theme="dark"] .today-focus-chip-warning strong {
   color: #e7b86b;
 }
+
+/* ============================= */
+/* Variante compacta na home v0.2 */
+/* ============================= */
+
+.home-insights-grid .today-focus-panel {
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
+}
+
+.home-insights-grid .today-focus-main {
+  align-content: start;
+}
+
+.home-insights-grid .today-focus-metrics {
+  align-self: end;
+}
