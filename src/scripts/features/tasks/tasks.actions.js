@@ -4,6 +4,7 @@
 // =============================
 
 import { createDetailsHtml } from "./tasks.ui.js";
+import { createId } from "./tasks.utils.js";
 
 export function createTaskActionsController({
   elements,
@@ -13,6 +14,7 @@ export function createTaskActionsController({
   render,
   resetForm,
   showFormMessage,
+  showToast,
   getCollapsedGroupKeys,
   saveCollapsedGroupKeys,
   getExpandedChecklistTaskIds,
@@ -20,6 +22,58 @@ export function createTaskActionsController({
   closeDialog,
 }) {
   let taskIdToDelete = null;
+  let activeChecklistComposerTaskId = null;
+
+  function getChecklistComposerTaskId() {
+    return activeChecklistComposerTaskId;
+  }
+
+  function focusChecklistComposer(taskId) {
+    requestAnimationFrame(() => {
+      const input = document.querySelector(`[data-subtask-composer="${CSS.escape(taskId)}"]`);
+
+      if (!input) {
+        return;
+      }
+
+      input.focus();
+    });
+  }
+
+  function openSubtaskComposer(taskId, shouldRefreshDetails = false) {
+    if (!taskId) {
+      return;
+    }
+
+    const isSameComposerOpen = activeChecklistComposerTaskId === taskId;
+    activeChecklistComposerTaskId = isSameComposerOpen ? null : taskId;
+
+    if (!isSameComposerOpen) {
+      getExpandedChecklistTaskIds().add(taskId);
+    }
+
+    render();
+
+    if (shouldRefreshDetails && elements.detailsDialog.open) {
+      openDetails(taskId);
+    }
+
+    if (!isSameComposerOpen) {
+      focusChecklistComposer(taskId);
+    }
+  }
+
+  function closeSubtaskComposer(shouldRender = true) {
+    if (!activeChecklistComposerTaskId) {
+      return;
+    }
+
+    activeChecklistComposerTaskId = null;
+
+    if (shouldRender) {
+      render();
+    }
+  }
 
   function updateTask(taskId, updater) {
     const nextTasks = getTasks().map((task) => {
@@ -52,6 +106,7 @@ export function createTaskActionsController({
       }),
     }));
 
+    showToast?.("Checklist atualizado.", "success");
     render();
 
     if (shouldRefreshDetails && elements.detailsDialog.open) {
@@ -60,11 +115,20 @@ export function createTaskActionsController({
   }
 
   function toggleTaskStatus(taskId) {
-    updateTask(taskId, (task) => ({
-      ...task,
-      status: task.status === "Concluída" ? "Pendente" : "Concluída",
+    const task = getTasks().find((item) => item.id === taskId);
+
+    if (!task) {
+      return;
+    }
+
+    const nextStatus = task.status === "Concluída" ? "Pendente" : "Concluída";
+
+    updateTask(taskId, (currentTask) => ({
+      ...currentTask,
+      status: nextStatus,
     }));
 
+    showToast?.(nextStatus === "Concluída" ? "Atividade concluída." : "Atividade reaberta.", "success");
     render();
   }
 
@@ -108,7 +172,7 @@ export function createTaskActionsController({
       return;
     }
 
-    const details = createDetailsHtml(task);
+    const details = createDetailsHtml(task, { activeChecklistComposerTaskId });
 
     elements.detailsTitle.textContent = details.title;
     elements.detailsBody.innerHTML = details.bodyHtml;
@@ -168,6 +232,64 @@ export function createTaskActionsController({
     render();
     resetForm(false);
     closeDeleteDialog();
+    showToast?.("Atividade excluída.", "success");
+  }
+
+  function addSubtask(taskId, title, shouldRefreshDetails = false) {
+    const nextTitle = String(title || "").trim();
+
+    if (!taskId || !nextTitle) {
+      showToast?.("Digite o nome da etapa antes de adicionar.", "error");
+      return;
+    }
+
+    const task = getTasks().find((item) => item.id === taskId);
+
+    if (!task) {
+      return;
+    }
+
+    const alreadyExists = (task.subtasks || []).some((subtask) => subtask.title.trim().toLowerCase() === nextTitle.toLowerCase());
+
+    if (alreadyExists) {
+      showToast?.("Essa etapa já existe no checklist.", "error");
+      return;
+    }
+
+    updateTask(taskId, (currentTask) => ({
+      ...currentTask,
+      subtasks: [
+        ...(currentTask.subtasks || []),
+        {
+          id: createId(),
+          title: nextTitle,
+          done: false,
+        },
+      ],
+    }));
+
+    activeChecklistComposerTaskId = null;
+    getExpandedChecklistTaskIds().add(taskId);
+
+    showToast?.("Etapa adicionada ao checklist.", "success");
+    render();
+
+    if (shouldRefreshDetails && elements.detailsDialog.open) {
+      openDetails(taskId);
+    }
+  }
+
+  function handleSubtaskComposerSubmit(event, shouldRefreshDetails = false) {
+    const form = event.target.closest('form[data-action="add-subtask"]');
+
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const input = form.querySelector("[data-subtask-title-input]");
+    addSubtask(form.dataset.id, input?.value, shouldRefreshDetails);
   }
 
   function handleDetailsAction(event) {
@@ -185,6 +307,17 @@ export function createTaskActionsController({
       return;
     }
 
+    if (action === "open-subtask-composer") {
+      openSubtaskComposer(taskId, true);
+      return;
+    }
+
+    if (action === "cancel-subtask-composer") {
+      closeSubtaskComposer(false);
+      openDetails(taskId);
+      return;
+    }
+
     if (action === "details-toggle-status") {
       toggleTaskStatus(taskId);
       openDetails(taskId);
@@ -198,6 +331,11 @@ export function createTaskActionsController({
   }
 
   return {
+    getChecklistComposerTaskId,
+    openSubtaskComposer,
+    closeSubtaskComposer,
+    addSubtask,
+    handleSubtaskComposerSubmit,
     toggleSubtask,
     toggleTaskStatus,
     toggleGroup,

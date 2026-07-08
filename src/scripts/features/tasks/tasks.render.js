@@ -13,6 +13,7 @@ export function createTasksRenderer({
   getCollapsedGroupKeys,
   getExpandedChecklistTaskIds,
   getInlineEditState,
+  getChecklistComposerTaskId = () => null,
 }) {
   function render() {
     renderSummary();
@@ -35,6 +36,7 @@ export function createTasksRenderer({
     const renderState = {
       collapsedGroupKeys: getCollapsedGroupKeys(),
       expandedChecklistTaskIds: getExpandedChecklistTaskIds(),
+      activeChecklistComposerTaskId: getChecklistComposerTaskId(),
       ...getInlineEditState(),
     };
 

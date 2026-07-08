@@ -56,7 +56,7 @@ export function createTaskGroupSection(group, uiState = {}) {
   return section;
 }
 
-export function createDetailsHtml(task) {
+export function createDetailsHtml(task, uiState = {}) {
   const subtasks = task.subtasks || [];
   const progress = getChecklistProgress(subtasks);
   const priorityClass = {
@@ -127,7 +127,7 @@ export function createDetailsHtml(task) {
       </div>
 
       <div class="details-checklist-area">
-        ${createSubtasksDetailsHtml(task)}
+        ${createSubtasksDetailsHtml(task, uiState)}
       </div>
     </section>
 
@@ -505,35 +505,58 @@ function createTaskCardHtml(task, uiState = {}) {
 
 function createSubtasksPreviewHtml(task, uiState = {}) {
   const subtasks = task.subtasks || [];
-
-  if (!subtasks.length) {
-    return "";
-  }
-
   const expandedChecklistTaskIds = uiState.expandedChecklistTaskIds || new Set();
   const isExpanded = expandedChecklistTaskIds.has(task.id);
   const progress = getChecklistProgress(subtasks);
   const visibleSubtasks = subtasks.slice(0, 3);
   const hiddenCount = subtasks.length - visibleSubtasks.length;
-
+  const hasSubtasks = subtasks.length > 0;
   const subtasksHtml = visibleSubtasks.map((subtask) => createSubtaskButtonHtml(task.id, subtask)).join("");
+  const composerHtml = createSubtaskComposerHtml(task.id, uiState, "card");
 
   return `
-    <div class="task-checklist ${isExpanded ? "is-expanded" : "is-collapsed"}">
-      <button
-        type="button"
-        class="task-checklist-toggle"
-        data-action="toggle-checklist-preview"
-        data-id="${escapeHtml(task.id)}"
-        aria-expanded="${isExpanded}"
-      >
-        <span class="task-checklist-arrow">${isExpanded ? "▾" : "▸"}</span>
-        <span class="task-checklist-label">Checklist</span>
-        <span class="task-checklist-progress">${progress.done}/${progress.total} concluídas</span>
-      </button>
+    <div class="task-checklist ${isExpanded ? "is-expanded" : "is-collapsed"} ${hasSubtasks ? "" : "task-checklist-empty"}">
+      <div class="task-checklist-top">
+        ${
+          hasSubtasks
+            ? `
+        <button
+          type="button"
+          class="task-checklist-toggle"
+          data-action="toggle-checklist-preview"
+          data-id="${escapeHtml(task.id)}"
+          aria-expanded="${isExpanded}"
+        >
+          <span class="task-checklist-arrow">${isExpanded ? "▾" : "▸"}</span>
+          <span class="task-checklist-label">Checklist</span>
+          <span class="task-checklist-progress">${progress.done}/${progress.total} concluídas</span>
+        </button>
+      `
+            : `
+        <div class="task-checklist-summary">
+          <span class="task-checklist-arrow">＋</span>
+          <span class="task-checklist-label">Checklist</span>
+          <span class="task-checklist-progress">Sem etapas</span>
+        </div>
+      `
+        }
+
+        <button
+          type="button"
+          class="subtask-add-trigger"
+          data-action="open-subtask-composer"
+          data-id="${escapeHtml(task.id)}"
+          aria-label="Adicionar etapa ao checklist"
+          title="Adicionar etapa ao checklist"
+        >
+          + etapa
+        </button>
+      </div>
+
+      ${composerHtml}
 
       ${
-        isExpanded
+        isExpanded && hasSubtasks
           ? `
         <div class="subtask-list">
           ${subtasksHtml}
@@ -547,28 +570,83 @@ function createSubtasksPreviewHtml(task, uiState = {}) {
   `;
 }
 
-function createSubtasksDetailsHtml(task) {
+function createSubtasksDetailsHtml(task, uiState = {}) {
   const subtasks = task.subtasks || [];
-
-  if (!subtasks.length) {
-    return "<span>Nenhuma etapa adicionada.</span>";
-  }
-
   const progress = getChecklistProgress(subtasks);
   const subtasksHtml = subtasks.map((subtask) => createSubtaskButtonHtml(task.id, subtask)).join("");
+  const composerHtml = createSubtaskComposerHtml(task.id, uiState, "details");
 
   return `
-		<div class="task-checklist task-checklist-details">
-			<div class="task-checklist-header">
-				<strong>Progresso</strong>
-				<span>${progress.done}/${progress.total} concluídas</span>
-			</div>
+    <div class="task-checklist task-checklist-details ${subtasks.length ? "" : "task-checklist-empty"}">
+      <div class="task-checklist-header">
+        <strong>Progresso</strong>
+        <span>${progress.done}/${progress.total} concluídas</span>
+      </div>
 
-			<div class="subtask-list">
-				${subtasksHtml}
-			</div>
-		</div>
-	`;
+      ${
+        subtasks.length
+          ? `
+      <div class="subtask-list">
+        ${subtasksHtml}
+      </div>
+    `
+          : `<span class="task-checklist-more">Nenhuma etapa adicionada ainda.</span>`
+      }
+
+      <div class="subtask-add-row">
+        <button
+          type="button"
+          class="subtask-add-trigger"
+          data-action="open-subtask-composer"
+          data-id="${escapeHtml(task.id)}"
+        >
+          + Adicionar etapa
+        </button>
+      </div>
+
+      ${composerHtml}
+    </div>
+  `;
+}
+
+function createSubtaskComposerHtml(taskId, uiState = {}, context = "card") {
+  const isOpen = uiState.activeChecklistComposerTaskId === taskId;
+
+  if (!isOpen) {
+    return "";
+  }
+
+  const placeholder = context === "details" ? "Nova etapa do checklist" : "Digite uma nova etapa";
+
+  return `
+    <form
+      class="subtask-add-form"
+      data-action="add-subtask"
+      data-context="${escapeHtml(context)}"
+      data-id="${escapeHtml(taskId)}"
+    >
+      <input
+        type="text"
+        class="subtask-add-input"
+        placeholder="${escapeHtml(placeholder)}"
+        data-subtask-title-input
+        data-subtask-composer="${escapeHtml(taskId)}"
+        autocomplete="off"
+      />
+
+      <div class="subtask-add-actions">
+        <button type="submit" class="subtask-add-confirm">Adicionar</button>
+        <button
+          type="button"
+          class="subtask-add-cancel"
+          data-action="cancel-subtask-composer"
+          data-id="${escapeHtml(taskId)}"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  `;
 }
 
 function createSubtaskButtonHtml(taskId, subtask) {

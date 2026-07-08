@@ -3,6 +3,10 @@
 // File: features/tasks/tasks.dom.js
 // =============================
 
+const TASK_OPTIONAL_ELEMENT_SELECTORS = {
+  toastContainer: "#toastContainer",
+};
+
 const TASK_ELEMENT_SELECTORS = {
   taskForm: "#taskForm",
   taskIdInput: "#taskId",
@@ -77,6 +81,10 @@ const TASK_ELEMENT_SELECTORS = {
   closeTaskFormButton: "#closeTaskFormButton",
 };
 
+function getOptionalElement(root, selector) {
+  return root.querySelector(selector);
+}
+
 function getRequiredElement(root, key, selector) {
   const element = root.querySelector(selector);
 
@@ -94,6 +102,10 @@ export function getTaskElements(root = document) {
 
   Object.entries(TASK_ELEMENT_SELECTORS).forEach(([key, selector]) => {
     elements[key] = getRequiredElement(root, key, selector);
+  });
+
+  Object.entries(TASK_OPTIONAL_ELEMENT_SELECTORS).forEach(([key, selector]) => {
+    elements[key] = getOptionalElement(root, selector);
   });
 
   return elements;

@@ -502,3 +502,122 @@ body[data-theme="dark"] .details-card {
   background: #1b1510;
   border-color: var(--border);
 }
+/* ============================= */
+/* Checklist Inline Add          */
+/* ============================= */
+
+.task-checklist-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-checklist-summary {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+.subtask-add-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.subtask-add-trigger {
+  flex: 0 0 auto;
+  border: 1px dashed rgba(139, 94, 52, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.72);
+  color: var(--accent-dark);
+  padding: 5px 9px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.subtask-add-trigger:hover {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.subtask-add-form {
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid rgba(139, 94, 52, 0.24);
+  border-radius: 12px;
+  background: rgba(255, 250, 241, 0.78);
+}
+
+.subtask-add-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 8px 10px;
+  font-size: 0.86rem;
+  outline: none;
+}
+
+.subtask-add-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(139, 94, 52, 0.12);
+}
+
+.subtask-add-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.subtask-add-confirm,
+.subtask-add-cancel {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.subtask-add-confirm {
+  background: var(--accent);
+  color: #fffaf1;
+}
+
+.subtask-add-cancel {
+  background: transparent;
+  color: var(--muted);
+}
+
+.subtask-add-cancel:hover {
+  color: var(--text);
+  background: rgba(139, 94, 52, 0.08);
+}
+
+body[data-theme="dark"] .subtask-add-trigger {
+  background: rgba(45, 33, 24, 0.72);
+  border-color: rgba(214, 155, 97, 0.36);
+  color: var(--accent-dark);
+}
+
+body[data-theme="dark"] .subtask-add-form {
+  background: rgba(45, 33, 24, 0.6);
+  border-color: var(--border);
+}
+
+body[data-theme="dark"] .subtask-add-input {
+  background: #1b1510;
+  color: var(--text);
+  border-color: var(--border);
+}

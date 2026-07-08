@@ -57,11 +57,13 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
   addEvent(filtersToggleButton, "click", handlers.toggleFiltersPanel);
 
   addEvent(taskList, "click", handlers.handleTaskAction);
+  addEvent(taskList, "submit", handlers.handleSubtaskComposerSubmit);
   addEvent(taskList, "keydown", inlineEdit.handleInlineEditorKeydown);
   addEvent(taskList, "focusout", inlineEdit.handleInlineEditorFocusOut);
   addEvent(taskList, "change", inlineEdit.handleInlineEditorChange);
 
   addEvent(detailsBody, "click", taskActions.handleDetailsAction);
+  addEvent(detailsBody, "submit", handlers.handleSubtaskComposerSubmit);
   addEvent(closeDetailsButton, "click", handlers.closeDetailsDialog);
 
   addEvent(cancelDeleteButton, "click", taskActions.closeDeleteDialog);
@@ -106,6 +108,7 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
     if (event.key === "Escape") {
       handlers.closeOptionsMenu();
       inlineEdit.clearInlineEditAndRender();
+      handlers.closeSubtaskComposer?.();
     }
   });
 }

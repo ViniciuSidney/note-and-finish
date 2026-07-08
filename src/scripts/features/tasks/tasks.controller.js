@@ -25,6 +25,7 @@ import { createTaskActionsController } from "./tasks.actions.js";
 import { getTaskElements } from "./tasks.dom.js";
 import { bindTaskEvents } from "./tasks.events.js";
 import { createTaskFormController } from "./tasks.form.js";
+import { createToastController } from "./tasks.toast.js";
 
 const elements = getTaskElements();
 
@@ -72,6 +73,7 @@ const {
   filtersToggleButton,
   filtersPanel,
   createTaskDialog,
+  toastContainer,
 } = elements;
 
 let tasks = loadTasks();
@@ -86,6 +88,10 @@ function saveTasks() {
 function saveCollapsedGroupKeys() {
   persistCollapsedGroupKeys(collapsedGroupKeys);
 }
+
+const toast = createToastController({
+  container: toastContainer,
+});
 
 const taskFormController = createTaskFormController({
   elements: {
@@ -112,6 +118,7 @@ const taskFormController = createTaskFormController({
   saveTasks,
   render,
   closeCreateTaskDialog,
+  showToast,
 });
 
 const inlineEdit = createInlineEditController({
@@ -121,25 +128,6 @@ const inlineEdit = createInlineEditController({
   },
   saveTasks,
   render,
-});
-
-const renderer = createTasksRenderer({
-  elements: {
-    taskList,
-    emptyState,
-    totalTasks,
-    pendingTasks,
-    weekTasks,
-    completedTasks,
-    searchInput,
-    statusFilter,
-    typeFilter,
-    sortFilter,
-  },
-  getTasks: () => tasks,
-  getCollapsedGroupKeys: () => collapsedGroupKeys,
-  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
-  getInlineEditState: inlineEdit.getState,
 });
 
 const taskActions = createTaskActionsController({
@@ -169,11 +157,32 @@ const taskActions = createTaskActionsController({
   render,
   resetForm,
   showFormMessage,
+  showToast,
   getCollapsedGroupKeys: () => collapsedGroupKeys,
   saveCollapsedGroupKeys,
   getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
   openDialog,
   closeDialog,
+});
+
+const renderer = createTasksRenderer({
+  elements: {
+    taskList,
+    emptyState,
+    totalTasks,
+    pendingTasks,
+    weekTasks,
+    completedTasks,
+    searchInput,
+    statusFilter,
+    typeFilter,
+    sortFilter,
+  },
+  getTasks: () => tasks,
+  getCollapsedGroupKeys: () => collapsedGroupKeys,
+  getExpandedChecklistTaskIds: () => expandedChecklistTaskIds,
+  getInlineEditState: inlineEdit.getState,
+  getChecklistComposerTaskId: taskActions.getChecklistComposerTaskId,
 });
 
 function getThemeElements() {
@@ -239,6 +248,7 @@ export function initTasksFeature() {
       render,
       toggleFiltersPanel,
       handleTaskAction,
+      handleSubtaskComposerSubmit,
       closeDetailsDialog,
       toggleOptionsMenu,
       toggleTheme,
@@ -254,6 +264,7 @@ export function initTasksFeature() {
       openCreateTaskDialog,
       closeCreateTaskDialog,
       closeOptionsMenu,
+      closeSubtaskComposer: taskActions.closeSubtaskComposer,
     },
   });
 }
@@ -291,7 +302,7 @@ function exportBackup() {
   exportTasksBackup(tasks);
 
   closeOptionsMenu();
-  showFormMessage("Backup exportado com sucesso.", "success");
+  showToast("Backup exportado.", "success");
 }
 
 function openImportFilePicker() {
@@ -310,14 +321,14 @@ async function handleImportFile(event) {
     const importedTasks = await readImportedTasksFile(file);
 
     if (!importedTasks.length) {
-      showFormMessage("O arquivo não possui atividades válidas para importar.", "error");
+      showToast("O arquivo não possui atividades válidas para importar.", "error");
       return;
     }
 
     pendingImportedTasks = importedTasks;
     openImportDialog(getImportDialogElements(), getImportSummaryText(importedTasks.length));
   } catch {
-    showFormMessage("Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.", "error");
+    showToast("Não foi possível importar o arquivo. Verifique se ele é um backup JSON válido.", "error");
   } finally {
     importFileInput.value = "";
   }
@@ -344,7 +355,7 @@ function confirmImportBackup() {
   render();
   closeImportDialog();
 
-  showFormMessage("Backup importado com sucesso.", "success");
+  showToast("Backup importado com sucesso.", "success");
 }
 
 function closeImportDialog() {
@@ -365,6 +376,7 @@ function clearAllTasks() {
   if (!isClearAllConfirmationValid(clearAllConfirmInput.value)) {
     clearAllMessage.textContent = "Digite APAGAR para confirmar.";
     clearAllMessage.className = "form-message error";
+    showToast("Digite APAGAR para confirmar a exclusão total.", "error");
     return;
   }
 
@@ -375,7 +387,7 @@ function clearAllTasks() {
   render();
   closeClearAllDialog();
 
-  showFormMessage("Todas as atividades foram apagadas.", "success");
+  showToast("Todas as atividades foram apagadas.", "success");
 }
 
 function closeClearAllDialog() {
@@ -423,6 +435,16 @@ function handleTaskAction(event) {
     return;
   }
 
+  if (action === "open-subtask-composer") {
+    taskActions.openSubtaskComposer(taskId);
+    return;
+  }
+
+  if (action === "cancel-subtask-composer") {
+    taskActions.closeSubtaskComposer();
+    return;
+  }
+
   if (action === "view") {
     taskActions.openDetails(taskId);
   }
@@ -440,6 +462,15 @@ function handleTaskAction(event) {
   }
 }
 
+
+function handleSubtaskComposerSubmit(event) {
+  const shouldRefreshDetails = Boolean(event.target.closest("#detailsBody"));
+  taskActions.handleSubtaskComposerSubmit(event, shouldRefreshDetails);
+}
+
+function showToast(message, type = "info", options) {
+  toast.showToast(message, type, options);
+}
 
 function render() {
   renderer.render();

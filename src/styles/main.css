@@ -24,6 +24,7 @@
 @import url("./components/dropdowns.css");
 @import url("./components/inline-edit.css");
 @import url("./components/details.css");
+@import url("./components/toasts.css");
 
 /* Layouts */
 @import url("./layouts/layout-gallery.css");

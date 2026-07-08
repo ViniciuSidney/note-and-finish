@@ -5,7 +5,7 @@
 
 import { createId } from "./tasks.utils.js";
 
-export function createTaskFormController({ elements, getTasks, setTasks, saveTasks, render, closeCreateTaskDialog }) {
+export function createTaskFormController({ elements, getTasks, setTasks, saveTasks, render, closeCreateTaskDialog, showToast }) {
   const {
     taskForm,
     taskIdInput,
@@ -31,6 +31,7 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
 
     if (!taskData.title || !taskData.dueDate) {
       showFormMessage("Preencha pelo menos o título e a data de entrega.", "error");
+      showToast?.("Preencha título e data de entrega.", "error");
       return;
     }
 
@@ -51,7 +52,8 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
       });
 
       setTasks(nextTasks);
-      showFormMessage("Atividade atualizada com sucesso.", "success");
+      showFormMessage("", "");
+      showToast?.("Atividade atualizada.", "success");
     } else {
       const newTask = {
         id: createId(),
@@ -61,7 +63,8 @@ export function createTaskFormController({ elements, getTasks, setTasks, saveTas
       };
 
       setTasks([newTask, ...tasks]);
-      showFormMessage("Atividade cadastrada com sucesso.", "success");
+      showFormMessage("", "");
+      showToast?.("Atividade criada.", "success");
     }
 
     saveTasks();
