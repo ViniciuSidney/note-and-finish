@@ -1,0 +1,126 @@
+/* ============================= */
+/* Today Focus Panel             */
+/* ============================= */
+
+.today-focus-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
+  align-items: stretch;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border: 1px solid rgba(139, 94, 52, 0.2);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255, 250, 241, 0.9), rgba(255, 244, 220, 0.72));
+  box-shadow: var(--shadow);
+}
+
+.today-focus-main {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+}
+
+.today-focus-kicker {
+  color: var(--accent-dark);
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.today-focus-main strong {
+  color: var(--text);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.1;
+}
+
+.today-focus-main p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.32;
+}
+
+.today-focus-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.today-focus-chip {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.74);
+}
+
+.today-focus-chip span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.today-focus-chip strong {
+  color: var(--text);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.today-focus-panel[data-focus-state="overdue"] {
+  border-color: rgba(169, 67, 67, 0.42);
+  background: linear-gradient(135deg, rgba(255, 247, 247, 0.94), rgba(255, 238, 232, 0.74));
+}
+
+.today-focus-panel[data-focus-state="today"] {
+  border-color: rgba(172, 121, 38, 0.38);
+}
+
+.today-focus-panel[data-focus-state="clear"] {
+  border-color: rgba(72, 143, 94, 0.32);
+  background: linear-gradient(135deg, rgba(247, 255, 249, 0.86), rgba(242, 252, 238, 0.72));
+}
+
+.today-focus-chip-danger strong {
+  color: var(--danger);
+}
+
+.today-focus-chip-warning strong {
+  color: #9c6a1d;
+}
+
+.today-focus-chip-priority strong {
+  color: var(--accent-dark);
+}
+
+body[data-theme="dark"] .today-focus-panel {
+  border-color: rgba(214, 155, 97, 0.22);
+  background: linear-gradient(135deg, rgba(33, 25, 19, 0.96), rgba(45, 33, 24, 0.72));
+}
+
+body[data-theme="dark"] .today-focus-panel[data-focus-state="overdue"] {
+  border-color: rgba(255, 119, 119, 0.32);
+  background: linear-gradient(135deg, rgba(43, 25, 24, 0.96), rgba(56, 31, 28, 0.72));
+}
+
+body[data-theme="dark"] .today-focus-panel[data-focus-state="clear"] {
+  border-color: rgba(104, 194, 127, 0.28);
+  background: linear-gradient(135deg, rgba(24, 39, 28, 0.94), rgba(28, 46, 34, 0.72));
+}
+
+body[data-theme="dark"] .today-focus-chip {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+body[data-theme="dark"] .today-focus-chip-warning strong {
+  color: #e7b86b;
+}

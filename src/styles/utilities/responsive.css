@@ -377,3 +377,32 @@
 /* ============================= */
 /* 7. Layout Preview             */
 /* ============================= */
+
+/* ============================= */
+/* Foco de hoje                  */
+/* ============================= */
+
+@media (max-width: 900px) {
+  .today-focus-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .today-focus-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .today-focus-panel {
+    padding: 10px;
+  }
+
+  .today-focus-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .today-focus-chip {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}

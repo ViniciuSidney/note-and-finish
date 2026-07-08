@@ -6,6 +6,7 @@
 import { getPriorityWeight, getTaskGroups } from "./tasks.model.js";
 import { createLocalDate, getToday } from "./tasks.utils.js";
 import { createTaskGroupSection } from "./tasks.ui.js";
+import { renderTodayFocusPanel } from "./tasks.focus.js";
 
 export function createTasksRenderer({
   elements,
@@ -17,6 +18,7 @@ export function createTasksRenderer({
 }) {
   function render() {
     renderSummary();
+    renderTodayFocusPanel(elements, getTasks());
 
     const filteredTasks = getFilteredTasks();
 

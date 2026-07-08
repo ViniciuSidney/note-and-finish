@@ -38,6 +38,13 @@ const TASK_ELEMENT_SELECTORS = {
   weekTasks: "#weekTasks",
   completedTasks: "#completedTasks",
 
+  todayFocusPanel: "#todayFocusPanel",
+  todayFocusTitle: "#todayFocusTitle",
+  todayFocusMessage: "#todayFocusMessage",
+  todayFocusOverdueCount: "#todayFocusOverdueCount",
+  todayFocusTodayCount: "#todayFocusTodayCount",
+  todayFocusHighCount: "#todayFocusHighCount",
+
   detailsDialog: "#detailsDialog",
   detailsTitle: "#detailsTitle",
   detailsBody: "#detailsBody",
