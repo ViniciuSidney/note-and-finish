@@ -37,6 +37,22 @@ function getToastContainer(container) {
 
 export function createToastController({ container, duration = TOAST_DEFAULT_DURATION } = {}) {
   const toastContainer = getToastContainer(container);
+  const defaultToastParent = toastContainer.parentElement || document.body;
+
+  function getToastHost() {
+    const openedDialogs = Array.from(document.querySelectorAll("dialog[open]"));
+    const activeDialog = openedDialogs.at(-1);
+
+    return activeDialog?.querySelector(".dialog-content") || defaultToastParent;
+  }
+
+  function syncToastContainerHost() {
+    const nextHost = getToastHost();
+
+    if (toastContainer.parentElement !== nextHost) {
+      nextHost.appendChild(toastContainer);
+    }
+  }
 
   function dismissToast(toast) {
     if (!toast || toast.dataset.removing === "true") {
@@ -69,6 +85,8 @@ export function createToastController({ container, duration = TOAST_DEFAULT_DURA
 
     const toastType = TOAST_ICONS[type] ? type : "info";
     const toastDuration = Number.isFinite(options.duration) ? options.duration : duration;
+
+    syncToastContainerHost();
 
     const toast = document.createElement("div");
     toast.className = `toast toast-${toastType}`;

@@ -5,7 +5,7 @@
 
 import { INLINE_SELECT_OPTIONS } from "./tasks.constants.js";
 import { getChecklistProgress, getDueDateText, isOverdue } from "./tasks.model.js";
-import { escapeHtml, formatDate, formatDateTime } from "./tasks.utils.js";
+import { addDays, createLocalDate, escapeHtml, formatDate, formatDateTime, formatShortDate, toDateInputValue } from "./tasks.utils.js";
 
 export function createTaskGroupSection(group, uiState = {}) {
   const section = document.createElement("section");
@@ -436,7 +436,7 @@ function createTaskCardHtml(task, uiState = {}) {
   const toggleIcon = task.status === "Concluída" ? "↩️" : "✅";
 
   return `
-		<article class="task-card ${completedClass} ${overdueClass}">
+		<article class="task-card ${completedClass} ${overdueClass}" data-task-card="${escapeHtml(task.id)}">
 			<div class="task-top">
 				<div class="task-title-group">
 					${createEditableTitleHtml(task, completedClass, uiState)}
@@ -514,30 +514,42 @@ function createQuickDueActionsHtml(task, context = "card") {
 
   const prefixClass = context === "details" ? "quick-due-actions quick-due-actions-details" : "quick-due-actions";
   const buttonClass = context === "details" ? "button button-secondary quick-due-button" : "quick-due-button";
+  const quickDueActions = [
+    {
+      days: 1,
+      label: "+1 Dia",
+      title: "Adicionar 1 dia ao prazo",
+    },
+    {
+      days: 7,
+      label: "+1 Semana",
+      title: "Adicionar 1 semana ao prazo",
+    },
+  ];
+
+  const buttonsHtml = quickDueActions
+    .map((action) => {
+      const nextDate = toDateInputValue(addDays(createLocalDate(task.dueDate), action.days));
+      const shortDate = formatShortDate(nextDate);
+
+      return `
+      <button
+        type="button"
+        class="${buttonClass}"
+        data-action="quick-postpone"
+        data-id="${escapeHtml(task.id)}"
+        data-days="${action.days}"
+        title="${escapeHtml(action.title)}: ${shortDate}"
+      >
+        ↷ ${escapeHtml(action.label)} - ${shortDate}
+      </button>
+    `;
+    })
+    .join("");
 
   return `
     <div class="${prefixClass}" aria-label="Ações rápidas de prazo">
-      <button
-        type="button"
-        class="${buttonClass}"
-        data-action="quick-postpone"
-        data-id="${escapeHtml(task.id)}"
-        data-days="1"
-        title="Adiar prazo para amanhã"
-      >
-        ↷ Amanhã
-      </button>
-
-      <button
-        type="button"
-        class="${buttonClass}"
-        data-action="quick-postpone"
-        data-id="${escapeHtml(task.id)}"
-        data-days="7"
-        title="Adiar prazo para a próxima semana"
-      >
-        ↷ Próx. semana
-      </button>
+      ${buttonsHtml}
     </div>
   `;
 }

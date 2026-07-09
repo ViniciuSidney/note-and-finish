@@ -3,8 +3,9 @@
 // File: features/tasks/tasks.actions.js
 // =============================
 
+import { getTaskGroupKey } from "./tasks.model.js";
 import { createDetailsHtml } from "./tasks.ui.js";
-import { addDays, createId, formatDate, getToday, toDateInputValue } from "./tasks.utils.js";
+import { addDays, createId, createLocalDate, formatDate, toDateInputValue } from "./tasks.utils.js";
 
 export function createTaskActionsController({
   elements,
@@ -73,6 +74,34 @@ export function createTaskActionsController({
     if (shouldRender) {
       render();
     }
+  }
+
+
+  function scrollToTaskCard(taskId) {
+    if (!taskId) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      const selector = `[data-task-card="${CSS.escape(taskId)}"]`;
+      const taskCard = document.querySelector(selector);
+
+      if (!taskCard) {
+        return;
+      }
+
+      taskCard.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+
+      taskCard.classList.add("is-highlighted");
+
+      window.setTimeout(() => {
+        taskCard.classList.remove("is-highlighted");
+      }, 1800);
+    });
   }
 
   function updateTask(taskId, updater) {
@@ -284,21 +313,34 @@ export function createTaskActionsController({
       return;
     }
 
-    const nextDate = toDateInputValue(addDays(getToday(), daysToAdd));
+    const nextDate = toDateInputValue(addDays(createLocalDate(task.dueDate), daysToAdd));
+    const nextGroupKey = getTaskGroupKey({
+      ...task,
+      dueDate: nextDate,
+    });
+    const collapsedGroupKeys = getCollapsedGroupKeys();
+
+    if (collapsedGroupKeys.has(nextGroupKey)) {
+      collapsedGroupKeys.delete(nextGroupKey);
+      saveCollapsedGroupKeys();
+    }
 
     updateTask(taskId, (currentTask) => ({
       ...currentTask,
       dueDate: nextDate,
     }));
 
-    const message = daysToAdd === 1 ? "Prazo alterado para amanhã." : `Prazo alterado para ${formatDate(nextDate)}.`;
+    const message = daysToAdd === 1 ? `Prazo adiado em +1 dia: ${formatDate(nextDate)}.` : `Prazo adiado em +1 semana: ${formatDate(nextDate)}.`;
 
     showToast?.(message, "success");
     render();
 
     if (shouldRefreshDetails && elements.detailsDialog.open) {
       openDetails(taskId);
+      return;
     }
+
+    scrollToTaskCard(taskId);
   }
 
   function addSubtask(taskId, title, shouldRefreshDetails = false) {
