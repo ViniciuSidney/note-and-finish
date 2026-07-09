@@ -787,3 +787,42 @@ body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar
 body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar-thumb:hover {
   background: rgba(214, 155, 97, 0.42);
 }
+
+/* ============================= */
+/* Checklist Smart Preview        */
+/* ============================= */
+
+.checklist-progress-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.checklist-progress-emoji {
+  display: none;
+}
+
+.task-checklist-more-button {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+
+.task-checklist-more-button:hover {
+  color: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.task-checklist-more-button:focus-visible {
+  outline: 3px solid rgba(139, 94, 52, 0.18);
+  outline-offset: 3px;
+  border-radius: 8px;
+}

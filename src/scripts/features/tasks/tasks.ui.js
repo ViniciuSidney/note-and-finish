@@ -116,7 +116,7 @@ export function createDetailsHtml(task, uiState = {}) {
       <div class="details-card-header">
         <div>
           <span class="details-card-label">✅ Checklist</span>
-          <strong>${progress.done}/${progress.total} concluídas</strong>
+          <strong>${createChecklistProgressHtml(progress)}</strong>
         </div>
 
         <span class="details-progress-pill">${completionPercent}%</span>
@@ -554,12 +554,30 @@ function createQuickDueActionsHtml(task, context = "card") {
   `;
 }
 
+
+function createChecklistProgressHtml(progress, extraClass = "") {
+  return `
+    <span class="checklist-progress-text ${extraClass}">
+      <span class="checklist-progress-count">${progress.done}/${progress.total}</span>
+      <span class="checklist-progress-label">concluídas</span>
+      <span class="checklist-progress-emoji" aria-label="concluídas">✅</span>
+    </span>
+  `;
+}
+
+function getPreviewSubtasks(subtasks, limit = 3) {
+  const pendingSubtasks = subtasks.filter((subtask) => !subtask.done);
+  const doneSubtasks = subtasks.filter((subtask) => subtask.done);
+
+  return [...pendingSubtasks, ...doneSubtasks].slice(0, limit);
+}
+
 function createSubtasksPreviewHtml(task, uiState = {}) {
   const subtasks = task.subtasks || [];
   const expandedChecklistTaskIds = uiState.expandedChecklistTaskIds || new Set();
   const isExpanded = expandedChecklistTaskIds.has(task.id);
   const progress = getChecklistProgress(subtasks);
-  const visibleSubtasks = subtasks.slice(0, 3);
+  const visibleSubtasks = getPreviewSubtasks(subtasks, 3);
   const hiddenCount = subtasks.length - visibleSubtasks.length;
   const hasSubtasks = subtasks.length > 0;
   const subtasksHtml = visibleSubtasks.map((subtask) => createSubtaskButtonHtml(task.id, subtask)).join("");
@@ -580,7 +598,7 @@ function createSubtasksPreviewHtml(task, uiState = {}) {
         >
           <span class="task-checklist-arrow">${isExpanded ? "▾" : "▸"}</span>
           <span class="task-checklist-label">Checklist</span>
-          <span class="task-checklist-progress">${progress.done}/${progress.total} concluídas</span>
+          <span class="task-checklist-progress">${createChecklistProgressHtml(progress)}</span>
         </button>
       `
             : `
@@ -613,7 +631,19 @@ function createSubtasksPreviewHtml(task, uiState = {}) {
           ${subtasksHtml}
         </div>
 
-        ${hiddenCount > 0 ? `<span class="task-checklist-more">+${hiddenCount} etapa${hiddenCount > 1 ? "s" : ""} no detalhe</span>` : ""}
+        ${
+          hiddenCount > 0
+            ? `<button
+                type="button"
+                class="task-checklist-more task-checklist-more-button"
+                data-action="view"
+                data-id="${escapeHtml(task.id)}"
+                title="Ver checklist completo nos detalhes"
+              >
+                +${hiddenCount} etapa${hiddenCount > 1 ? "s" : ""} no detalhe
+              </button>`
+            : ""
+        }
       `
           : ""
       }
@@ -631,7 +661,7 @@ function createSubtasksDetailsHtml(task, uiState = {}) {
     <div class="task-checklist task-checklist-details ${subtasks.length ? "" : "task-checklist-empty"}">
       <div class="task-checklist-header">
         <strong>Progresso</strong>
-        <span>${progress.done}/${progress.total} concluídas</span>
+        <span>${createChecklistProgressHtml(progress)}</span>
       </div>
 
       ${

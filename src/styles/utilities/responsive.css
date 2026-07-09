@@ -489,3 +489,17 @@
     align-self: flex-start;
   }
 }
+
+/* ============================= */
+/* Checklist compacto             */
+/* ============================= */
+
+@media (max-width: 640px) {
+  .checklist-progress-label {
+    display: none;
+  }
+
+  .checklist-progress-emoji {
+    display: inline;
+  }
+}
