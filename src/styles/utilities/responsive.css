@@ -115,24 +115,16 @@
   }
 
   #createTaskDialog .task-form {
-    grid-template-columns: 1fr;
     max-height: calc(100dvh - 150px);
   }
 
-  #createTaskDialog .task-form > .form-group,
-  #createTaskDialog .task-form > .form-message,
-  #createTaskDialog .task-form > .form-actions,
-  #createTaskDialog .task-form > .form-row > .form-group,
-  #createTaskDialog .form-group:has(#title),
-  #createTaskDialog .form-group:has(#type),
-  #createTaskDialog .form-group:has(#subject),
-  #createTaskDialog .form-group:has(#dueDate),
-  #createTaskDialog .form-group:has(#priority),
-  #createTaskDialog .form-group:has(#status),
-  #createTaskDialog .form-group:has(#tags),
-  #createTaskDialog .form-group:has(#description),
-  #createTaskDialog .form-group:has(#subtasks) {
-    grid-column: 1 / -1;
+  #createTaskDialog .task-form-body,
+  #createTaskDialog .task-form-textareas {
+    grid-template-columns: 1fr;
+  }
+
+  #createTaskDialog .date-shortcuts {
+    grid-template-columns: 1fr;
   }
 
   #createTaskDialog #description,

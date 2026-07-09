@@ -181,7 +181,7 @@
 
     <dialog id="createTaskDialog" class="dialog">
       <div class="dialog-content task-form-dialog">
-        <div class="dialog-header">
+        <div class="dialog-header task-form-dialog-header">
           <div>
             <h2 id="formTitle">Nova atividade</h2>
             <p class="dialog-warning">Cadastre uma tarefa, avaliação, trabalho ou compromisso.</p>
@@ -190,104 +190,108 @@
           <button class="icon-button" id="closeTaskFormButton" type="button" aria-label="Fechar">×</button>
         </div>
 
-        <form id="taskForm" class="task-form">
+        <form id="taskForm" class="task-form task-form-structured">
           <input type="hidden" id="taskId" />
 
-          <div class="form-group">
-            <label for="title">Título *</label>
-            <input type="text" id="title" placeholder="Ex.: Trabalho de História" required />
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="type">Tipo</label>
-              <select id="type">
-                <option value="Trabalho">Trabalho</option>
-                <option value="Avaliação">Avaliação</option>
-                <option value="Tarefa">Tarefa</option>
-                <option value="Apresentação">Apresentação</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Matéria</label>
-              <input type="text" id="subject" placeholder="Ex.: História" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="dueDate">Data de entrega *</label>
-              <input type="date" id="dueDate" required />
-
-              <div class="date-shortcuts" id="dueDateShortcuts" aria-label="Atalhos de data de entrega">
-                <button type="button" class="date-shortcut-button" data-date-shortcut="0">
-                  <span>Hoje</span>
-                  <strong data-date-shortcut-label="0">--/--</strong>
-                </button>
-
-                <button type="button" class="date-shortcut-button" data-date-shortcut="1">
-                  <span>Amanhã</span>
-                  <strong data-date-shortcut-label="1">--/--</strong>
-                </button>
-
-                <button type="button" class="date-shortcut-button" data-date-shortcut="7">
-                  <span>Semana que vem</span>
-                  <strong data-date-shortcut-label="7">--/--</strong>
-                </button>
+          <div class="task-form-body">
+            <section class="task-form-column task-form-column-quick" aria-label="Dados principais da atividade">
+              <div class="form-group">
+                <label for="title">Título *</label>
+                <input type="text" id="title" placeholder="Ex.: Trabalho de História" required />
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="priority">Prioridade</label>
-              <select id="priority">
-                <option value="Baixa">Baixa</option>
-                <option value="Média" selected>Média</option>
-                <option value="Alta">Alta</option>
-              </select>
-            </div>
-          </div>
+              <div class="form-group">
+                <label for="type">Tipo</label>
+                <select id="type">
+                  <option value="Trabalho">Trabalho</option>
+                  <option value="Avaliação">Avaliação</option>
+                  <option value="Tarefa">Tarefa</option>
+                  <option value="Apresentação">Apresentação</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status">
-              <option value="Pendente">Pendente</option>
-              <option value="Em andamento">Em andamento</option>
-              <option value="Concluída">Concluída</option>
-            </select>
-          </div>
+              <div class="form-group">
+                <label for="subject">Matéria</label>
+                <input type="text" id="subject" placeholder="Ex.: História" />
+              </div>
 
-          <div class="form-group">
-            <label for="description">Descrição / observações</label>
-            <textarea id="description" rows="5" placeholder="Ex.: Fazer resumo dos textos, montar mapa mental e entregar no dia da prova."></textarea>
-          </div>
+              <div class="form-group">
+                <label for="priority">Prioridade</label>
+                <select id="priority">
+                  <option value="Baixa">Baixa</option>
+                  <option value="Média" selected>Média</option>
+                  <option value="Alta">Alta</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="subtasks">Checklist / etapas</label>
-            <textarea
-              id="subtasks"
-              rows="4"
-              placeholder="Ex.:
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status">
+                  <option value="Pendente">Pendente</option>
+                  <option value="Em andamento">Em andamento</option>
+                  <option value="Concluída">Concluída</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="task-form-column task-form-column-planning" aria-label="Planejamento da atividade">
+              <div class="form-group task-form-date-group">
+                <label for="dueDate">Data de entrega *</label>
+                <input type="date" id="dueDate" required />
+
+                <div class="date-shortcuts" id="dueDateShortcuts" aria-label="Atalhos de data de entrega">
+                  <button type="button" class="date-shortcut-button" data-date-shortcut="0">
+                    <span>Hoje</span>
+                    <strong data-date-shortcut-label="0">--/--</strong>
+                  </button>
+
+                  <button type="button" class="date-shortcut-button" data-date-shortcut="1">
+                    <span>Amanhã</span>
+                    <strong data-date-shortcut-label="1">--/--</strong>
+                  </button>
+
+                  <button type="button" class="date-shortcut-button" data-date-shortcut="7">
+                    <span>Semana que vem</span>
+                    <strong data-date-shortcut-label="7">--/--</strong>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-row task-form-textareas">
+                <div class="form-group">
+                  <label for="description">Descrição / observações</label>
+                  <textarea id="description" rows="5" placeholder="Ex.: Fazer resumo dos textos, montar mapa mental e entregar no dia da prova."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="subtasks">Checklist / etapas</label>
+                  <textarea
+                    id="subtasks"
+                    rows="4"
+                    placeholder="Ex.:
 Ler os textos
 Separar ideias principais
 Fazer resumo
 Revisar antes da entrega"
-            ></textarea>
-            <small>Digite uma etapa por linha.</small>
-          </div>
+                  ></textarea>
+                  <small>Digite uma etapa por linha.</small>
+                </div>
+              </div>
 
-          <div class="form-group">
-            <label for="tags">Etiquetas</label>
-            <input type="text" id="tags" placeholder="Ex.: prova, grupo, urgente" />
-            <small>Separe as etiquetas por vírgula.</small>
+              <div class="form-group">
+                <label for="tags">Etiquetas</label>
+                <input type="text" id="tags" placeholder="Ex.: prova, grupo, urgente" />
+                <small>Separe as etiquetas por vírgula.</small>
+              </div>
+            </section>
           </div>
 
           <p id="formMessage" class="form-message"></p>
 
-          <div class="form-actions">
-            <button type="submit" class="button button-primary" id="submitButton">Salvar atividade</button>
+          <div class="form-actions task-form-actions">
             <button type="button" class="button button-secondary" id="clearButton">Limpar</button>
+            <button type="submit" class="button button-primary" id="submitButton">Salvar atividade</button>
           </div>
         </form>
       </div>
