@@ -57,7 +57,15 @@
         <section class="home-insights-grid" aria-label="Resumo e foco da agenda">
           <section class="today-focus-panel insight-panel" id="todayFocusPanel" aria-label="Foco de hoje" data-insight-panel="focus">
             <header class="insight-panel-header today-focus-header">
-              <span class="today-focus-kicker">Foco de hoje</span>
+              <div class="today-focus-heading">
+                <span class="today-focus-kicker">Foco de hoje</span>
+
+                <div class="today-focus-main">
+                  <strong id="todayFocusTitle">Organize seu próximo passo</strong>
+                  <p id="todayFocusMessage">Carregando prioridades do dia...</p>
+                </div>
+              </div>
+
               <button
                 type="button"
                 class="insight-toggle-button"
@@ -70,11 +78,6 @@
             </header>
 
             <div class="today-focus-body" id="todayFocusBody">
-              <div class="today-focus-main">
-                <strong id="todayFocusTitle">Organize seu próximo passo</strong>
-                <p id="todayFocusMessage">Carregando prioridades do dia...</p>
-              </div>
-
               <div class="today-focus-metrics" aria-label="Resumo rápido do foco">
                 <article class="today-focus-chip today-focus-chip-danger">
                   <span>Atrasadas</span>

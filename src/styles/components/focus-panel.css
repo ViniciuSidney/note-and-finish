@@ -228,3 +228,31 @@ body[data-theme="dark"] .insight-toggle-button:hover {
   background: #38291e;
   border-color: rgba(214, 155, 97, 0.52);
 }
+
+
+/* ============================= */
+/* Polimento v0.2 - header do foco */
+/* ============================= */
+
+.today-focus-heading {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.today-focus-header {
+  align-items: flex-start;
+}
+
+.today-focus-header .insight-toggle-button,
+.summary-panel-header .insight-toggle-button {
+  margin-left: auto;
+}
+
+.today-focus-body {
+  grid-template-rows: auto;
+}
+
+.insight-panel.is-collapsed .today-focus-main {
+  display: grid;
+}

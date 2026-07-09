@@ -553,7 +553,7 @@
 
 @media (max-width: 640px) {
   .insight-panel-header {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .summary-panel.is-collapsed,
