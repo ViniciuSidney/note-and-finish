@@ -7,14 +7,15 @@
 Campos:
 - `id`: identificador único da atividade.
 - `title`: título da atividade.
-- `type`: tipo da atividade. Valores esperados: Trabalho, Avaliação, Tarefa, Apresentação ou Outro.
-- `subject`: matéria ou área relacionada.
+- `type`: tipo da atividade. Valores atuais: Trabalho, Avaliação, Tarefa, Apresentação ou Outro.
+- `subject`: categoria/contexto relacionado à atividade.
+  - Observação: o nome interno permanece `subject` para manter compatibilidade com dados antigos; visualmente, o campo é exibido como **Categoria**.
 - `dueDate`: data de entrega no formato `YYYY-MM-DD`.
 - `priority`: prioridade. Valores esperados: Baixa, Média ou Alta.
 - `status`: situação atual. Valores esperados: Pendente, Em andamento ou Concluída.
 - `description`: descrição ou observações da atividade.
 - `tags`: lista de etiquetas em texto.
-- `subtasks`: lista de subtarefas/checklist.
+- `subtasks`: lista de etapas/checklist.
 - `createdAt`: data e horário de criação em ISO string.
 - `updatedAt`: data e horário da última atualização em ISO string.
 
@@ -22,175 +23,136 @@ Exemplo:
 
 ```json
 {
-  "id": "uuid-ou-id-gerado",
-  "title": "Trabalho de Matemática",
+  "id": "task-123",
+  "title": "Trabalho de História",
   "type": "Trabalho",
-  "subject": "Matemática",
-  "dueDate": "2026-07-15",
+  "subject": "Escola",
+  "dueDate": "2026-07-09",
   "priority": "Alta",
   "status": "Pendente",
-  "description": "Resolver e entregar a lista.",
-  "tags": ["escola", "urgente"],
+  "description": "Fazer resumo e revisar antes da entrega.",
+  "tags": ["grupo", "urgente"],
   "subtasks": [
     {
-      "id": "uuid-da-subtarefa",
-      "title": "Resolver exercícios",
+      "id": "subtask-1",
+      "title": "Ler os textos",
       "done": false
     }
   ],
-  "createdAt": "2026-07-07T10:00:00.000Z",
-  "updatedAt": "2026-07-07T10:00:00.000Z"
+  "createdAt": "2026-07-08T10:00:00.000Z",
+  "updatedAt": "2026-07-08T10:00:00.000Z"
 }
 ```
 
----
-
-### Entidade: Subtask / Subtarefa
+### Entidade: Subtask / Etapa
 
 Campos:
-- `id`: identificador único da subtarefa.
-- `title`: título da etapa.
+- `id`: identificador único da etapa.
+- `title`: nome da etapa.
 - `done`: indica se a etapa foi concluída.
 
----
-
-### Entidade: Backup
-
-Campos:
-- `app`: nome da aplicação.
-- `version`: versão do formato/exportação.
-- `exportedAt`: data da exportação.
-- `tasks`: lista de atividades exportadas.
-
----
-
-## Relações entre dados
-
-- Uma atividade possui zero ou várias subtarefas.
-- Uma subtarefa pertence apenas a uma atividade.
-- Uma atividade pode possuir zero ou várias etiquetas.
-- Os grupos de prazo não são salvos como entidade; eles são calculados dinamicamente a partir de `dueDate` e `status`.
-- Os estados de grupos recolhidos são salvos separadamente no `localStorage`.
-
----
+Observação:
+A v0.2 não registra data de conclusão de etapas. Essa melhoria fica para uma versão futura ligada a histórico/acompanhamento.
 
 ## Persistência
 
 A aplicação usa `localStorage`.
 
-Chaves principais:
-- `agenda-escolar-v1`: lista de atividades.
-- `agenda-escolar-theme-v1`: preferência de tema.
-- `agenda-escolar-group-collapse-v1`: grupos recolhidos.
+Dados salvos:
+- atividades cadastradas;
+- preferência de tema;
+- grupos recolhidos/expandidos;
+- outros estados simples da interface quando necessário.
 
-Observação:
-O projeto ainda usa chaves com o nome histórico “agenda-escolar”, pois a aplicação evoluiu a partir dessa base. Essa nomenclatura pode ser migrada futuramente, com cuidado para não perder dados existentes.
+A exportação/importação usa JSON para permitir backup manual dos dados.
 
----
+## Arquitetura de arquivos
 
-## Arquitetura geral
-
-A aplicação é uma página web estática feita com:
-
-- HTML;
-- CSS modular;
-- JavaScript puro com módulos ES;
-- `localStorage` para persistência local.
-
-Não há backend, banco de dados externo, autenticação ou dependências obrigatórias de framework.
-
----
-
-## Estrutura de arquivos
+### Estrutura geral
 
 ```text
-/
-├── index.html
-├── README.md
-├── layout-preview.html
-├── docs/
-│   ├── 01-visao-do-projeto.md
-│   ├── 02-requisitos-e-escopo.md
-│   ├── 03-fluxos-e-telas.md
-│   ├── 04-dados-e-arquitetura.md
-│   ├── 05-roadmap.md
-│   ├── 06-testes.md
-│   ├── 07-changelog.md
-│   └── x-refatoracao-js.md
-└── src/
-    ├── assets/
-    ├── scripts/
-    │   ├── main.js
-    │   ├── app.js
-    │   ├── core/
-    │   ├── shared/
-    │   └── features/
-    │       └── tasks/
-    │           ├── tasks.actions.js
-    │           ├── tasks.backup.js
-    │           ├── tasks.constants.js
-    │           ├── tasks.controller.js
-    │           ├── tasks.dialogs.js
-    │           ├── tasks.dom.js
-    │           ├── tasks.events.js
-    │           ├── tasks.form.js
-    │           ├── tasks.inline-edit.js
-    │           ├── tasks.model.js
-    │           ├── tasks.render.js
-    │           ├── tasks.storage.js
-    │           ├── tasks.theme.js
-    │           ├── tasks.ui.js
-    │           └── tasks.utils.js
-    ├── styles/
-    │   ├── base/
-    │   ├── components/
-    │   ├── layouts/
-    │   ├── pages/
-    │   ├── themes/
-    │   ├── utilities/
-    │   └── main.css
-    └── templates/
+src/
+├── assets/
+│   └── icons/
+├── scripts/
+│   ├── main.js
+│   ├── app.js
+│   └── features/
+│       └── tasks/
+├── styles/
+│   ├── base/
+│   ├── components/
+│   ├── layouts/
+│   ├── pages/
+│   ├── themes/
+│   └── utilities/
+└── templates/
 ```
 
----
+### Feature de tarefas
 
-## Responsabilidade dos principais arquivos JS
+```text
+src/scripts/features/tasks/
+├── tasks.actions.js
+├── tasks.backup.js
+├── tasks.constants.js
+├── tasks.controller.js
+├── tasks.dialogs.js
+├── tasks.dom.js
+├── tasks.empty-state.js
+├── tasks.events.js
+├── tasks.focus.js
+├── tasks.form.js
+├── tasks.inline-edit.js
+├── tasks.model.js
+├── tasks.render.js
+├── tasks.storage.js
+├── tasks.theme.js
+├── tasks.toast.js
+├── tasks.ui.js
+└── tasks.utils.js
+```
+
+## Responsabilidades dos módulos JS
 
 - `main.js`: ponto de entrada da aplicação.
 - `app.js`: inicializa as features ativas.
-- `tasks.controller.js`: orquestra a feature de tarefas.
-- `tasks.dom.js`: centraliza seletores do DOM.
-- `tasks.events.js`: registra os eventos da feature.
-- `tasks.form.js`: controla formulário de criação/edição.
-- `tasks.actions.js`: executa ações de tarefas, grupos, subtarefas, detalhes e exclusão.
-- `tasks.render.js`: renderiza resumo, filtros e listagem.
+- `tasks.controller.js`: orquestra a feature de tarefas e conecta os módulos.
+- `tasks.dom.js`: centraliza seletores do DOM e valida elementos obrigatórios.
+- `tasks.events.js`: registra eventos da feature.
+- `tasks.form.js`: controla formulário de criação e edição.
+- `tasks.actions.js`: executa ações de tarefa, grupos, etapas, detalhes e exclusão.
+- `tasks.render.js`: renderiza indicadores, filtros e listagem.
 - `tasks.ui.js`: monta HTML de cards, grupos, checklist e detalhes.
+- `tasks.focus.js`: calcula e renderiza o painel Foco de hoje.
+- `tasks.empty-state.js`: define mensagens de estados vazios.
+- `tasks.toast.js`: exibe notificações rápidas.
 - `tasks.model.js`: contém regras de dados, normalização, agrupamento e cálculos.
-- `tasks.storage.js`: lê e salva dados no `localStorage`.
+- `tasks.storage.js`: persiste e carrega dados do `localStorage`.
 - `tasks.backup.js`: exporta e importa backups.
-- `tasks.dialogs.js`: encapsula abertura/fechamento de dialogs e menus.
+- `tasks.dialogs.js`: encapsula abertura e fechamento de dialogs/menus.
 - `tasks.inline-edit.js`: controla edição inline.
 - `tasks.theme.js`: controla tema claro/escuro.
 - `tasks.constants.js`: centraliza constantes.
 - `tasks.utils.js`: utilitários gerais.
 
----
+## CSS
 
-## Organização CSS
+O CSS é separado por responsabilidade:
 
-- `base/`: tokens, reset e tipografia.
-- `themes/`: tema claro, escuro e variáveis da aplicação.
-- `components/`: botões, cards, badges, modais, painéis, inputs, dropdowns, detalhes e edição inline.
-- `layouts/`: layouts reutilizáveis, como galeria, formulário e empty state.
-- `pages/`: ajustes específicos de páginas reais, como `home.css`.
-- `utilities/`: helpers, scrollbar e responsividade.
+- `base`: tokens, reset e tipografia.
+- `themes`: tema claro, escuro e tema-base da aplicação.
+- `components`: botões, cards, modais, toasts, detalhes, badges, formulários etc.
+- `layouts`: layouts estruturais como galeria, formulário e empty state.
+- `pages`: estilos específicos da home.
+- `utilities`: responsividade, scrollbar, helpers e estados.
 
----
+## Decisões técnicas importantes
 
-## Observações técnicas
-
-- IDs são usados para comportamento JavaScript.
+- O projeto usa HTML, CSS e JavaScript puro.
+- IDs são usados como pontos de integração com JavaScript.
 - Classes são usadas para aparência e estrutura visual.
-- A aplicação depende de `<script type="module">` para uso de imports ES Modules.
-- O backup JSON substitui os dados atuais após confirmação.
-- A importação normaliza dados para evitar quebra por campos ausentes ou inválidos.
+- A aplicação não depende de backend.
+- O `subject` interno foi mantido para compatibilidade, mesmo com o rótulo visual **Categoria**.
+- As novas melhorias da v0.2 preservam o formato dos dados existentes.
+- Histórico, datas de conclusão e customização de tipos ficaram fora da v0.2 para evitar inflar o modelo de dados.

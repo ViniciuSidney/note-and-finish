@@ -2,36 +2,50 @@
 
 ## v0.2 - Experiência de uso e fluxo rápido
 
-Status: Implementada, aguardando testes finais.
+Status: **Fechada**
 
-Objetivo alcançado:
-A versão reduziu atrito no uso diário, melhorou feedbacks visuais, tornou o topo mais orientativo e adicionou ações rápidas sem inflar a aplicação.
+## Objetivo da versão
 
-## Funcionalidades concluídas
-- Painel Foco de hoje.
-- Indicadores da agenda.
-- Painéis do topo recolhíveis.
-- Toasts de feedback.
-- Ações rápidas de prazo.
-- Adicionar e remover etapas do checklist sem abrir o formulário completo.
-- Atalhos de data no formulário.
-- Empty states inteligentes.
+Tornar o uso diário da aplicação mais agradável, rápido e orientado, sem inflar a interface com funcionalidades grandes demais.
+
+## Funcionalidades planejadas e status
+
+| Item | Status | Observação |
+|---|---:|---|
+| Painel Foco de hoje | Concluído | Mostra atrasadas, hoje e alta prioridade. |
+| Ações rápidas nos cards | Concluído | `+1 Dia` e `+1 Semana`, com nova data dinâmica. |
+| Adicionar etapa ao checklist em tarefa existente | Concluído | Disponível no card e no modal de detalhes. |
+| Toasts de feedback | Concluído | Inclui toasts acima dos modais. |
+| Empty states inteligentes | Concluído | Mensagens contextuais e opção de limpar filtros. |
+| Refinamento do modal de detalhes | Concluído | Layout mais horizontal, checklist com rolagem quando necessário. |
+| Microcopy e acabamento visual | Concluído | Ajustes em nomenclatura, textos, espaçamentos e versão visual. |
+
+## Ajustes extras concluídos
+
 - Redesign da tela inicial.
-- Refinamento dos modais de criação e detalhes.
-- Checklist inteligente nos cards.
-- Microcopy e nomenclatura final da versão.
+- Painel Indicadores.
+- Painéis do topo recolhíveis.
+- Nova atividade movida para o cabeçalho da listagem.
+- Blocos de prazo refinados.
+- Atalhos de data no formulário.
+- Excluir etapa do checklist.
+- Prévia inteligente do checklist.
+- Link para detalhes em etapas ocultas.
+- Progresso compacto do checklist com `✅`.
+- Ajustes de responsividade do modal de criação.
+- Campo visual **Matéria** trocado para **Categoria**.
+- Favicon criado e configurado.
 
-## Próxima versão sugerida
+## Itens movidos para versões futuras
 
-### v0.3 - Histórico e acompanhamento simples
-- Registrar data de conclusão da atividade.
-- Registrar data de conclusão de cada etapa.
-- Registrar reaberturas e mudanças importantes.
-- Exibir histórico simples no modal de detalhes.
-
-## Ideias mantidas para versões futuras
-- Customização dos tipos de tarefa.
+- Data de conclusão de etapa.
+- Data de conclusão geral da tarefa.
+- Histórico completo de alterações.
+- Customização de tipos.
 - Duplicar tarefa.
 - Modo Foco dedicado.
-- Dashboard com análise simples.
-- PWA e refinamentos mobile.
+- Dashboard avançado.
+
+## Conclusão
+
+A v0.2 está fechada como uma versão de melhoria de experiência, fluxo rápido e acabamento visual. As próximas evoluções devem evitar mudanças grandes no fluxo principal antes de estabilizar a versão em uso real.

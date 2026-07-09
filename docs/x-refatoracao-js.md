@@ -20,13 +20,16 @@ src/scripts/
         ├── tasks.controller.js
         ├── tasks.dialogs.js
         ├── tasks.dom.js
+        ├── tasks.empty-state.js
         ├── tasks.events.js
+        ├── tasks.focus.js
         ├── tasks.form.js
         ├── tasks.inline-edit.js
         ├── tasks.model.js
         ├── tasks.render.js
         ├── tasks.storage.js
         ├── tasks.theme.js
+        ├── tasks.toast.js
         ├── tasks.ui.js
         └── tasks.utils.js
 ```
@@ -39,9 +42,12 @@ src/scripts/
 - `tasks.dom.js`: centraliza seletores do DOM e valida elementos obrigatórios.
 - `tasks.events.js`: registra eventos da feature.
 - `tasks.form.js`: controla formulário de criação e edição.
-- `tasks.actions.js`: executa ações de tarefa, grupos, subtarefas, detalhes e exclusão.
+- `tasks.actions.js`: executa ações de tarefa, grupos, etapas, detalhes e exclusão.
 - `tasks.render.js`: renderiza resumo, filtros e listagem.
 - `tasks.ui.js`: monta HTML de cards, grupos, checklist e detalhes.
+- `tasks.focus.js`: calcula e renderiza o painel Foco de hoje.
+- `tasks.empty-state.js`: centraliza mensagens de estados vazios.
+- `tasks.toast.js`: controla notificações rápidas.
 - `tasks.model.js`: contém regras de dados, normalização, agrupamento e cálculos.
 - `tasks.storage.js`: persiste e carrega dados do localStorage.
 - `tasks.backup.js`: exporta e importa backups.
@@ -66,6 +72,9 @@ src/scripts/
 11. Eventos foram centralizados em `tasks.events.js`.
 12. Lógica do formulário foi separada em `tasks.form.js`.
 13. Validação de elementos obrigatórios do DOM foi adicionada.
+14. Foco de hoje foi separado em `tasks.focus.js`.
+15. Estados vazios foram separados em `tasks.empty-state.js`.
+16. Toasts foram separados em `tasks.toast.js`.
 
 ## Decisões importantes
 
@@ -75,7 +84,8 @@ src/scripts/
 - Regras de dados devem ficar no model.
 - Persistência deve ficar no storage.
 - UI textual/HTML deve ficar no módulo de UI.
-- Ações de usuário devem ficar em actions quando alteram tarefas, subtarefas ou detalhes.
+- Ações de usuário devem ficar em actions quando alteram tarefas, etapas ou detalhes.
+- Novos módulos só devem ser criados quando houver responsabilidade clara.
 
 ## Checklist de teste final
 
@@ -84,17 +94,19 @@ src/scripts/
 - Fechar modal de criação.
 - Editar título inline.
 - Editar descrição inline.
-- Editar matéria, tags e data inline.
+- Editar categoria, tags e data inline.
 - Alterar tipo, prioridade e status nos badges.
 - Abrir e fechar filtros.
-- Buscar por título, descrição, matéria, tags e subtarefas.
+- Buscar por título, descrição, categoria, tags e etapas.
 - Ordenar por data, prioridade e criação.
 - Abrir e fechar grupos.
 - Abrir e fechar checklist.
-- Marcar e desmarcar subtarefas no card.
+- Adicionar e remover etapas.
+- Marcar e desmarcar etapas no card.
 - Abrir detalhes.
-- Marcar e desmarcar subtarefas nos detalhes.
+- Marcar, adicionar e remover etapas nos detalhes.
 - Concluir e reabrir atividade.
+- Adiar atividade em `+1 Dia` e `+1 Semana`.
 - Excluir pelo card.
 - Excluir pelo modal de detalhes.
 - Alternar tema claro/escuro.
@@ -105,4 +117,4 @@ src/scripts/
 
 ## Observação final
 
-A refatoração JS está estruturalmente completa para a versão atual. Novas separações só devem ser feitas se algum arquivo voltar a crescer demais ou se uma nova feature exigir outro domínio próprio.
+A refatoração JS está estruturalmente completa para a v0.2. Novas separações só devem ser feitas se algum arquivo voltar a crescer demais ou se uma nova feature exigir outro domínio próprio.
