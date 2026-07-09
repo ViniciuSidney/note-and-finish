@@ -214,9 +214,6 @@ body[data-theme="dark"] .today-focus-chip-warning strong {
   display: none;
 }
 
-.summary-panel.is-collapsed .summary-panel-header p {
-  display: none;
-}
 
 body[data-theme="dark"] .insight-toggle-button {
   background: rgba(45, 33, 24, 0.72);
