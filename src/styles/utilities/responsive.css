@@ -123,13 +123,16 @@
     grid-template-columns: 1fr;
   }
 
-  #createTaskDialog .date-shortcuts {
-    grid-template-columns: 1fr;
-  }
-
   #createTaskDialog #description,
   #createTaskDialog #subtasks {
     min-height: 110px;
+  }
+}
+
+
+@media (max-width: 560px) {
+  #createTaskDialog .date-shortcuts {
+    grid-template-columns: 1fr;
   }
 }
 
