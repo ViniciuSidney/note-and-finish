@@ -490,3 +490,35 @@
   }
 }
 
+
+/* ============================= */
+/* Polimento v0.2 - indicadores  */
+/* ============================= */
+
+@media (max-width: 640px) {
+  .summary-panel .app-summary {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .summary-panel .summary-card {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+  }
+
+  .summary-panel .summary-card span {
+    margin: 0;
+    min-width: 0;
+    font-size: 0.76rem;
+  }
+
+  .summary-panel .summary-card strong {
+    font-size: 1.2rem;
+    line-height: 1;
+    text-align: right;
+  }
+}
