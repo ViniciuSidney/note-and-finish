@@ -86,7 +86,7 @@ function getEmptyStateContent({ tasks, filteredTasks, searchTerm, selectedStatus
       visible: true,
       icon: "🌿",
       title: "Sem atividades pendentes.",
-      description: "Você não tem tarefas pendentes nesse filtro. Aproveite para revisar as concluídas ou criar uma nova atividade.",
+      description: "Nenhuma atividade pendente apareceu nesse filtro. Limpe os filtros ou cadastre uma nova atividade quando precisar.",
       showClearFilters: true,
     };
   }
@@ -106,7 +106,7 @@ function getEmptyStateContent({ tasks, filteredTasks, searchTerm, selectedStatus
       visible: true,
       icon: "🗂️",
       title: `Nenhuma atividade do tipo “${selectedType}”.`,
-      description: "Tente escolher outro tipo ou limpe os filtros para voltar à listagem completa.",
+      description: "Tente escolher outro tipo, ajustar a busca ou limpar os filtros para voltar à listagem completa.",
       showClearFilters: true,
     };
   }

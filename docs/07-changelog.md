@@ -1,98 +1,44 @@
 # Changelog
 
-Todas as mudanças importantes deste projeto serão registradas aqui.
+## v0.2 - Experiência de uso e fluxo rápido
 
----
-
-## [v0.1] - 07/07/2026
+Status: Pronta para testes finais
 
 ### Adicionado
-
-- Estrutura inicial da aplicação Note and Finish.
-- Cadastro de atividades com título, tipo, matéria, prazo, prioridade, status, descrição, subtarefas e etiquetas.
-- Listagem de atividades em cards.
-- Organização automática por grupos de prazo: atrasadas, hoje, amanhã, esta semana, futuras e concluídas.
-- Cards de resumo com total, pendentes, próximas da semana e concluídas.
-- Filtros por status e tipo.
-- Busca por título, tipo, matéria, descrição, subtarefas e etiquetas.
-- Ordenação por data, prioridade e criação.
-- Checklist de subtarefas no card e nos detalhes.
-- Modal de criação/edição de atividade.
-- Modal de visualização completa da atividade.
-- Modal de confirmação para exclusão individual.
-- Modal de importação de backup.
-- Modal de apagar todos os dados com confirmação por texto.
-- Tema claro e escuro.
-- Persistência local com `localStorage`.
-- Exportação de backup em JSON.
-- Importação de backup em JSON.
-- Edição inline de título, descrição, matéria, tags e data.
-- Seleção inline de tipo, prioridade e status.
-- Estado recolhido/expandido dos grupos.
-- Estado recolhido/expandido do checklist.
-- Documentação inicial do projeto.
+- Painel **Foco de hoje** com contagem de atividades atrasadas, para hoje e de alta prioridade.
+- Painel **Indicadores** com resumo da agenda.
+- Painéis do topo recolhíveis para liberar espaço para a listagem.
+- Sistema de toasts para feedbacks rápidos.
+- Ações rápidas de prazo com `+1 Dia` e `+1 Semana`, mostrando a nova data antes do clique.
+- Rolagem automática até o card após adiamento de prazo.
+- Adição de etapa ao checklist direto no card e no modal de detalhes.
+- Exclusão de etapa do checklist no card e no modal de detalhes.
+- Atalhos de data no formulário: Hoje, Amanhã e Semana que vem.
+- Empty states contextuais para busca, filtros e lista vazia.
+- Prévia inteligente do checklist nos cards, priorizando etapas pendentes.
+- Link para abrir detalhes quando houver etapas ocultas na prévia.
 
 ### Alterado
-
-- Repaginação da tela principal para uma experiência mais visual e organizada.
-- Criação do modal wide de atividade para melhor uso do espaço.
-- Melhoria da listagem de cards com grupos e galeria interna.
-- Ajustes de responsividade para desktop, tablet e mobile.
-- Reorganização completa do CSS por responsabilidades:
-  - base;
-  - temas;
-  - componentes;
-  - layouts;
-  - páginas;
-  - utilidades.
-- Reorganização completa do JavaScript em módulos da feature `tasks`.
-- Separação de responsabilidades no JS:
-  - ações;
-  - backup;
-  - constantes;
-  - controller;
-  - dialogs;
-  - DOM;
-  - eventos;
-  - formulário;
-  - edição inline;
-  - modelo;
-  - renderização;
-  - storage;
-  - tema;
-  - UI;
-  - utilitários.
+- Tela inicial reorganizada com foco no uso diário.
+- Botão **Nova atividade** movido para o cabeçalho da listagem.
+- Blocos de prazo refinados visualmente sem alterar a lógica original.
+- Modal de criação reorganizado em layout 30/70 no desktop.
+- Modal de detalhes reorganizado para aproveitar melhor telas largas.
+- Indicadores compactados em telas menores.
+- Progresso do checklist compactado com `✅`.
+- Campo visual **Matéria** renomeado para **Categoria**, mantendo compatibilidade interna dos dados.
+- Versão visual da aplicação atualizada para `v0.2`.
 
 ### Corrigido
+- Cards cortados dentro dos blocos de prazo.
+- Rodapé de ações do modal de criação sobrepondo campos em algumas proporções de tela.
+- Toasts aparecendo atrás do fundo escurecido dos modais.
+- Alinhamento entre data de entrega e prioridade no modal de criação.
+- Checklist do modal de detalhes crescendo demais quando há muitas etapas.
 
-- Correção de comportamento visual dos cards após separação do layout de galeria.
-- Correção do estilo do header do checklist após mover estilos para arquivos específicos.
-- Correção de erro causado pela ausência da função `toggleFiltersPanel` após refatoração.
-- Correção de erro causado por import ausente de `closeCreateTaskDialogUi`.
-- Ajustes para evitar que grupos de tarefas fiquem lado a lado indevidamente.
-- Ajustes de scrollbars internas em listas e modais.
-- Ajustes de tema escuro em componentes movidos para arquivos separados.
-
-### Removido
-
-- Dependência do antigo JS monolítico concentrado em um único arquivo.
-- Duplicações de CSS em `home.css`.
-- Estilos de componentes que estavam misturados com estilos específicos da página.
-- Responsabilidades de DOM e eventos do controller principal.
-
----
-
-## Próximas mudanças planejadas
-
-### v0.2 - Histórico e acompanhamento
-
-- Histórico de alterações por atividade.
-- Registro de eventos importantes, como criação, conclusão, reabertura e mudança de prazo.
-- Melhor visualização de atividades modificadas recentemente.
-- Possível seção de “últimas alterações”.
-
-### v0.3 - Dashboard
-
-- Indicadores de tarefas por status, prioridade e tipo.
-- Melhor visão geral de produtividade e atrasos.
-- Cards de análise simples.
+### Fora desta versão
+- Histórico de conclusão de tarefas e etapas.
+- Data de conclusão geral da tarefa.
+- Customização das opções do campo Tipo.
+- Duplicação de tarefas.
+- Modo Foco dedicado.

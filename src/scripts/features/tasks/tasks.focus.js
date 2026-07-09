@@ -40,7 +40,7 @@ function getFocusSummary(tasks) {
   if (todayTasks.length) {
     return {
       title: "Hoje pede atenção",
-      message: `Você tem ${todayTasks.length} ${getPluralText(todayTasks.length, "atividade", "atividades")} para hoje. Foque no que vence antes de puxar novas tarefas.`,
+      message: `Você tem ${todayTasks.length} ${getPluralText(todayTasks.length, "atividade", "atividades")} para hoje. Resolva primeiro o que vence hoje antes de puxar novas tarefas.`,
       overdueCount: 0,
       todayCount: todayTasks.length,
       highPriorityCount: highPriorityTasks.length,
@@ -61,7 +61,7 @@ function getFocusSummary(tasks) {
 
   return {
     title: "Ritmo controlado",
-    message: `Você tem ${pendingTasks.length} ${getPluralText(pendingTasks.length, "atividade pendente", "atividades pendentes")}, mas nenhuma urgência imediata. Bom momento para adiantar algo pequeno.`,
+    message: `Você tem ${pendingTasks.length} ${getPluralText(pendingTasks.length, "atividade pendente", "atividades pendentes")}, mas nenhuma urgência imediata. Bom momento para adiantar algo pequeno e aliviar a semana.`,
     overdueCount: 0,
     todayCount: 0,
     highPriorityCount: 0,

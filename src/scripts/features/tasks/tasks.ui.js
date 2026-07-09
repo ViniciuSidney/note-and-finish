@@ -76,12 +76,12 @@ export function createDetailsHtml(task, uiState = {}) {
     bodyHtml: `
     <section class="details-hero">
       <div>
-        <span class="details-kicker">Ficha completa da atividade</span>
+        <span class="details-kicker">Resumo da atividade</span>
         <h3>${escapeHtml(task.title)}</h3>
 
         <div class="details-hero-meta">
           <span>${escapeHtml(task.type)}</span>
-          <span>${escapeHtml(task.subject || "Sem matéria")}</span>
+          <span>${escapeHtml(task.subject || "Sem categoria")}</span>
           <span>${formatDate(task.dueDate)}</span>
         </div>
       </div>
@@ -102,13 +102,13 @@ export function createDetailsHtml(task, uiState = {}) {
       <article class="details-card">
         <span class="details-card-label">🎯 Prioridade</span>
         <strong>${escapeHtml(task.priority)}</strong>
-        <p>Nível atual de urgência da atividade.</p>
+        <p>Nível de urgência definido para esta atividade.</p>
       </article>
 
       <article class="details-card">
         <span class="details-card-label">📌 Status</span>
         <strong>${escapeHtml(task.status)}</strong>
-        <p>Situação atual do compromisso.</p>
+        <p>Situação atual do andamento.</p>
       </article>
     </section>
 
@@ -443,7 +443,7 @@ function createTaskCardHtml(task, uiState = {}) {
 
 					<div class="task-meta">
 					${createEditableOptionBadgeHtml(task, "type", uiState)}
-					${createEditableTextBadgeHtml(task, "subject", task.subject || "Sem matéria", "Ex.: Matemática", uiState)}
+					${createEditableTextBadgeHtml(task, "subject", task.subject || "Sem categoria", "Ex.: Escola, projeto, casa...", uiState)}
 					${createEditableOptionBadgeHtml(task, "priority", uiState, priorityClass)}
 					${createEditableOptionBadgeHtml(task, "status", uiState)}
 					${createEditableTagsHtml(task, uiState)}
