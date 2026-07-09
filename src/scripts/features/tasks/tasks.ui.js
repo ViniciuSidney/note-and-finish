@@ -556,11 +556,16 @@ function createQuickDueActionsHtml(task, context = "card") {
 
 
 function createChecklistProgressHtml(progress, extraClass = "") {
+  const progressText = `${progress.done}/${progress.total}`;
+
   return `
-    <span class="checklist-progress-text ${extraClass}">
-      <span class="checklist-progress-count">${progress.done}/${progress.total}</span>
-      <span class="checklist-progress-label">concluídas</span>
-      <span class="checklist-progress-emoji" aria-label="concluídas">✅</span>
+    <span
+      class="checklist-progress-text ${extraClass}"
+      title="${progressText} concluídas"
+      aria-label="${progress.done} de ${progress.total} etapas concluídas"
+    >
+      <span class="checklist-progress-count" aria-hidden="true">${progressText}</span>
+      <span class="checklist-progress-emoji" aria-hidden="true">✅</span>
     </span>
   `;
 }

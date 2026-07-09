@@ -153,10 +153,12 @@
 .task-checklist-toggle {
   width: 100%;
 
+  min-width: 0;
+
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 
   border: 0;
   background: transparent;
@@ -177,6 +179,11 @@
 }
 
 .task-checklist-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   font-size: 0.9rem;
   font-weight: 800;
 
@@ -184,6 +191,9 @@
 }
 
 .task-checklist-progress {
+  justify-self: end;
+  min-width: max-content;
+
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;

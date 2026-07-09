@@ -636,6 +636,11 @@ body[data-theme="dark"] .details-card {
   gap: 8px;
 }
 
+.task-checklist-top > .task-checklist-toggle,
+.task-checklist-top > .task-checklist-summary {
+  min-width: 0;
+}
+
 .task-checklist-summary {
   min-width: 0;
   display: grid;
@@ -801,7 +806,8 @@ body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar
 }
 
 .checklist-progress-emoji {
-  display: none;
+  display: inline;
+  line-height: 1;
 }
 
 .task-checklist-more-button {
