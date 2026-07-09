@@ -143,3 +143,88 @@ body[data-theme="dark"] .today-focus-chip-warning strong {
 .home-insights-grid .today-focus-metrics {
   align-self: end;
 }
+
+/* ============================= */
+/* Painéis recolhíveis v0.2       */
+/* ============================= */
+
+.insight-panel-header {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.insight-panel-header > div {
+  min-width: 0;
+}
+
+.insight-toggle-button {
+  flex: 0 0 auto;
+  border: 1px solid rgba(139, 94, 52, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 250, 241, 0.72);
+  color: var(--accent-dark);
+  padding: 5px 9px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.insight-toggle-button:hover {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.today-focus-body {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 8px;
+}
+
+.home-insights-grid .today-focus-panel {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
+}
+
+.home-insights-grid .today-focus-main {
+  align-content: start;
+}
+
+.home-insights-grid .today-focus-metrics {
+  align-self: end;
+}
+
+.insight-panel.is-collapsed {
+  grid-template-rows: auto;
+  align-content: start;
+}
+
+.insight-panel.is-collapsed .today-focus-body,
+.insight-panel.is-collapsed .app-summary {
+  display: none;
+}
+
+.summary-panel.is-collapsed .summary-panel-header p {
+  display: none;
+}
+
+body[data-theme="dark"] .insight-toggle-button {
+  background: rgba(45, 33, 24, 0.72);
+  border-color: rgba(214, 155, 97, 0.3);
+  color: var(--accent-dark);
+}
+
+body[data-theme="dark"] .insight-toggle-button:hover {
+  background: #38291e;
+  border-color: rgba(214, 155, 97, 0.52);
+}

@@ -38,8 +38,12 @@ const TASK_ELEMENT_SELECTORS = {
   pendingTasks: "#pendingTasks",
   weekTasks: "#weekTasks",
   completedTasks: "#completedTasks",
+  summaryToggleButton: "#summaryToggleButton",
+  summaryPanelBody: "#summaryPanelBody",
 
   todayFocusPanel: "#todayFocusPanel",
+  todayFocusToggleButton: "#todayFocusToggleButton",
+  todayFocusBody: "#todayFocusBody",
   todayFocusTitle: "#todayFocusTitle",
   todayFocusMessage: "#todayFocusMessage",
   todayFocusOverdueCount: "#todayFocusOverdueCount",

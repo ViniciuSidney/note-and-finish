@@ -55,7 +55,11 @@ const {
   pendingTasks,
   weekTasks,
   completedTasks,
+  summaryToggleButton,
+  summaryPanelBody,
   todayFocusPanel,
+  todayFocusToggleButton,
+  todayFocusBody,
   todayFocusTitle,
   todayFocusMessage,
   todayFocusOverdueCount,
@@ -263,6 +267,8 @@ export function initTasksFeature() {
       syncDueDateShortcutState: taskFormController.syncDueDateShortcutState,
       resetForm,
       render,
+      toggleTodayFocusPanel,
+      toggleSummaryPanel,
       toggleFiltersPanel,
       handleTaskAction,
       handleSubtaskComposerSubmit,
@@ -306,6 +312,38 @@ function closeOptionsMenu() {
 
 function closeDetailsDialog() {
   closeDialog(detailsDialog);
+}
+
+function toggleInsightPanel({ panel, button, body }) {
+  if (!panel || !button || !body) {
+    return;
+  }
+
+  const isExpanded = button.getAttribute("aria-expanded") !== "false";
+  const nextExpanded = !isExpanded;
+
+  panel.classList.toggle("is-collapsed", !nextExpanded);
+  body.hidden = !nextExpanded;
+  button.setAttribute("aria-expanded", String(nextExpanded));
+  button.textContent = nextExpanded ? "Recolher" : "Expandir";
+}
+
+function toggleTodayFocusPanel() {
+  toggleInsightPanel({
+    panel: todayFocusPanel,
+    button: todayFocusToggleButton,
+    body: todayFocusBody,
+  });
+}
+
+function toggleSummaryPanel() {
+  const summaryPanel = summaryPanelBody.closest(".summary-panel");
+
+  toggleInsightPanel({
+    panel: summaryPanel,
+    button: summaryToggleButton,
+    body: summaryPanelBody,
+  });
 }
 
 function toggleFiltersPanel() {

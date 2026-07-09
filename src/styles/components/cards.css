@@ -832,3 +832,64 @@ body[data-theme="dark"] .task-checklist-details .subtask-list::-webkit-scrollbar
   outline-offset: 3px;
   border-radius: 8px;
 }
+
+/* ============================= */
+/* Polimento v0.2 - cards amplos  */
+/* ============================= */
+
+.task-card {
+  min-height: 0;
+  gap: 10px;
+}
+
+.task-card .task-meta {
+  gap: 5px;
+}
+
+.task-card .badge,
+.task-card .editable-badge {
+  max-width: 100%;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-card .inline-edit-control {
+  min-width: 0;
+}
+
+.task-description {
+  min-height: 0;
+}
+
+.task-footer {
+  margin-top: auto;
+}
+
+.quick-due-actions:not(.quick-due-actions-details) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.quick-due-actions:not(.quick-due-actions-details) .quick-due-button {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-card .task-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.task-card .task-action-button {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding-inline: 8px;
+}

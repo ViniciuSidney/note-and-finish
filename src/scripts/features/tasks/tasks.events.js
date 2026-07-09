@@ -22,6 +22,8 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
     statusFilter,
     typeFilter,
     sortFilter,
+    todayFocusToggleButton,
+    summaryToggleButton,
     filtersToggleButton,
     taskList,
     detailsBody,
@@ -60,6 +62,8 @@ export function bindTaskEvents({ elements, handlers, inlineEdit, taskActions }) 
   addEvent(statusFilter, "change", handlers.render);
   addEvent(typeFilter, "change", handlers.render);
   addEvent(sortFilter, "change", handlers.render);
+  addEvent(todayFocusToggleButton, "click", handlers.toggleTodayFocusPanel);
+  addEvent(summaryToggleButton, "click", handlers.toggleSummaryPanel);
   addEvent(filtersToggleButton, "click", handlers.toggleFiltersPanel);
 
   addEvent(taskList, "click", handlers.handleTaskAction);

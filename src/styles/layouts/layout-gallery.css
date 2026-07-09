@@ -419,3 +419,21 @@ body[data-theme="dark"] .tasks-gallery {
   scrollbar-gutter: stable;
   overscroll-behavior: contain;
 }
+
+/* ============================= */
+/* Polimento v0.2 - listagem      */
+/* ============================= */
+
+.task-group-items {
+  gap: 12px;
+}
+
+.task-list.gallery-grid,
+.task-list.tasks-grid,
+.tasks-grid.gallery-grid {
+  gap: 12px;
+}
+
+.task-group-header {
+  min-height: 54px;
+}

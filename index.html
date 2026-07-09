@@ -55,38 +55,64 @@
         </header>
 
         <section class="home-insights-grid" aria-label="Resumo e foco da agenda">
-          <section class="today-focus-panel" id="todayFocusPanel" aria-label="Foco de hoje">
-            <div class="today-focus-main">
+          <section class="today-focus-panel insight-panel" id="todayFocusPanel" aria-label="Foco de hoje" data-insight-panel="focus">
+            <header class="insight-panel-header today-focus-header">
               <span class="today-focus-kicker">Foco de hoje</span>
-              <strong id="todayFocusTitle">Organize seu próximo passo</strong>
-              <p id="todayFocusMessage">Carregando prioridades do dia...</p>
-            </div>
+              <button
+                type="button"
+                class="insight-toggle-button"
+                id="todayFocusToggleButton"
+                aria-expanded="true"
+                aria-controls="todayFocusBody"
+              >
+                Recolher
+              </button>
+            </header>
 
-            <div class="today-focus-metrics" aria-label="Resumo rápido do foco">
-              <article class="today-focus-chip today-focus-chip-danger">
-                <span>Atrasadas</span>
-                <strong id="todayFocusOverdueCount">0</strong>
-              </article>
+            <div class="today-focus-body" id="todayFocusBody">
+              <div class="today-focus-main">
+                <strong id="todayFocusTitle">Organize seu próximo passo</strong>
+                <p id="todayFocusMessage">Carregando prioridades do dia...</p>
+              </div>
 
-              <article class="today-focus-chip today-focus-chip-warning">
-                <span>Hoje</span>
-                <strong id="todayFocusTodayCount">0</strong>
-              </article>
+              <div class="today-focus-metrics" aria-label="Resumo rápido do foco">
+                <article class="today-focus-chip today-focus-chip-danger">
+                  <span>Atrasadas</span>
+                  <strong id="todayFocusOverdueCount">0</strong>
+                </article>
 
-              <article class="today-focus-chip today-focus-chip-priority">
-                <span>Alta prioridade</span>
-                <strong id="todayFocusHighCount">0</strong>
-              </article>
+                <article class="today-focus-chip today-focus-chip-warning">
+                  <span>Hoje</span>
+                  <strong id="todayFocusTodayCount">0</strong>
+                </article>
+
+                <article class="today-focus-chip today-focus-chip-priority">
+                  <span>Alta prioridade</span>
+                  <strong id="todayFocusHighCount">0</strong>
+                </article>
+              </div>
             </div>
           </section>
 
-          <section class="summary-panel" aria-label="Indicadores da agenda">
-            <div class="summary-panel-header">
-              <span class="summary-panel-kicker">Indicadores</span>
-              <p>Visão rápida das atividades cadastradas.</p>
-            </div>
+          <section class="summary-panel insight-panel" aria-label="Indicadores da agenda" data-insight-panel="summary">
+            <header class="summary-panel-header insight-panel-header">
+              <div>
+                <span class="summary-panel-kicker">Indicadores</span>
+                <p>Visão rápida das atividades cadastradas.</p>
+              </div>
 
-            <div class="summary-grid app-summary">
+              <button
+                type="button"
+                class="insight-toggle-button"
+                id="summaryToggleButton"
+                aria-expanded="true"
+                aria-controls="summaryPanelBody"
+              >
+                Recolher
+              </button>
+            </header>
+
+            <div class="summary-grid app-summary" id="summaryPanelBody">
               <article class="summary-card">
                 <span>Total</span>
                 <strong id="totalTasks">0</strong>
